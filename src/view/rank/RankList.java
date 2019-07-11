@@ -85,7 +85,9 @@ public class RankList extends JDialog {
         searchRankID.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                searchRankID.setText("");
+                if (searchRankID.getText().equals("编号关键字") == true) {
+                    searchRankID.setText("");
+                }
             }
 
             @Override
@@ -101,7 +103,9 @@ public class RankList extends JDialog {
         searchRankName.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                searchRankName.setText("");
+                if (searchRankName.getText().equals("名称关键字") == true) {
+                    searchRankName.setText("");
+                }
             }
 
             @Override
@@ -117,7 +121,9 @@ public class RankList extends JDialog {
         searchRankInfo.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                searchRankInfo.setText("");
+                if (searchRankInfo.getText().equals("介绍关键字") == true) {
+                    searchRankInfo.setText("");
+                }
             }
 
             @Override
@@ -192,17 +198,17 @@ public class RankList extends JDialog {
 
                 if (rankID.trim().length() > 0 && rankID.equals("编号关键字") == false) {
                     stringBuffer.append("and rank_id like ? ");
-                    list.add("*" + rankID + "*");
+                    list.add("%" + rankID + "%");
                 }
 
                 if (rankName.trim().length() > 0 && rankName.equals("名称关键字") == false) {
                     stringBuffer.append("and rank_name like ? ");
-                    list.add("*" + rankName + "*");
+                    list.add("%" + rankName + "%");
                 }
 
                 if (rankInfo.trim().length() > 0 && rankInfo.equals("介绍关键字") == false) {
                     stringBuffer.append("and rank_info like ? ");
-                    list.add("*" + rankInfo + "*");
+                    list.add("%" + rankInfo + "%");
                 }
 
                 try {

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d5482d27-7106-4d0f-a7fa-a81905df902c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/rank/RankList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/rank/RankList.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -54,8 +55,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="332">
-                  <caret line="215" column="21" lean-forward="true" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="21" />
+                <state relative-caret-position="3068">
+                  <caret line="123" column="55" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -102,7 +103,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/view/car/CarsInfo.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="286">
+                <state relative-caret-position="364">
                   <caret line="29" column="57" selection-start-line="27" selection-start-column="4" selection-end-line="29" selection-end-column="57" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -200,9 +201,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="210" />
-    <option name="y" value="234" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="650" />
+    <option name="y" value="263" />
     <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
@@ -213,6 +214,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -228,7 +230,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,7 +364,8 @@
       <workItem from="1562690491739" duration="3690000" />
       <workItem from="1562699285421" duration="152000" />
       <workItem from="1562737125613" duration="12117000" />
-      <workItem from="1562811894585" duration="2940000" />
+      <workItem from="1562811894585" duration="3428000" />
+      <workItem from="1562824583356" duration="2045000" />
     </task>
     <task id="LOCAL-00001" summary="租车">
       <created>1562693251367</created>
@@ -400,11 +402,18 @@
       <option name="project" value="LOCAL" />
       <updated>1562814606781</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="租车">
+      <created>1562815572094</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1562815572094</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71044000" />
+    <option name="totallyTimeSpent" value="73577000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -416,9 +425,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="143" y="184" width="974" height="1087" extended-state="1" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15831557" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1892779" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -432,11 +441,11 @@
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" sideWeight="0.49946696" weight="0.32917964" />
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4978678" visible="true" weight="0.32917964" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49671772" visible="true" weight="0.18343815" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4989339" weight="0.32917964" />
-      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.5021322" side_tool="true" weight="0.32917964" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5021322" side_tool="true" visible="true" weight="0.32917964" />
+      <window_info active="true" anchor="bottom" id="Run" order="10" sideWeight="0.50328225" side_tool="true" visible="true" weight="0.18343815" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" weight="0.18172377" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4989339" weight="0.317757" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -827,7 +836,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/car/CarsInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
+        <state relative-caret-position="364">
           <caret line="29" column="57" selection-start-line="27" selection-start-column="4" selection-end-line="29" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -864,8 +873,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="215" column="21" lean-forward="true" selection-start-line="215" selection-start-column="21" selection-end-line="215" selection-end-column="21" />
+        <state relative-caret-position="3068">
+          <caret line="123" column="55" selection-start-line="123" selection-start-column="55" selection-end-line="123" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
