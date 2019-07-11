@@ -42,16 +42,17 @@ public class StateList extends JDialog {
     private JButton clearBotton = new JButton("清空");
     private JButton resetBotton = new JButton("重置");
 
+    private JButton addStateBotton = new JButton("新增状态");
+
     private JButton editBotton = new JButton("修改状态信息");
 
     private JButton deleteBotton = new JButton("删除所选状态");
 
     public StateList() {
         setTitle("状态列表");
-        setSize(800,800);
+        setSize(950,800);
         setLocationRelativeTo(null);
         setLayout(null);
-        setModal(true);
 
 
         searchStateID.setForeground(Color.gray);
@@ -61,20 +62,21 @@ public class StateList extends JDialog {
         searchStateID.setBounds(50,30,150,30);
         searchStateName.setBounds(220,30,150,30);
         searchStateInfo.setBounds(390,30,150,30);
-        clearSearchBotton.setBounds(570,30,80,30);
-        searchBotton.setBounds(670,30,80,30);
-        pane.setBounds(50,100,700,300);
+        clearSearchBotton.setBounds(720,30,80,30);
+        searchBotton.setBounds(820,30,80,30);
+        pane.setBounds(50,100,850,300);
 
         stateIDLabel.setBounds(80,430,80,30);
-        stateIDField.setBounds(180,430,170,30);
-        stateNameLabel.setBounds(430,430,80,30);
-        stateNameField.setBounds(530,430,170,30);
+        stateIDField.setBounds(180,430,220,30);
+        stateNameLabel.setBounds(530,430,80,30);
+        stateNameField.setBounds(630,430,220,30);
         stateInfoLabel.setBounds(80,490,80,30);
-        stateInfoArea.setBounds(180,490,520,100);
+        stateInfoArea.setBounds(180,490,670,100);
         clearBotton.setBounds(80,640,80,30);
         resetBotton.setBounds(180,640,80,30);
-        editBotton.setBounds(440,640,120,30);
-        deleteBotton.setBounds(580,640,120,30);
+        addStateBotton.setBounds(450,640,120,30);
+        editBotton.setBounds(590,640,120,30);
+        deleteBotton.setBounds(730,640,120,30);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -188,6 +190,7 @@ public class StateList extends JDialog {
         add(stateInfoArea);
         add(clearBotton);
         add(resetBotton);
+        add(addStateBotton);
         add(editBotton);
         add(deleteBotton);
 
@@ -275,6 +278,48 @@ public class StateList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 stateNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
                 stateInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
+            }
+        });
+
+        addStateBotton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String stateName = stateNameField.getText();
+                String stateInfo = stateInfoArea.getText();
+
+                Connection connection = DButil.getConnection();
+                String sql = "insert into state(state_name, state_info, state_recycle_bin) values(?, ?, ?)";
+                String sql1 = "select * from state where state_recycle_bin = 0";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setObject(1, stateName);
+                    ps.setObject(2, stateInfo);
+                    ps.setObject(3, 0);
+
+                    int n = ps.executeUpdate();
+
+                    if (n>0) {
+                        JOptionPane.showMessageDialog(null, "新增成功！");
+
+                        PreparedStatement ps1 = connection.prepareStatement(sql1);
+                        ResultSet rs = ps1.executeQuery();
+                        defaultTableModel.getDataVector().clear();
+                        defaultTableModel.fireTableDataChanged();
+                            while (rs.next()){
+                                Vector<String> vector = new Vector<String>();
+                                vector.add(rs.getString(1));
+                                vector.add(rs.getString(2));
+                                vector.add(rs.getString(3));
+                                dataVector.add(vector);
+                            }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "新增失败！");
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection);
+                }
             }
         });
 

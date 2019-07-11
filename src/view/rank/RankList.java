@@ -21,7 +21,7 @@ public class RankList extends JDialog {
     private JTextField searchRankName = new JTextField("名称关键字");
     private JTextField searchRankInfo = new JTextField("介绍关键字");
     private JButton clearSearchBotton = new JButton("清空");
-    private JButton searchBotton = new JButton("查询");
+    private JButton searchRankBotton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -44,16 +44,17 @@ public class RankList extends JDialog {
     private JButton clearBotton = new JButton("清空");
     private JButton resetBotton = new JButton("重置");
 
+    private JButton addRankBotton = new JButton("新增权限");
+
     private JButton editBotton = new JButton("修改权限信息");
 
     private JButton deleteBotton = new JButton("删除所选权限");
 
     public RankList() {
         setTitle("权限列表");
-        setSize(800,800);
+        setSize(950,800);
         setLocationRelativeTo(null);
         setLayout(null);
-        setModal(true);
 
 
         searchRankID.setForeground(Color.gray);
@@ -63,20 +64,21 @@ public class RankList extends JDialog {
         searchRankID.setBounds(50,30,150,30);
         searchRankName.setBounds(220,30,150,30);
         searchRankInfo.setBounds(390,30,150,30);
-        clearSearchBotton.setBounds(570,30,80,30);
-        searchBotton.setBounds(670,30,80,30);
-        pane.setBounds(50,100,700,300);
+        clearSearchBotton.setBounds(720,30,80,30);
+        searchRankBotton.setBounds(820,30,80,30);
+        pane.setBounds(50,100,850,300);
 
         rankIDLabel.setBounds(80,430,80,30);
-        rankIDField.setBounds(180,430,170,30);
-        rankNameLabel.setBounds(430,430,80,30);
-        rankNameField.setBounds(530,430,170,30);
+        rankIDField.setBounds(180,430,220,30);
+        rankNameLabel.setBounds(530,430,80,30);
+        rankNameField.setBounds(630,430,220,30);
         rankInfoLabel.setBounds(80,490,80,30);
-        rankInfoArea.setBounds(180,490,520,100);
+        rankInfoArea.setBounds(180,490,670,100);
         clearBotton.setBounds(80,640,80,30);
         resetBotton.setBounds(180,640,80,30);
-        editBotton.setBounds(440,640,120,30);
-        deleteBotton.setBounds(580,640,120,30);
+        addRankBotton.setBounds(450,640,120,30);
+        editBotton.setBounds(590,640,120,30);
+        deleteBotton.setBounds(730,640,120,30);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -166,9 +168,9 @@ public class RankList extends JDialog {
 
         table.getTableHeader().setReorderingAllowed(false);
 
-        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(200);
-        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(400);
+        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
+        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(450);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -180,7 +182,7 @@ public class RankList extends JDialog {
         add(searchRankName);
         add(searchRankInfo);
         add(clearSearchBotton);
-        add(searchBotton);
+        add(searchRankBotton);
         add(pane);
         add(rankIDLabel);
         add(rankIDField);
@@ -190,10 +192,11 @@ public class RankList extends JDialog {
         add(rankInfoArea);
         add(clearBotton);
         add(resetBotton);
+        add(addRankBotton);
         add(editBotton);
         add(deleteBotton);
 
-        searchBotton.addActionListener(new ActionListener() {
+        searchRankBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String rankID = searchRankID.getText();
@@ -277,6 +280,48 @@ public class RankList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 rankNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
                 rankInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
+            }
+        });
+
+        addRankBotton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String rankName = rankNameField.getText();
+                String rankInfo = rankInfoArea.getText();
+
+                Connection connection = DButil.getConnection();
+                String sql = "insert into rank(rank_name, rank_info, rank_recycle_bin) values(?, ?, ?)";
+                String sql1 = "select * from rank where rank_recycle_bin = 0";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setObject(1, rankName);
+                    ps.setObject(2, rankInfo);
+                    ps.setObject(3, 0);
+
+                    int n = ps.executeUpdate();
+
+                    if (n>0) {
+                        JOptionPane.showMessageDialog(null, "新增成功！");
+
+                        PreparedStatement ps1 = connection.prepareStatement(sql1);
+                        ResultSet rs = ps.executeQuery();
+                        defaultTableModel.getDataVector().clear();
+                        defaultTableModel.fireTableDataChanged();
+                        while (rs.next()){
+                            Vector<String> vector = new Vector<String>();
+                            vector.add(rs.getString(1));
+                            vector.add(rs.getString(2));
+                            vector.add(rs.getString(3));
+                            dataVector.add(vector);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "新增失败！");
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection);
+                }
             }
         });
 
