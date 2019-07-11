@@ -11,11 +11,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Vector;
 
-public class CarsInfo extends JDialog {
+public class CarList extends JDialog {
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     private JTable table = new JTable() {
@@ -29,7 +27,7 @@ public class CarsInfo extends JDialog {
 
     private JButton deleteBotton = new JButton("删除所选车辆");
 
-    public CarsInfo() {
+    public CarList() {
         setTitle("车辆列表");
         setSize(1500,1000);
         setLocationRelativeTo(null);
@@ -146,6 +144,6 @@ public class CarsInfo extends JDialog {
     }
 
     public static void main(String[] args) {
-        new CarsInfo();
+        new CarList();
     }
 }

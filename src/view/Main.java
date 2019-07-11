@@ -1,7 +1,7 @@
 package view;
 
 import view.car.AddCar;
-import view.car.CarsInfo;
+import view.car.CarList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +62,7 @@ public class Main extends JFrame {
         queryCarItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CarsInfo();
+                new CarList();
             }
         });
 

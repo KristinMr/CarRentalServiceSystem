@@ -61,7 +61,7 @@ public class UpdateCar extends JDialog {
         carInfoLabel.setBounds(250,280,100,30);
         carInfoArea.setBounds(100,330,400,200);
 
-        confirmBotton.setBounds(400,550,150,40);
+        confirmBotton.setBounds(380,550,120,40);
 
         add(carBrandBox);
         add(carModelLabel);

@@ -1,6 +1,5 @@
-package view.rank;
+package view.state;
 
-import jdk.nashorn.internal.scripts.JO;
 import util.DButil;
 
 import javax.swing.*;
@@ -15,11 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class RankList extends JDialog {
-
-    private JTextField searchRankID = new JTextField("编号关键字");
-    private JTextField searchRankName = new JTextField("名称关键字");
-    private JTextField searchRankInfo = new JTextField("介绍关键字");
+public class StateList extends JDialog {
+    private JTextField searchStateID = new JTextField("编号关键字");
+    private JTextField searchStateName = new JTextField("名称关键字");
+    private JTextField searchStateInfo = new JTextField("介绍关键字");
     private JButton clearSearchBotton = new JButton("清空");
     private JButton searchBotton = new JButton("查询");
 
@@ -32,47 +30,47 @@ public class RankList extends JDialog {
         }
     };
 
-    private JLabel rankIDLabel = new JLabel("权限编号");
-    private JTextField rankIDField = new JTextField();
+    private JLabel stateIDLabel = new JLabel("状态编号");
+    private JTextField stateIDField = new JTextField();
 
-    private JLabel rankNameLabel = new JLabel("权限名称");
-    private JTextField rankNameField = new JTextField();
+    private JLabel stateNameLabel = new JLabel("状态名称");
+    private JTextField stateNameField = new JTextField();
 
-    private JLabel rankInfoLabel = new JLabel("权限介绍");
-    private JTextArea rankInfoArea = new JTextArea();
+    private JLabel stateInfoLabel = new JLabel("状态介绍");
+    private JTextArea stateInfoArea = new JTextArea();
 
     private JButton clearBotton = new JButton("清空");
     private JButton resetBotton = new JButton("重置");
 
-    private JButton editBotton = new JButton("修改权限信息");
+    private JButton editBotton = new JButton("修改状态信息");
 
-    private JButton deleteBotton = new JButton("删除所选权限");
+    private JButton deleteBotton = new JButton("删除所选状态");
 
-    public RankList() {
-        setTitle("权限列表");
+    public StateList() {
+        setTitle("状态列表");
         setSize(800,800);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
 
 
-        searchRankID.setForeground(Color.gray);
-        searchRankName.setForeground(Color.gray);
-        searchRankInfo.setForeground(Color.gray);
+        searchStateID.setForeground(Color.gray);
+        searchStateName.setForeground(Color.gray);
+        searchStateInfo.setForeground(Color.gray);
 
-        searchRankID.setBounds(50,30,150,30);
-        searchRankName.setBounds(220,30,150,30);
-        searchRankInfo.setBounds(390,30,150,30);
+        searchStateID.setBounds(50,30,150,30);
+        searchStateName.setBounds(220,30,150,30);
+        searchStateInfo.setBounds(390,30,150,30);
         clearSearchBotton.setBounds(570,30,80,30);
         searchBotton.setBounds(670,30,80,30);
         pane.setBounds(50,100,700,300);
 
-        rankIDLabel.setBounds(80,430,80,30);
-        rankIDField.setBounds(180,430,170,30);
-        rankNameLabel.setBounds(430,430,80,30);
-        rankNameField.setBounds(530,430,170,30);
-        rankInfoLabel.setBounds(80,490,80,30);
-        rankInfoArea.setBounds(180,490,520,100);
+        stateIDLabel.setBounds(80,430,80,30);
+        stateIDField.setBounds(180,430,170,30);
+        stateNameLabel.setBounds(430,430,80,30);
+        stateNameField.setBounds(530,430,170,30);
+        stateInfoLabel.setBounds(80,490,80,30);
+        stateInfoArea.setBounds(180,490,520,100);
         clearBotton.setBounds(80,640,80,30);
         resetBotton.setBounds(180,640,80,30);
         editBotton.setBounds(440,640,120,30);
@@ -86,63 +84,63 @@ public class RankList extends JDialog {
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        searchRankID.addFocusListener(new FocusListener() {
+        searchStateID.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankID.getText().equals("编号关键字") == true) {
-                    searchRankID.setText("");
+                if (searchStateID.getText().equals("编号关键字") == true) {
+                    searchStateID.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankID.getText();
+                String temp = searchStateID.getText();
                 if (temp.equals("")) {
-                    searchRankID.setText("编号关键字");
-                    searchRankID.setForeground(Color.gray);
+                    searchStateID.setText("编号关键字");
+                    searchStateID.setForeground(Color.gray);
                 }
             }
         });
 
-        searchRankName.addFocusListener(new FocusListener() {
+        searchStateName.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankName.getText().equals("名称关键字") == true) {
-                    searchRankName.setText("");
+                if (searchStateName.getText().equals("名称关键字") == true) {
+                    searchStateName.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankName.getText();
+                String temp = searchStateName.getText();
                 if (temp.equals("")) {
-                    searchRankName.setText("名称关键字");
-                    searchRankName.setForeground(Color.gray);
+                    searchStateName.setText("名称关键字");
+                    searchStateName.setForeground(Color.gray);
                 }
             }
         });
 
-        searchRankInfo.addFocusListener(new FocusListener() {
+        searchStateInfo.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankInfo.getText().equals("介绍关键字") == true) {
-                    searchRankInfo.setText("");
+                if (searchStateInfo.getText().equals("介绍关键字") == true) {
+                    searchStateInfo.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankInfo.getText();
+                String temp = searchStateInfo.getText();
                 if (temp.equals("")) {
-                    searchRankInfo.setText("介绍关键字");
-                    searchRankInfo.setForeground(Color.gray);
+                    searchStateInfo.setText("介绍关键字");
+                    searchStateInfo.setForeground(Color.gray);
                 }
             }
         });
 
         Connection connection = DButil.getConnection();
 
-        String sql = "select * from rank where rank_recycle_bin = 0";
+        String sql = "select * from state where state_recycle_bin = 0";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -174,20 +172,20 @@ public class RankList extends JDialog {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-        rankIDField.setEditable(false);
+        stateIDField.setEditable(false);
 
-        add(searchRankID);
-        add(searchRankName);
-        add(searchRankInfo);
+        add(searchStateID);
+        add(searchStateName);
+        add(searchStateInfo);
         add(clearSearchBotton);
         add(searchBotton);
         add(pane);
-        add(rankIDLabel);
-        add(rankIDField);
-        add(rankNameLabel);
-        add(rankNameField);
-        add(rankInfoLabel);
-        add(rankInfoArea);
+        add(stateIDLabel);
+        add(stateIDField);
+        add(stateNameLabel);
+        add(stateNameField);
+        add(stateInfoLabel);
+        add(stateInfoArea);
         add(clearBotton);
         add(resetBotton);
         add(editBotton);
@@ -196,28 +194,28 @@ public class RankList extends JDialog {
         searchBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String rankID = searchRankID.getText();
-                String rankName = searchRankName.getText();
-                String rankInfo = searchRankInfo.getText();
+                String stateID = searchStateID.getText();
+                String stateName = searchStateName.getText();
+                String stateInfo = searchStateInfo.getText();
 
                 Connection connection1 = DButil.getConnection();
-                StringBuffer stringBuffer = new StringBuffer("select * from rank where rank_recycle_bin = 0 ");
+                StringBuffer stringBuffer = new StringBuffer("select * from state where state_recycle_bin = 0 ");
 
                 List list = new ArrayList();
 
-                if (rankID.trim().length() > 0 && rankID.equals("编号关键字") == false) {
-                    stringBuffer.append("and rank_id like ? ");
-                    list.add("%" + rankID + "%");
+                if (stateID.trim().length() > 0 && stateID.equals("编号关键字") == false) {
+                    stringBuffer.append("and state_id like ? ");
+                    list.add("%" + stateID + "%");
                 }
 
-                if (rankName.trim().length() > 0 && rankName.equals("名称关键字") == false) {
-                    stringBuffer.append("and rank_name like ? ");
-                    list.add("%" + rankName + "%");
+                if (stateName.trim().length() > 0 && stateName.equals("名称关键字") == false) {
+                    stringBuffer.append("and state_name like ? ");
+                    list.add("%" + stateName + "%");
                 }
 
-                if (rankInfo.trim().length() > 0 && rankInfo.equals("介绍关键字") == false) {
-                    stringBuffer.append("and rank_info like ? ");
-                    list.add("%" + rankInfo + "%");
+                if (stateInfo.trim().length() > 0 && stateInfo.equals("介绍关键字") == false) {
+                    stringBuffer.append("and state_info like ? ");
+                    list.add("%" + stateInfo + "%");
                 }
 
                 try {
@@ -254,12 +252,12 @@ public class RankList extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = table.getSelectedRow();
-                String rankID = (String) table.getValueAt(row, 0);
-                String rankName = (String) table.getValueAt(row, 1);
-                String rankInfo = (String) table.getValueAt(row, 2);
-                rankIDField.setText(rankID);
-                rankNameField.setText(rankName);
-                rankInfoArea.setText(rankInfo);
+                String stateID = (String) table.getValueAt(row, 0);
+                String stateName = (String) table.getValueAt(row, 1);
+                String stateInfo = (String) table.getValueAt(row, 2);
+                stateIDField.setText(stateID);
+                stateNameField.setText(stateName);
+                stateInfoArea.setText(stateInfo);
 
             }
         });
@@ -267,16 +265,16 @@ public class RankList extends JDialog {
         clearBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rankNameField.setText("");
-                rankInfoArea.setText("");
+                stateNameField.setText("");
+                stateInfoArea.setText("");
             }
         });
 
         resetBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rankNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
-                rankInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
+                stateNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
+                stateInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
             }
         });
 
@@ -285,26 +283,26 @@ public class RankList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的权限！");
+                    JOptionPane.showMessageDialog(null, "请先选中要修改的状态！");
                 } else {
-                    String rankID = rankIDField.getText();
-                    String rankName = rankNameField.getText();
-                    String rankInfo = rankInfoArea.getText();
+                    String stateID = stateIDField.getText();
+                    String stateName = stateNameField.getText();
+                    String stateInfo = stateInfoArea.getText();
 
                     Connection connection1 = DButil.getConnection();
-                    String sql = "update rank set rank_name = ?, rank_info = ? where rank_id = ?";
+                    String sql = "update state set state_name = ?, state_info = ? where state_id = ?";
 
                     try {
                         PreparedStatement ps = connection1.prepareStatement(sql);
-                        ps.setObject(1, rankName);
-                        ps.setObject(2, rankInfo);
-                        ps.setObject(3,rankID);
+                        ps.setObject(1, stateName);
+                        ps.setObject(2, stateInfo);
+                        ps.setObject(3,stateID);
                         int n = ps.executeUpdate();
 
                         if (n > 0) {
-                            JOptionPane.showMessageDialog(null, "权限修改成功！");
-                            ((DefaultTableModel)table.getModel()).setValueAt(rankName, row,1);
-                            ((DefaultTableModel)table.getModel()).setValueAt(rankInfo, row,2);
+                            JOptionPane.showMessageDialog(null, "状态修改成功！");
+                            ((DefaultTableModel)table.getModel()).setValueAt(stateName, row,1);
+                            ((DefaultTableModel)table.getModel()).setValueAt(stateInfo, row,2);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -320,25 +318,25 @@ public class RankList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showMessageDialog(null, "请先选中要删除的权限！");
+                    JOptionPane.showMessageDialog(null, "请先选中要删除的状态！");
                 } else {
                     int m = JOptionPane.showConfirmDialog(null, "确定","确认移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
-                        String rankID = rankIDField.getText();
+                        String stateID = stateIDField.getText();
 
                         Connection connection1 = DButil.getConnection();
-                        String sql = "update rank set rank_recycle_bin = 1 where rank_id = ?";
+                        String sql = "update state set state_recycle_bin = 1 where state_id = ?";
 
                         try {
                             PreparedStatement ps = connection1.prepareStatement(sql);
-                            ps.setObject(1, rankID);
+                            ps.setObject(1, stateID);
                             int n = ps.executeUpdate();
                             if (n > 0) {
                                 JOptionPane.showMessageDialog(null, "删除成功！");
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
-                                rankIDField.setText("");
-                                rankNameField.setText("");
-                                rankInfoArea.setText("");
+                                stateIDField.setText("");
+                                stateNameField.setText("");
+                                stateInfoArea.setText("");
                             } else {
                                 JOptionPane.showMessageDialog(null, "删除失败！");
                             }
@@ -356,6 +354,6 @@ public class RankList extends JDialog {
     }
 
     public static void main(String[] args) {
-        new RankList();
+        new StateList();
     }
 }
