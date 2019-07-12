@@ -25,6 +25,9 @@ public class AddCar extends JDialog {
     private JLabel carColorLabel = new JLabel("车辆颜色");
     private JTextField carColorField = new JTextField();
 
+    private JLabel carRentLabel = new JLabel("车辆租金");
+    private JTextField carRentField = new JTextField();
+
     private JLabel carPictureLabel = new JLabel("车辆图片");
     private JTextField carPictureField = new JTextField();
 
@@ -55,14 +58,21 @@ public class AddCar extends JDialog {
         carColorLabel.setBounds(50,170,100,30);
         carColorField.setBounds(170,170,320,30);
 
-        carPictureLabel.setBounds(50,220,100,30);
-        carPictureField.setBounds(170,220,320,30);
+        carRentLabel.setBounds(50,220,100,30);
+        carRentField.setBounds(170,220,320,30);
 
-        carInfoLabel.setBounds(250,280,100,30);
-        carInfoArea.setBounds(100,330,400,200);
+        carPictureLabel.setBounds(50,280,100,30);
+        carPictureField.setBounds(170,280,320,30);
 
-        resetBotton.setBounds(260,550,80,40);
-        addBotton.setBounds(400,550,80,40);
+        carInfoLabel.setBounds(250,340,100,30);
+        carInfoArea.setBounds(80,380,420,200);
+
+        resetBotton.setBounds(260,600,80,40);
+        addBotton.setBounds(400,600,80,40);
+
+
+        carColorField.setEditable(false);
+        carRentField.setEditable(false);
 
         add(carBrandBox);
         add(carModelLabel);
@@ -74,6 +84,8 @@ public class AddCar extends JDialog {
         add(carCityBox);
         add(carColorLabel);
         add(carColorField);
+        add(carRentLabel);
+        add(carRentField);
         add(carPictureLabel);
         add(carPictureField);
         add(carInfoLabel);
@@ -82,17 +94,27 @@ public class AddCar extends JDialog {
         add(addBotton);
 
         Connection connection = DButil.getConnection();
-        String sql = "select * from brand";
-        String sql1 = "select * from state";
-        String sql2 = "select * from province";
+        String sql = "select * from brand where brand_recycle_bin = 0";
+        String sql1 = "select * from brand where brand_recycle_bin = 0 order by brand_id limit 1";
+        String sql2 = "select * from model where model_brand = ? and model_recycle_bin = 0";
+        String sql3 = "select * from state";
+        String sql4 = "select * from province";
+        String sql5 = "select * from province where province_recycle_bin = 0 order by province_id limit 1";
+        String sql6 = "select * from city where city_province = ? and city_recycle_bin = 0";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             PreparedStatement ps1 = connection.prepareStatement(sql1);
-            PreparedStatement ps3 = connection.prepareStatement(sql2);
+            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            PreparedStatement ps3 = connection.prepareStatement(sql3);
+            PreparedStatement ps4 = connection.prepareStatement(sql4);
+            PreparedStatement ps5 = connection.prepareStatement(sql5);
+            PreparedStatement ps6 = connection.prepareStatement(sql6);
 
             ResultSet rs = ps.executeQuery();
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs3 = ps3.executeQuery();
+            ResultSet rs4 = ps4.executeQuery();
+            ResultSet rs5 = ps5.executeQuery();
 
             while (rs.next()) {
                 Brand brand = new Brand();
@@ -100,17 +122,44 @@ public class AddCar extends JDialog {
                 brand.setBrandName(rs.getString(2));
                 carBrandBox.addItem(brand);
             }
-            while (rs1.next()){
+
+            if (rs1.next()) {
+                int brandID = rs1.getInt(1);
+                ps2.setObject(1, brandID);
+                ResultSet rs2 = ps2.executeQuery();
+                while (rs2.next()) {
+                    Model carModel = new Model();
+                    carModel.setModelID(rs2.getInt(1));
+                    carModel.setModelName(rs2.getString(3));
+                    carModel.setModelColor(rs2.getString(4));
+                    carModel.setModelRent(rs2.getString(5));
+                    carModelBox.addItem(carModel);
+                }
+            }
+
+            while (rs3.next()){
                 State state = new State();
-                state.setStateID(rs1.getInt(1));
-                state.setStateName(rs1.getString(2));
+                state.setStateID(rs3.getInt(1));
+                state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
-            while (rs3.next()){
+            while (rs4.next()){
                 Province province = new Province();
-                province.setProvinceID(rs3.getInt(1));
-                province.setProvinceName(rs3.getString(2));
+                province.setProvinceID(rs4.getInt(1));
+                province.setProvinceName(rs4.getString(2));
                 carProvinceBox.addItem(province);
+            }
+
+            if (rs5.next()) {
+                int provinceID = rs5.getInt(1);
+                ps6.setObject(1, provinceID);
+                ResultSet rs6 = ps6.executeQuery();
+                while (rs6.next()) {
+                    City carCity = new City();
+                    carCity.setCityID(rs6.getInt(1));
+                    carCity.setCityName(rs6.getString(3));
+                    carCityBox.addItem(carCity);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,7 +183,7 @@ public class AddCar extends JDialog {
                 int carBrandID = carBrain.getBrandID();
 
                 Connection connection1 = DButil.getConnection();
-                String sql3 = "select model_id, model_name from model where model_brand = ?";
+                String sql3 = "select * from model where model_brand = ? and model_recycle_bin = 0";
                 try {
                     PreparedStatement ps = connection1.prepareStatement(sql3);
                     ps.setObject(1,carBrandID);
@@ -143,7 +192,9 @@ public class AddCar extends JDialog {
                     while (rs.next()){
                         Model carModel = new Model();
                         carModel.setModelID(rs.getInt(1));
-                        carModel.setModelName(rs.getString(2));
+                        carModel.setModelName(rs.getString(3));
+                        carModel.setModelColor(rs.getString(4));
+                        carModel.setModelRent(rs.getString(5));
                         carModelBox.addItem(carModel);
                     }
                 } catch (Exception e1) {
@@ -222,9 +273,6 @@ public class AddCar extends JDialog {
                 } finally {
                     DButil.releaseConnection(connection3);
                 }
-
-
-
             }
         });
 

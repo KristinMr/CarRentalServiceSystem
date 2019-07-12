@@ -25,12 +25,16 @@ public class UpdateCar extends JDialog {
     private JLabel carColorLabel = new JLabel("车辆颜色");
     private JTextField carColorField = new JTextField();
 
+    private JLabel carRentLabel = new JLabel("车辆租金");
+    private JTextField carRentField = new JTextField();
+
     private JLabel carPictureLabel = new JLabel("车辆图片");
     private JTextField carPictureField = new JTextField();
 
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
 
+    private JButton resetBotton = new JButton("重置");
     private JButton confirmBotton = new JButton("确认修改");
 
     public UpdateCar(String carID) {
@@ -55,13 +59,21 @@ public class UpdateCar extends JDialog {
         carColorLabel.setBounds(50,170,100,30);
         carColorField.setBounds(170,170,320,30);
 
-        carPictureLabel.setBounds(50,220,100,30);
-        carPictureField.setBounds(170,220,320,30);
 
-        carInfoLabel.setBounds(250,280,100,30);
-        carInfoArea.setBounds(100,330,400,200);
+        carRentLabel.setBounds(50,220,100,30);
+        carRentField.setBounds(170,220,320,30);
 
-        confirmBotton.setBounds(380,550,120,40);
+        carPictureLabel.setBounds(50,280,100,30);
+        carPictureField.setBounds(170,280,320,30);
+
+        carInfoLabel.setBounds(250,340,100,30);
+        carInfoArea.setBounds(100,380,400,200);
+
+        resetBotton.setBounds(260,600,80,40);
+        confirmBotton.setBounds(380,600,120,40);
+
+        carColorField.setEditable(false);
+        carRentField.setEditable(false);
 
         add(carBrandBox);
         add(carModelLabel);
@@ -73,15 +85,18 @@ public class UpdateCar extends JDialog {
         add(carCityBox);
         add(carColorLabel);
         add(carColorField);
+        add(carRentLabel);
+        add(carRentField);
         add(carPictureLabel);
         add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
+        add(resetBotton);
         add(confirmBotton);
 
         Connection connection = DButil.getConnection();
         String sql = "select car.*, model.model_brand, city.city_province from car, model, city where car.car_id = ? and model.model_id = car.car_model and city.city_id = car.car_city";
-        String sql1 = "select * from brand";
+        String sql1 = "select * from brand where brand_recycle_bin = 0";
         String sql2 = "select * from model where model_brand = ?";
 
         String sql3 = "select * from state";
@@ -106,6 +121,7 @@ public class UpdateCar extends JDialog {
                 car.setCarInfo(rs.getString(6));
                 car.setCarBrand(rs.getInt(8));
                 car.setCarProvince(rs.getInt(9));
+                System.out.println(rs.getInt(9));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             PreparedStatement ps2 = connection.prepareStatement(sql2);
@@ -155,6 +171,8 @@ public class UpdateCar extends JDialog {
                         model = carModelBox.getItemAt(k);
                         if (model.getModelID() == model1.getModelID()) {
                             carModelBox.setSelectedItem(model);
+                            carColorField.setText(model1.getModelColor());
+                            carRentField.setText(model1.getModelRent());
                         }
                     }
                 }
@@ -179,7 +197,7 @@ public class UpdateCar extends JDialog {
                 Province province;
                 province = carProvinceBox.getItemAt(j);
                 if (province.getProvinceID() == province1.getProvinceID()) {
-                    carProvinceBox.setSelectedItem(province1);
+                    carProvinceBox.setSelectedItem(province);
                     while (rs5.next()){
                         City city = new City();
                         city.setCityID(rs5.getInt(1));
@@ -212,20 +230,22 @@ public class UpdateCar extends JDialog {
 
                 carModelBox.removeAllItems();
 
-                Brand carBrain = (Brand) carBrandBox.getSelectedItem();
-                int carBrandID = carBrain.getBrandID();
+                Brand carBrand = (Brand) carBrandBox.getSelectedItem();
+                int carBrandID = carBrand.getBrandID();
 
                 Connection connection1 = DButil.getConnection();
-                String sql3 = "select model_id, model_name from model where model_brand = ?";
+                String sql6 = "select * from model where model_brand = ? and model_recycle_bin = 0";
                 try {
-                    PreparedStatement ps = connection1.prepareStatement(sql3);
+                    PreparedStatement ps = connection1.prepareStatement(sql6);
                     ps.setObject(1,carBrandID);
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()){
                         Model carModel = new Model();
                         carModel.setModelID(rs.getInt(1));
-                        carModel.setModelName(rs.getString(2));
+                        carModel.setModelName(rs.getString(3));
+                        carModel.setModelColor(rs.getString(4));
+                        carModel.setModelRent(rs.getString(5));
                         carModelBox.addItem(carModel);
                     }
                 } catch (Exception e1) {
@@ -233,6 +253,18 @@ public class UpdateCar extends JDialog {
                 } finally {
                     DButil.releaseConnection(connection1);
                 }
+            }
+        });
+
+        carModelBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Model carModel = (Model) carModelBox.getSelectedItem();
+                System.out.println(carModel);
+//                carColorField.setText(carModel.getModelColor());
+//                carRentField.setText(carModel.getModelRent());
+
             }
         });
 
@@ -245,10 +277,10 @@ public class UpdateCar extends JDialog {
                 int carProvinceID = carProvince.getProvinceID();
 
                 Connection connection2 = DButil.getConnection();
-                String sql4 = "select city_id, city_name from city where city_province = ?";
+                String sql8 = "select city_id, city_name from city where city_province = ?";
 
                 try {
-                    PreparedStatement ps = connection2.prepareStatement(sql4);
+                    PreparedStatement ps = connection2.prepareStatement(sql8);
                     ps.setObject(1,carProvinceID);
                     ResultSet rs = ps.executeQuery();
 
