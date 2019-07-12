@@ -9,8 +9,10 @@ public class Model {
     private int modelID;
     private int modelBrand;
     private String modelName;
+    private String modelColor;
     private String modelRent;
     private String modelInfo;
+    private String model_recycle_bin;
 
     public int getModelID() {
         return modelID;
@@ -36,6 +38,14 @@ public class Model {
         this.modelName = modelName;
     }
 
+    public String getModelColor() {
+        return modelColor;
+    }
+
+    public void setModelColor(String modelColor) {
+        this.modelColor = modelColor;
+    }
+
     public String getModelRent() {
         return modelRent;
     }
@@ -52,6 +62,14 @@ public class Model {
         this.modelInfo = modelInfo;
     }
 
+    public String getModel_recycle_bin() {
+        return model_recycle_bin;
+    }
+
+    public void setModel_recycle_bin(String model_recycle_bin) {
+        this.model_recycle_bin = model_recycle_bin;
+    }
+
     @Override
     public String toString() {
         return modelName;
@@ -59,7 +77,7 @@ public class Model {
 
     public Model searchModel(int modelID) {
         Connection connection = DButil.getConnection();
-        String sql = "select * from model where model_id = ?";
+        String sql = "select * from model where model_id = ? and model_recycle_bin = 0";
         Model model = new Model();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -69,6 +87,10 @@ public class Model {
             if (rs.next()){
                 model.setModelID(rs.getInt(1));
                 model.setModelName(rs.getString(3));
+                model.setModelColor(rs.getString(4));
+                model.setModelRent(rs.getString(5));
+                model.setModelInfo(rs.getString(6));
+                model.setModel_recycle_bin(rs.getString(7));
             }
 
         } catch (SQLException e) {
