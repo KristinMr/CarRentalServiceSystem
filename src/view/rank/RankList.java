@@ -20,8 +20,8 @@ public class RankList extends JDialog {
     private JTextField searchRankID = new JTextField("编号关键字");
     private JTextField searchRankName = new JTextField("名称关键字");
     private JTextField searchRankInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchBotton = new JButton("刷新");
-    private JButton searchRankBotton = new JButton("查询");
+    private JButton refreshSearchButton = new JButton("刷新");
+    private JButton searchRankButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -41,14 +41,14 @@ public class RankList extends JDialog {
     private JLabel rankInfoLabel = new JLabel("权限介绍");
     private JTextArea rankInfoArea = new JTextArea();
 
-    private JButton clearBotton = new JButton("清空");
-    private JButton resetBotton = new JButton("重置");
+    private JButton clearButton = new JButton("清空");
+    private JButton resetButton = new JButton("重置");
 
-    private JButton addRankBotton = new JButton("新增权限");
+    private JButton addRankButton = new JButton("新增权限");
 
-    private JButton editBotton = new JButton("修改权限信息");
+    private JButton editButton = new JButton("修改权限信息");
 
-    private JButton deleteBotton = new JButton("删除所选权限");
+    private JButton deleteButton = new JButton("删除所选权限");
 
     public RankList() {
         setTitle("权限列表");
@@ -64,8 +64,8 @@ public class RankList extends JDialog {
         searchRankID.setBounds(50,30,150,30);
         searchRankName.setBounds(220,30,150,30);
         searchRankInfo.setBounds(390,30,150,30);
-        refreshSearchBotton.setBounds(720,30,80,30);
-        searchRankBotton.setBounds(820,30,80,30);
+        refreshSearchButton.setBounds(720,30,80,30);
+        searchRankButton.setBounds(820,30,80,30);
         pane.setBounds(50,100,850,300);
 
         rankIDLabel.setBounds(80,430,80,30);
@@ -74,17 +74,17 @@ public class RankList extends JDialog {
         rankNameField.setBounds(630,430,220,30);
         rankInfoLabel.setBounds(80,490,80,30);
         rankInfoArea.setBounds(180,490,670,100);
-        clearBotton.setBounds(80,640,80,30);
-        resetBotton.setBounds(180,640,80,30);
-        addRankBotton.setBounds(450,640,120,30);
-        editBotton.setBounds(590,640,120,30);
-        deleteBotton.setBounds(730,640,120,30);
+        clearButton.setBounds(80,640,80,30);
+        resetButton.setBounds(180,640,80,30);
+        addRankButton.setBounds(450,640,120,30);
+        editButton.setBounds(590,640,120,30);
+        deleteButton.setBounds(730,640,120,30);
 
         add(searchRankID);
         add(searchRankName);
         add(searchRankInfo);
-        add(refreshSearchBotton);
-        add(searchRankBotton);
+        add(refreshSearchButton);
+        add(searchRankButton);
         add(pane);
         add(rankIDLabel);
         add(rankIDField);
@@ -92,11 +92,11 @@ public class RankList extends JDialog {
         add(rankNameField);
         add(rankInfoLabel);
         add(rankInfoArea);
-        add(clearBotton);
-        add(resetBotton);
-        add(addRankBotton);
-        add(editBotton);
-        add(deleteBotton);
+        add(clearButton);
+        add(resetButton);
+        add(addRankButton);
+        add(editButton);
+        add(deleteButton);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -196,7 +196,7 @@ public class RankList extends JDialog {
 
         rankIDField.setEditable(false);
 
-        searchRankBotton.addActionListener(new ActionListener() {
+        searchRankButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String rankID = searchRankID.getText();
@@ -267,7 +267,7 @@ public class RankList extends JDialog {
             }
         });
 
-        clearBotton.addActionListener(new ActionListener() {
+        clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rankNameField.setText("");
@@ -275,7 +275,7 @@ public class RankList extends JDialog {
             }
         });
 
-        resetBotton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rankNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
@@ -283,7 +283,7 @@ public class RankList extends JDialog {
             }
         });
 
-        addRankBotton.addActionListener(new ActionListener() {
+        addRankButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -330,7 +330,7 @@ public class RankList extends JDialog {
             }
         });
 
-        editBotton.addActionListener(new ActionListener() {
+        editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
@@ -369,7 +369,7 @@ public class RankList extends JDialog {
             }
         });
 
-        deleteBotton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();

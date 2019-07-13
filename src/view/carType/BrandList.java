@@ -18,8 +18,8 @@ public class BrandList extends JFrame {
     private JTextField searchBrandID = new JTextField("编号关键字");
     private JTextField searchBrandName = new JTextField("名称关键字");
     private JTextField searchBrandInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchBotton = new JButton("刷新");
-    private JButton searchBrandBotton = new JButton("查询");
+    private JButton refreshSearchButton = new JButton("刷新");
+    private JButton searchBrandButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -39,14 +39,14 @@ public class BrandList extends JFrame {
     private JLabel brandInfoLabel = new JLabel("品牌介绍");
     private JTextArea brandInfoArea = new JTextArea();
 
-    private JButton clearBotton = new JButton("清空");
-    private JButton resetBotton = new JButton("重置");
+    private JButton clearButton = new JButton("清空");
+    private JButton resetButton = new JButton("重置");
 
-    private JButton addBrandBotton = new JButton("新增品牌");
+    private JButton addBrandButton = new JButton("新增品牌");
 
-    private JButton editBotton = new JButton("修改品牌信息");
+    private JButton editButton = new JButton("修改品牌信息");
 
-    private JButton deleteBotton = new JButton("删除所选品牌");
+    private JButton deleteButton = new JButton("删除所选品牌");
 
     public BrandList() {
         setTitle("品牌列表");
@@ -62,8 +62,8 @@ public class BrandList extends JFrame {
         searchBrandID.setBounds(50,30,150,30);
         searchBrandName.setBounds(220,30,150,30);
         searchBrandInfo.setBounds(390,30,150,30);
-        refreshSearchBotton.setBounds(720,30,80,30);
-        searchBrandBotton.setBounds(820,30,80,30);
+        refreshSearchButton.setBounds(720,30,80,30);
+        searchBrandButton.setBounds(820,30,80,30);
         pane.setBounds(50,100,850,300);
 
         brandIDLabel.setBounds(80,430,80,30);
@@ -72,11 +72,11 @@ public class BrandList extends JFrame {
         brandNameField.setBounds(630,430,220,30);
         brandInfoLabel.setBounds(80,490,80,30);
         brandInfoArea.setBounds(180,490,670,100);
-        clearBotton.setBounds(80,640,80,30);
-        resetBotton.setBounds(180,640,80,30);
-        addBrandBotton.setBounds(450,640,120,30);
-        editBotton.setBounds(590,640,120,30);
-        deleteBotton.setBounds(730,640,120,30);
+        clearButton.setBounds(80,640,80,30);
+        resetButton.setBounds(180,640,80,30);
+        addBrandButton.setBounds(450,640,120,30);
+        editButton.setBounds(590,640,120,30);
+        deleteButton.setBounds(730,640,120,30);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -179,8 +179,8 @@ public class BrandList extends JFrame {
         add(searchBrandID);
         add(searchBrandName);
         add(searchBrandInfo);
-        add(refreshSearchBotton);
-        add(searchBrandBotton);
+        add(refreshSearchButton);
+        add(searchBrandButton);
         add(pane);
         add(brandIDLabel);
         add(brandIDField);
@@ -188,13 +188,13 @@ public class BrandList extends JFrame {
         add(brandNameField);
         add(brandInfoLabel);
         add(brandInfoArea);
-        add(clearBotton);
-        add(resetBotton);
-        add(addBrandBotton);
-        add(editBotton);
-        add(deleteBotton);
+        add(clearButton);
+        add(resetButton);
+        add(addBrandButton);
+        add(editButton);
+        add(deleteButton);
 
-        searchBrandBotton.addActionListener(new ActionListener() {
+        searchBrandButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String brandID = searchBrandID.getText();
@@ -265,7 +265,7 @@ public class BrandList extends JFrame {
             }
         });
 
-        clearBotton.addActionListener(new ActionListener() {
+        clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 brandNameField.setText("");
@@ -273,7 +273,7 @@ public class BrandList extends JFrame {
             }
         });
 
-        resetBotton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 brandNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
@@ -281,7 +281,7 @@ public class BrandList extends JFrame {
             }
         });
 
-        addBrandBotton.addActionListener(new ActionListener() {
+        addBrandButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新品牌？",JOptionPane.YES_NO_OPTION);
@@ -327,7 +327,7 @@ public class BrandList extends JFrame {
             }
         });
 
-        editBotton.addActionListener(new ActionListener() {
+        editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
@@ -366,7 +366,7 @@ public class BrandList extends JFrame {
             }
         });
 
-        deleteBotton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();

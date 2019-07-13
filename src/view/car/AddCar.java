@@ -34,8 +34,8 @@ public class AddCar extends JDialog {
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
 
-    private JButton resetBotton = new JButton("重置");
-    private JButton addBotton = new JButton("添加");
+    private JButton resetButton = new JButton("重置");
+    private JButton addButton = new JButton("添加");
 
     public AddCar() {
         setTitle("新增车辆");
@@ -67,8 +67,8 @@ public class AddCar extends JDialog {
         carInfoLabel.setBounds(250,340,100,30);
         carInfoArea.setBounds(80,380,420,200);
 
-        resetBotton.setBounds(260,600,80,40);
-        addBotton.setBounds(400,600,80,40);
+        resetButton.setBounds(260,600,80,40);
+        addButton.setBounds(400,600,80,40);
 
 
         carColorField.setEditable(false);
@@ -90,8 +90,8 @@ public class AddCar extends JDialog {
         add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
-        add(resetBotton);
-        add(addBotton);
+        add(resetButton);
+        add(addButton);
 
         Connection connection = DButil.getConnection();
         String sql = "select * from brand where brand_recycle_bin = 0";
@@ -173,7 +173,7 @@ public class AddCar extends JDialog {
         } finally {
             DButil.releaseConnection(connection);
         }
-        resetBotton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -254,7 +254,7 @@ public class AddCar extends JDialog {
             }
         });
 
-        addBotton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 

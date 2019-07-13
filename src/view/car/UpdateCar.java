@@ -35,8 +35,8 @@ public class UpdateCar extends JDialog {
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
 
-    private JButton resetBotton = new JButton("重置");
-    private JButton confirmBotton = new JButton("确认修改");
+    private JButton resetButton = new JButton("重置");
+    private JButton confirmButton = new JButton("确认修改");
 
     public UpdateCar(String carID) {
 
@@ -70,8 +70,8 @@ public class UpdateCar extends JDialog {
         carInfoLabel.setBounds(250, 340, 100, 30);
         carInfoArea.setBounds(100, 380, 400, 200);
 
-        resetBotton.setBounds(260, 600, 80, 40);
-        confirmBotton.setBounds(380, 600, 120, 40);
+        resetButton.setBounds(260, 600, 80, 40);
+        confirmButton.setBounds(380, 600, 120, 40);
 
         carColorField.setEditable(false);
         carRentField.setEditable(false);
@@ -92,8 +92,8 @@ public class UpdateCar extends JDialog {
         add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
-        add(resetBotton);
-        add(confirmBotton);
+        add(resetButton);
+        add(confirmButton);
 
         Connection connection = DButil.getConnection();
         String sql = "select car.*, model.model_brand, city.city_province from car, model, city where car.car_id = ? and model.model_id = car.car_model and city.city_id = car.car_city";
@@ -302,7 +302,7 @@ public class UpdateCar extends JDialog {
             }
         });
 
-        confirmBotton.addActionListener(new ActionListener() {
+        confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
