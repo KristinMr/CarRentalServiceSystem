@@ -18,7 +18,7 @@ public class StateList extends JDialog {
     private JTextField searchStateID = new JTextField("编号关键字");
     private JTextField searchStateName = new JTextField("名称关键字");
     private JTextField searchStateInfo = new JTextField("介绍关键字");
-    private JButton clearSearchBotton = new JButton("清空");
+    private JButton refreshSearchBotton = new JButton("刷新");
     private JButton searchBotton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -62,7 +62,7 @@ public class StateList extends JDialog {
         searchStateID.setBounds(50,30,150,30);
         searchStateName.setBounds(220,30,150,30);
         searchStateInfo.setBounds(390,30,150,30);
-        clearSearchBotton.setBounds(720,30,80,30);
+        refreshSearchBotton.setBounds(720,30,80,30);
         searchBotton.setBounds(820,30,80,30);
         pane.setBounds(50,100,850,300);
 
@@ -179,7 +179,7 @@ public class StateList extends JDialog {
         add(searchStateID);
         add(searchStateName);
         add(searchStateInfo);
-        add(clearSearchBotton);
+        add(refreshSearchBotton);
         add(searchBotton);
         add(pane);
         add(stateIDLabel);
@@ -365,7 +365,7 @@ public class StateList extends JDialog {
                 if (row == -1) {
                     JOptionPane.showMessageDialog(null, "请先选中要删除的状态！");
                 } else {
-                    int m = JOptionPane.showConfirmDialog(null, "确定","确认移入回收站？",JOptionPane.YES_NO_OPTION);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","确认移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         String stateID = stateIDField.getText();
 

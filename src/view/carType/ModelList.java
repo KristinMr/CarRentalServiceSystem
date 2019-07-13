@@ -2,6 +2,6 @@ package view.carType;
 
 import javax.swing.*;
 
-public class Brand extends JDialog {
-    
+public class ModelList extends JFrame {
+
 }

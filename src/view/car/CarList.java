@@ -5,6 +5,7 @@ import util.DButil;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,7 +14,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class CarList extends JDialog {
+public class CarList extends JFrame {
+
+    private JTextField searchCarID = new JTextField("编号关键字");
+    private JTextField searchCarName = new JTextField("名称关键字");
+    private JTextField searchCarInfo = new JTextField("介绍关键字");
+    private JButton refreshSearchBotton = new JButton("刷新");
+    private JButton searchCarBotton = new JButton("查询");
+
+    private JButton editBotton = new JButton("修改所选车辆");
+    private JButton deleteBotton = new JButton("删除所选车辆");
+
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     private JTable table = new JTable() {
@@ -23,21 +34,34 @@ public class CarList extends JDialog {
         }
     };
 
-    private JButton editBotton = new JButton("修改所选车辆");
-
-    private JButton deleteBotton = new JButton("删除所选车辆");
 
     public CarList() {
         setTitle("车辆列表");
         setSize(1500,1000);
         setLocationRelativeTo(null);
         setLayout(null);
-        setModal(true);
 
-        editBotton.setBounds(1000,20,150,40);
-        deleteBotton.setBounds(1200,20,150,40);
+        searchCarID.setForeground(Color.gray);
+        searchCarName.setForeground(Color.gray);
+        searchCarInfo.setForeground(Color.gray);
 
-        jScrollPane.setBounds(20,100,1460,800);
+        searchCarID.setBounds(50,30,150,30);
+        searchCarName.setBounds(220,30,150,30);
+        searchCarInfo.setBounds(390,30,150,30);
+        refreshSearchBotton.setBounds(720,30,80,30);
+        searchCarBotton.setBounds(820,30,80,30);
+
+        editBotton.setBounds(1100,30,150,40);
+        deleteBotton.setBounds(1300,30,150,40);
+
+        jScrollPane.setBounds(15,100,1460,800);
+        
+        
+        add(searchCarID);
+        add(searchCarName);
+        add(searchCarInfo);
+        add(refreshSearchBotton);
+        add(searchCarBotton);
         add(editBotton);
         add(deleteBotton);
         add(jScrollPane);
@@ -118,7 +142,7 @@ public class CarList extends JDialog {
                     return;
                 } else {
                     String carID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确定","将所选车辆移入回收站？",JOptionPane.YES_NO_OPTION);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选车辆移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
                         String sql1 = "update car set car_recycle_bin = 1 where car_id = ?";

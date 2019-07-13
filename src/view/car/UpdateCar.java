@@ -1,5 +1,6 @@
 package view.car;
 
+import jdk.nashorn.internal.scripts.JO;
 import util.*;
 
 import javax.swing.*;
@@ -40,37 +41,37 @@ public class UpdateCar extends JDialog {
     public UpdateCar(String carID) {
 
         setTitle("更新车辆");
-        setSize(600,700);
+        setSize(600, 700);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
 
-        carModelLabel.setBounds(50,20,100,30);
-        carBrandBox.setBounds(170,20,150,30);
-        carModelBox.setBounds(340,20,150,30);
+        carModelLabel.setBounds(50, 20, 100, 30);
+        carBrandBox.setBounds(170, 20, 150, 30);
+        carModelBox.setBounds(340, 20, 150, 30);
 
-        carStateLabel.setBounds(50,70,100,30);
-        carStateBox.setBounds(170,70,320,30);
+        carStateLabel.setBounds(50, 70, 100, 30);
+        carStateBox.setBounds(170, 70, 320, 30);
 
-        carLocationLabel.setBounds(50,120,100,30);
-        carProvinceBox.setBounds(170,120,150,30);
-        carCityBox.setBounds(340,120,150,30);
+        carLocationLabel.setBounds(50, 120, 100, 30);
+        carProvinceBox.setBounds(170, 120, 150, 30);
+        carCityBox.setBounds(340, 120, 150, 30);
 
-        carColorLabel.setBounds(50,170,100,30);
-        carColorField.setBounds(170,170,320,30);
+        carColorLabel.setBounds(50, 170, 100, 30);
+        carColorField.setBounds(170, 170, 320, 30);
 
 
-        carRentLabel.setBounds(50,220,100,30);
-        carRentField.setBounds(170,220,320,30);
+        carRentLabel.setBounds(50, 220, 100, 30);
+        carRentField.setBounds(170, 220, 320, 30);
 
-        carPictureLabel.setBounds(50,280,100,30);
-        carPictureField.setBounds(170,280,320,30);
+        carPictureLabel.setBounds(50, 280, 100, 30);
+        carPictureField.setBounds(170, 280, 320, 30);
 
-        carInfoLabel.setBounds(250,340,100,30);
-        carInfoArea.setBounds(100,380,400,200);
+        carInfoLabel.setBounds(250, 340, 100, 30);
+        carInfoArea.setBounds(100, 380, 400, 200);
 
-        resetBotton.setBounds(260,600,80,40);
-        confirmBotton.setBounds(380,600,120,40);
+        resetBotton.setBounds(260, 600, 80, 40);
+        confirmBotton.setBounds(380, 600, 120, 40);
 
         carColorField.setEditable(false);
         carRentField.setEditable(false);
@@ -104,13 +105,12 @@ public class UpdateCar extends JDialog {
         String sql5 = "select * from city where city_province = ?";
 
 
-
         try {
             Car car = new Car();
 
 
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setObject(1,carID);
+            ps.setObject(1, carID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 car.setCarID(rs.getInt(1));
@@ -121,15 +121,14 @@ public class UpdateCar extends JDialog {
                 car.setCarInfo(rs.getString(6));
                 car.setCarBrand(rs.getInt(8));
                 car.setCarProvince(rs.getInt(9));
-                System.out.println(rs.getInt(9));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             PreparedStatement ps2 = connection.prepareStatement(sql2);
-            ps2.setObject(1,car.getCarBrand());
+            ps2.setObject(1, car.getCarBrand());
             PreparedStatement ps3 = connection.prepareStatement(sql3);
             PreparedStatement ps4 = connection.prepareStatement(sql4);
             PreparedStatement ps5 = connection.prepareStatement(sql5);
-            ps5.setObject(1,car.getCarProvince());
+            ps5.setObject(1, car.getCarProvince());
 
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs2 = ps2.executeQuery();
@@ -153,20 +152,23 @@ public class UpdateCar extends JDialog {
 
             Brand brand1 = new Brand();
             brand1 = brand1.searchBrand(car.getCarBrand());
-            for (int j =0; j<carBrandBox.getItemCount();j++) {
+            for (int j = 0; j < carBrandBox.getItemCount(); j++) {
                 Brand brand;
                 brand = carBrandBox.getItemAt(j);
                 if (brand.getBrandID() == brand1.getBrandID()) {
                     carBrandBox.setSelectedItem(brand);
-                    while (rs2.next()){
+                    while (rs2.next()) {
                         Model model = new Model();
                         model.setModelID(rs2.getInt(1));
                         model.setModelName(rs2.getString(3));
+                        model.setModelColor(rs2.getString(4));
+                        model.setModelRent(rs2.getString(5));
+                        model.setModelInfo(rs2.getString(6));
                         carModelBox.addItem(model);
                     }
                     Model model1 = new Model();
                     model1 = model1.searchModel(car.getCarModel());
-                    for (int k =0; k<carModelBox.getItemCount();k++) {
+                    for (int k = 0; k < carModelBox.getItemCount(); k++) {
                         Model model;
                         model = carModelBox.getItemAt(k);
                         if (model.getModelID() == model1.getModelID()) {
@@ -179,13 +181,13 @@ public class UpdateCar extends JDialog {
             }
 
 
-            while (rs3.next()){
+            while (rs3.next()) {
                 State state = new State();
                 state.setStateID(rs3.getInt(1));
                 state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
-            while (rs4.next()){
+            while (rs4.next()) {
                 Province province = new Province();
                 province.setProvinceID(rs4.getInt(1));
                 province.setProvinceName(rs4.getString(2));
@@ -193,12 +195,12 @@ public class UpdateCar extends JDialog {
             }
             Province province1 = new Province();
             province1 = province1.searchProvince(car.getCarProvince());
-            for (int j =0; j<carProvinceBox.getItemCount();j++) {
+            for (int j = 0; j < carProvinceBox.getItemCount(); j++) {
                 Province province;
                 province = carProvinceBox.getItemAt(j);
                 if (province.getProvinceID() == province1.getProvinceID()) {
                     carProvinceBox.setSelectedItem(province);
-                    while (rs5.next()){
+                    while (rs5.next()) {
                         City city = new City();
                         city.setCityID(rs5.getInt(1));
                         city.setCityName(rs5.getString(3));
@@ -206,7 +208,7 @@ public class UpdateCar extends JDialog {
                     }
                     City city1 = new City();
                     city1 = city1.searchCity(car.getCarCity());
-                    for (int k =0; k<carCityBox.getItemCount();k++) {
+                    for (int k = 0; k < carCityBox.getItemCount(); k++) {
                         City city;
                         city = carCityBox.getItemAt(k);
                         if (city.getCityID() == city1.getCityID()) {
@@ -216,12 +218,12 @@ public class UpdateCar extends JDialog {
                 }
             }
 
+            carInfoArea.setText(car.getCarInfo());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DButil.releaseConnection(connection);
         }
-
 
 
         carBrandBox.addActionListener(new ActionListener() {
@@ -234,18 +236,19 @@ public class UpdateCar extends JDialog {
                 int carBrandID = carBrand.getBrandID();
 
                 Connection connection1 = DButil.getConnection();
-                String sql6 = "select * from model where model_brand = ? and model_recycle_bin = 0";
+                String sql6 = "select model_id, model_name, model_color, model_rent, model_info from model where model_brand = ? and model_recycle_bin = 0";
                 try {
                     PreparedStatement ps = connection1.prepareStatement(sql6);
-                    ps.setObject(1,carBrandID);
+                    ps.setObject(1, carBrandID);
                     ResultSet rs = ps.executeQuery();
 
-                    while (rs.next()){
+                    while (rs.next()) {
                         Model carModel = new Model();
                         carModel.setModelID(rs.getInt(1));
-                        carModel.setModelName(rs.getString(3));
-                        carModel.setModelColor(rs.getString(4));
-                        carModel.setModelRent(rs.getString(5));
+                        carModel.setModelName(rs.getString(2));
+                        carModel.setModelColor(rs.getString(3));
+                        carModel.setModelRent(rs.getString(4));
+                        carModel.setModelInfo(rs.getString(5));
                         carModelBox.addItem(carModel);
                     }
                 } catch (Exception e1) {
@@ -261,10 +264,11 @@ public class UpdateCar extends JDialog {
             public void actionPerformed(ActionEvent e) {
 
                 Model carModel = (Model) carModelBox.getSelectedItem();
-                System.out.println(carModel);
-//                carColorField.setText(carModel.getModelColor());
-//                carRentField.setText(carModel.getModelRent());
 
+                if (carModel != null) {
+                    carColorField.setText(carModel.getModelColor());
+                    carRentField.setText(carModel.getModelRent());
+                }
             }
         });
 
@@ -281,7 +285,7 @@ public class UpdateCar extends JDialog {
 
                 try {
                     PreparedStatement ps = connection2.prepareStatement(sql8);
-                    ps.setObject(1,carProvinceID);
+                    ps.setObject(1, carProvinceID);
                     ResultSet rs = ps.executeQuery();
 
                     while (rs.next()) {
@@ -302,8 +306,36 @@ public class UpdateCar extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Model carModel = (Model) carBrandBox.getSelectedItem();
-                int modelID = carModel.getModelID();
+                Model model = (Model) carModelBox.getSelectedItem();
+                State state = (State) carStateBox.getSelectedItem();
+                City city = (City) carCityBox.getSelectedItem();
+
+                int carModelID = model.getModelID();
+                int carStateID = state.getStateID();
+                int carCityID = city.getCityID();
+                String carInfo = carInfoArea.getText();
+
+                Connection connection1 = DButil.getConnection();
+                String sql = "update car set car_model = ?, car_state = ?, car_city = ?, car_info = ? where car_id = ?";
+                try {
+                    PreparedStatement ps = connection1.prepareStatement(sql);
+                    ps.setObject(1, carModelID);
+                    ps.setObject(2, carStateID);
+                    ps.setObject(3, carCityID);
+                    ps.setObject(4, carInfo);
+                    ps.setObject(5, carID);
+                    int n = ps.executeUpdate();
+                    if (n > 0) {
+                        JOptionPane.showMessageDialog(null, "修改成功！");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "修改失败！");
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection1);
+                }
+
 
             }
         });

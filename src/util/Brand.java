@@ -25,40 +25,14 @@ public class Brand {
     public void setBrandName(String brandName) {
         this.brandName = brandName;
     }
-//
-//    public String getBrandInfo() {
-//        return brandInfo;
-//    }
-//
-//    public void setBrandInfo(String brandInfo) {
-//        this.brandInfo = brandInfo;
-//    }
+
 
     @Override
     public String toString() {
         return brandName;
     }
 
-//    public Brand SearchBrand() {
-//        Connection connection = DButil.getConnection();
-//        String sql = "select * from brand";
-//        Brand brand = new Brand();
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()){
-//                brand.setBrandID(rs.getInt(1));
-//                brand.setBrandName(rs.getString(2));
-//                brand.setBrandInfo(rs.getString(3));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            DButil.releaseConnection(connection);
-//        }
-//
-//        return brand;
-//    }
+
     public Brand searchBrand(int brandID) {
         Connection connection = DButil.getConnection();
         String sql = "select * from brand where brand_id = ?";

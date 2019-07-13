@@ -1,6 +1,5 @@
-package view.rank;
+package view.carType;
 
-import jdk.nashorn.internal.scripts.JO;
 import util.DButil;
 
 import javax.swing.*;
@@ -15,13 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class RankList extends JDialog {
-
-    private JTextField searchRankID = new JTextField("编号关键字");
-    private JTextField searchRankName = new JTextField("名称关键字");
-    private JTextField searchRankInfo = new JTextField("介绍关键字");
+public class BrandList extends JFrame {
+    private JTextField searchBrandID = new JTextField("编号关键字");
+    private JTextField searchBrandName = new JTextField("名称关键字");
+    private JTextField searchBrandInfo = new JTextField("介绍关键字");
     private JButton refreshSearchBotton = new JButton("刷新");
-    private JButton searchRankBotton = new JButton("查询");
+    private JButton searchBrandBotton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -32,71 +30,53 @@ public class RankList extends JDialog {
         }
     };
 
-    private JLabel rankIDLabel = new JLabel("权限编号");
-    private JTextField rankIDField = new JTextField();
+    private JLabel brandIDLabel = new JLabel("品牌编号");
+    private JTextField brandIDField = new JTextField();
 
-    private JLabel rankNameLabel = new JLabel("权限名称");
-    private JTextField rankNameField = new JTextField();
+    private JLabel brandNameLabel = new JLabel("品牌名称");
+    private JTextField brandNameField = new JTextField();
 
-    private JLabel rankInfoLabel = new JLabel("权限介绍");
-    private JTextArea rankInfoArea = new JTextArea();
+    private JLabel brandInfoLabel = new JLabel("品牌介绍");
+    private JTextArea brandInfoArea = new JTextArea();
 
     private JButton clearBotton = new JButton("清空");
     private JButton resetBotton = new JButton("重置");
 
-    private JButton addRankBotton = new JButton("新增权限");
+    private JButton addBrandBotton = new JButton("新增品牌");
 
-    private JButton editBotton = new JButton("修改权限信息");
+    private JButton editBotton = new JButton("修改品牌信息");
 
-    private JButton deleteBotton = new JButton("删除所选权限");
+    private JButton deleteBotton = new JButton("删除所选品牌");
 
-    public RankList() {
-        setTitle("权限列表");
+    public BrandList() {
+        setTitle("品牌列表");
         setSize(950,800);
         setLocationRelativeTo(null);
         setLayout(null);
 
 
-        searchRankID.setForeground(Color.gray);
-        searchRankName.setForeground(Color.gray);
-        searchRankInfo.setForeground(Color.gray);
+        searchBrandID.setForeground(Color.gray);
+        searchBrandName.setForeground(Color.gray);
+        searchBrandInfo.setForeground(Color.gray);
 
-        searchRankID.setBounds(50,30,150,30);
-        searchRankName.setBounds(220,30,150,30);
-        searchRankInfo.setBounds(390,30,150,30);
+        searchBrandID.setBounds(50,30,150,30);
+        searchBrandName.setBounds(220,30,150,30);
+        searchBrandInfo.setBounds(390,30,150,30);
         refreshSearchBotton.setBounds(720,30,80,30);
-        searchRankBotton.setBounds(820,30,80,30);
+        searchBrandBotton.setBounds(820,30,80,30);
         pane.setBounds(50,100,850,300);
 
-        rankIDLabel.setBounds(80,430,80,30);
-        rankIDField.setBounds(180,430,220,30);
-        rankNameLabel.setBounds(530,430,80,30);
-        rankNameField.setBounds(630,430,220,30);
-        rankInfoLabel.setBounds(80,490,80,30);
-        rankInfoArea.setBounds(180,490,670,100);
+        brandIDLabel.setBounds(80,430,80,30);
+        brandIDField.setBounds(180,430,220,30);
+        brandNameLabel.setBounds(530,430,80,30);
+        brandNameField.setBounds(630,430,220,30);
+        brandInfoLabel.setBounds(80,490,80,30);
+        brandInfoArea.setBounds(180,490,670,100);
         clearBotton.setBounds(80,640,80,30);
         resetBotton.setBounds(180,640,80,30);
-        addRankBotton.setBounds(450,640,120,30);
+        addBrandBotton.setBounds(450,640,120,30);
         editBotton.setBounds(590,640,120,30);
         deleteBotton.setBounds(730,640,120,30);
-
-        add(searchRankID);
-        add(searchRankName);
-        add(searchRankInfo);
-        add(refreshSearchBotton);
-        add(searchRankBotton);
-        add(pane);
-        add(rankIDLabel);
-        add(rankIDField);
-        add(rankNameLabel);
-        add(rankNameField);
-        add(rankInfoLabel);
-        add(rankInfoArea);
-        add(clearBotton);
-        add(resetBotton);
-        add(addRankBotton);
-        add(editBotton);
-        add(deleteBotton);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -106,63 +86,63 @@ public class RankList extends JDialog {
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        searchRankID.addFocusListener(new FocusListener() {
+        searchBrandID.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankID.getText().equals("编号关键字") == true) {
-                    searchRankID.setText("");
+                if (searchBrandID.getText().equals("编号关键字") == true) {
+                    searchBrandID.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankID.getText();
+                String temp = searchBrandID.getText();
                 if (temp.equals("")) {
-                    searchRankID.setText("编号关键字");
-                    searchRankID.setForeground(Color.gray);
+                    searchBrandID.setText("编号关键字");
+                    searchBrandID.setForeground(Color.gray);
                 }
             }
         });
 
-        searchRankName.addFocusListener(new FocusListener() {
+        searchBrandName.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankName.getText().equals("名称关键字") == true) {
-                    searchRankName.setText("");
+                if (searchBrandName.getText().equals("名称关键字") == true) {
+                    searchBrandName.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankName.getText();
+                String temp = searchBrandName.getText();
                 if (temp.equals("")) {
-                    searchRankName.setText("名称关键字");
-                    searchRankName.setForeground(Color.gray);
+                    searchBrandName.setText("名称关键字");
+                    searchBrandName.setForeground(Color.gray);
                 }
             }
         });
 
-        searchRankInfo.addFocusListener(new FocusListener() {
+        searchBrandInfo.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchRankInfo.getText().equals("介绍关键字") == true) {
-                    searchRankInfo.setText("");
+                if (searchBrandInfo.getText().equals("介绍关键字") == true) {
+                    searchBrandInfo.setText("");
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                String temp = searchRankInfo.getText();
+                String temp = searchBrandInfo.getText();
                 if (temp.equals("")) {
-                    searchRankInfo.setText("介绍关键字");
-                    searchRankInfo.setForeground(Color.gray);
+                    searchBrandInfo.setText("介绍关键字");
+                    searchBrandInfo.setForeground(Color.gray);
                 }
             }
         });
 
         Connection connection = DButil.getConnection();
 
-        String sql = "select * from rank where rank_recycle_bin = 0";
+        String sql = "select * from brand where brand_recycle_bin = 0";
 
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -194,33 +174,51 @@ public class RankList extends JDialog {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-        rankIDField.setEditable(false);
+        brandIDField.setEditable(false);
 
-        searchRankBotton.addActionListener(new ActionListener() {
+        add(searchBrandID);
+        add(searchBrandName);
+        add(searchBrandInfo);
+        add(refreshSearchBotton);
+        add(searchBrandBotton);
+        add(pane);
+        add(brandIDLabel);
+        add(brandIDField);
+        add(brandNameLabel);
+        add(brandNameField);
+        add(brandInfoLabel);
+        add(brandInfoArea);
+        add(clearBotton);
+        add(resetBotton);
+        add(addBrandBotton);
+        add(editBotton);
+        add(deleteBotton);
+
+        searchBrandBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String rankID = searchRankID.getText();
-                String rankName = searchRankName.getText();
-                String rankInfo = searchRankInfo.getText();
+                String brandID = searchBrandID.getText();
+                String brandName = searchBrandName.getText();
+                String brandInfo = searchBrandInfo.getText();
 
                 Connection connection1 = DButil.getConnection();
-                StringBuffer stringBuffer = new StringBuffer("select * from rank where rank_recycle_bin = 0 ");
+                StringBuffer stringBuffer = new StringBuffer("select * from brand where brand_recycle_bin = 0 ");
 
                 List list = new ArrayList();
 
-                if (rankID.trim().length() > 0 && rankID.equals("编号关键字") == false) {
-                    stringBuffer.append("and rank_id like ? ");
-                    list.add("%" + rankID + "%");
+                if (brandID.trim().length() > 0 && brandID.equals("编号关键字") == false) {
+                    stringBuffer.append("and brand_id like ? ");
+                    list.add("%" + brandID + "%");
                 }
 
-                if (rankName.trim().length() > 0 && rankName.equals("名称关键字") == false) {
-                    stringBuffer.append("and rank_name like ? ");
-                    list.add("%" + rankName + "%");
+                if (brandName.trim().length() > 0 && brandName.equals("名称关键字") == false) {
+                    stringBuffer.append("and brand_name like ? ");
+                    list.add("%" + brandName + "%");
                 }
 
-                if (rankInfo.trim().length() > 0 && rankInfo.equals("介绍关键字") == false) {
-                    stringBuffer.append("and rank_info like ? ");
-                    list.add("%" + rankInfo + "%");
+                if (brandInfo.trim().length() > 0 && brandInfo.equals("介绍关键字") == false) {
+                    stringBuffer.append("and brand_info like ? ");
+                    list.add("%" + brandInfo + "%");
                 }
 
                 try {
@@ -257,12 +255,12 @@ public class RankList extends JDialog {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int row = table.getSelectedRow();
-                String rankID = (String) table.getValueAt(row, 0);
-                String rankName = (String) table.getValueAt(row, 1);
-                String rankInfo = (String) table.getValueAt(row, 2);
-                rankIDField.setText(rankID);
-                rankNameField.setText(rankName);
-                rankInfoArea.setText(rankInfo);
+                String brandID = (String) table.getValueAt(row, 0);
+                String brandName = (String) table.getValueAt(row, 1);
+                String brandInfo = (String) table.getValueAt(row, 2);
+                brandIDField.setText(brandID);
+                brandNameField.setText(brandName);
+                brandInfoArea.setText(brandInfo);
 
             }
         });
@@ -270,35 +268,34 @@ public class RankList extends JDialog {
         clearBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rankNameField.setText("");
-                rankInfoArea.setText("");
+                brandNameField.setText("");
+                brandInfoArea.setText("");
             }
         });
 
         resetBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rankNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
-                rankInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
+                brandNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
+                brandInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
             }
         });
 
-        addRankBotton.addActionListener(new ActionListener() {
+        addBrandBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新权限（权限编号自动加1）？",JOptionPane.YES_NO_OPTION);
+                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新品牌？",JOptionPane.YES_NO_OPTION);
                 if (m == 0) {
-                    String rankName = rankNameField.getText();
-                    String rankInfo = rankInfoArea.getText();
+                    String brandName = brandNameField.getText();
+                    String brandInfo = brandInfoArea.getText();
 
                     Connection connection = DButil.getConnection();
-                    String sql = "insert into rank(rank_name, rank_info, rank_recycle_bin) values(?, ?, ?)";
-                    String sql1 = "select * from rank where rank_recycle_bin = 0";
+                    String sql = "insert into brand(brand_name, brand_info, brand_recycle_bin) values(?, ?, ?)";
+                    String sql1 = "select * from brand where brand_recycle_bin = 0";
                     try {
                         PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, rankName);
-                        ps.setObject(2, rankInfo);
+                        ps.setObject(1, brandName);
+                        ps.setObject(2, brandInfo);
                         ps.setObject(3, 0);
 
                         int n = ps.executeUpdate();
@@ -335,28 +332,28 @@ public class RankList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的权限！");
+                    JOptionPane.showMessageDialog(null, "请先选中要修改的品牌！");
                 } else {
-                    int m = JOptionPane.showConfirmDialog(null, "确认","确认修改权限信息？",JOptionPane.YES_NO_OPTION);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","确认修改品牌信息？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
-                        String rankID = rankIDField.getText();
-                        String rankName = rankNameField.getText();
-                        String rankInfo = rankInfoArea.getText();
+                        String brandID = brandIDField.getText();
+                        String brandName = brandNameField.getText();
+                        String brandInfo = brandInfoArea.getText();
 
                         Connection connection1 = DButil.getConnection();
-                        String sql = "update rank set rank_name = ?, rank_info = ? where rank_id = ?";
+                        String sql = "update brand set brand_name = ?, brand_info = ? where brand_id = ?";
 
                         try {
                             PreparedStatement ps = connection1.prepareStatement(sql);
-                            ps.setObject(1, rankName);
-                            ps.setObject(2, rankInfo);
-                            ps.setObject(3,rankID);
+                            ps.setObject(1, brandName);
+                            ps.setObject(2, brandInfo);
+                            ps.setObject(3,brandID);
                             int n = ps.executeUpdate();
 
                             if (n > 0) {
-                                JOptionPane.showMessageDialog(null, "权限修改成功！");
-                                ((DefaultTableModel)table.getModel()).setValueAt(rankName, row,1);
-                                ((DefaultTableModel)table.getModel()).setValueAt(rankInfo, row,2);
+                                JOptionPane.showMessageDialog(null, "品牌修改成功！");
+                                ((DefaultTableModel)table.getModel()).setValueAt(brandName, row,1);
+                                ((DefaultTableModel)table.getModel()).setValueAt(brandInfo, row,2);
                             }
                         } catch (Exception e1) {
                             e1.printStackTrace();
@@ -364,7 +361,7 @@ public class RankList extends JDialog {
                             DButil.releaseConnection(connection1);
                         }
                     }
-
+                    
                 }
             }
         });
@@ -374,25 +371,25 @@ public class RankList extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showMessageDialog(null, "请先选中要删除的权限！");
+                    JOptionPane.showMessageDialog(null, "请先选中要删除的品牌！");
                 } else {
                     int m = JOptionPane.showConfirmDialog(null, "确认","确认移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
-                        String rankID = rankIDField.getText();
+                        String brandID = brandIDField.getText();
 
                         Connection connection1 = DButil.getConnection();
-                        String sql = "update rank set rank_recycle_bin = 1 where rank_id = ?";
+                        String sql = "update brand set brand_recycle_bin = 1 where brand_id = ?";
 
                         try {
                             PreparedStatement ps = connection1.prepareStatement(sql);
-                            ps.setObject(1, rankID);
+                            ps.setObject(1, brandID);
                             int n = ps.executeUpdate();
                             if (n > 0) {
                                 JOptionPane.showMessageDialog(null, "删除成功！");
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
-                                rankIDField.setText("");
-                                rankNameField.setText("");
-                                rankInfoArea.setText("");
+                                brandIDField.setText("");
+                                brandNameField.setText("");
+                                brandInfoArea.setText("");
                             } else {
                                 JOptionPane.showMessageDialog(null, "删除失败！");
                             }
@@ -410,6 +407,6 @@ public class RankList extends JDialog {
     }
 
     public static void main(String[] args) {
-        new RankList();
+        new BrandList();
     }
 }
