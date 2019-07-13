@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="beautyeye_lnf">
+  <library name="lib">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/lib/beautyeye_lnf.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/lib/mysql-connector-java-5.1.47.jar!/" />
