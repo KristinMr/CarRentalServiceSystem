@@ -7,18 +7,6 @@
       <change afterPath="$PROJECT_DIR$/out/production/CarRentalServiceSystem/lib/mysql-connector-java-5.1.47.jar" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/CarRentalServiceSystem/source/main.jpg" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/CarRentalServiceSystem/util/db.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GridBag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/MyLayout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/Index.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/Mai.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/rank/RS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Ma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Ma.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/car/CarList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/car/CarList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/rank/RankList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/rank/RankList.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,7 +40,7 @@
             <entry file="file://$PROJECT_DIR$/src/view/Ma.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="596">
-                  <caret line="108" column="9" lean-forward="true" selection-start-line="100" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
+                  <caret line="108" column="9" selection-start-line="100" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -63,8 +51,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/view/Mai.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1638">
-                  <caret line="78" column="41" lean-forward="true" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
+                <state relative-caret-position="1794">
+                  <caret line="78" column="41" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -100,8 +88,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/GridBag.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="352">
-                  <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+                <state relative-caret-position="248">
+                  <caret line="83" column="21" selection-start-line="83" selection-start-column="21" selection-end-line="83" selection-end-column="21" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -132,7 +120,7 @@
             <entry file="file://$PROJECT_DIR$/src/view/rank/RS.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-364">
-                  <caret line="22" column="64" lean-forward="true" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
+                  <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#977#1111#0" expanded="true" />
@@ -431,7 +419,7 @@
       <workItem from="1562889985819" duration="12686000" />
       <workItem from="1562976524183" duration="21903000" />
       <workItem from="1563149224646" duration="11990000" />
-      <workItem from="1563170772364" duration="11622000" />
+      <workItem from="1563170772364" duration="12004000" />
     </task>
     <task id="LOCAL-00001" summary="租车">
       <created>1562693251367</created>
@@ -538,11 +526,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563009859691</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="租车">
+      <created>1563182780207</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1563182780207</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147745000" />
+    <option name="totallyTimeSpent" value="148127000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -555,7 +550,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17697228" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -574,8 +568,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49671772" weight="0.18343815" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4989339" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="10" sideWeight="0.5051924" side_tool="true" visible="true" weight="0.31152648" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" weight="0.18172377" />
+      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.5051924" side_tool="true" weight="0.31152648" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="11" sideWeight="0.5026652" side_tool="true" visible="true" weight="0.18172377" />
       <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49480757" weight="0.30994153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1092,7 +1086,7 @@
     <entry file="file://$PROJECT_DIR$/src/view/rank/RS.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-364">
-          <caret line="22" column="64" lean-forward="true" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
+          <caret line="22" column="64" selection-start-line="22" selection-start-column="64" selection-end-line="22" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#977#1111#0" expanded="true" />
@@ -1109,7 +1103,7 @@
     <entry file="file://$PROJECT_DIR$/src/view/Ma.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="596">
-          <caret line="108" column="9" lean-forward="true" selection-start-line="100" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
+          <caret line="108" column="9" selection-start-line="100" selection-start-column="8" selection-end-line="108" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1118,8 +1112,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Mai.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1638">
-          <caret line="78" column="41" lean-forward="true" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
+        <state relative-caret-position="1794">
+          <caret line="78" column="41" selection-start-line="78" selection-start-column="41" selection-end-line="78" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1145,8 +1139,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GridBag.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+        <state relative-caret-position="248">
+          <caret line="83" column="21" selection-start-line="83" selection-start-column="21" selection-end-line="83" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
