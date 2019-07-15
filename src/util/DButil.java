@@ -37,7 +37,7 @@ public class DButil {
     static {
         try {
 
-            InputStream inputStream = new FileInputStream(new File("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\util\\db.properties"));
+            InputStream inputStream = new FileInputStream(new File("/Users/cappuyang/IdeaProjects/CarRentalServiceSystem/src/util/db.properties"));
             Reader reader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(reader);
             String s = bufferedReader.readLine();

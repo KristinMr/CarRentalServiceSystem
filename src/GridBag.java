@@ -9,8 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GridBag extends JFrame {
+        JPanel jPanel = new JPanel();
+
     private JPanel menuBar = new JPanel();
     private JButton index = new JButton("首页");
+    private JLabel jLabel = new JLabel();
     private JButton loginButton = new JButton("登录");
 
     private JPanel carList = new CarList();
@@ -26,6 +29,15 @@ public class GridBag extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
 
+
+        ImageIcon imageIcon = new ImageIcon("/Users/cappuyang/IdeaProjects/CarRentalServiceSystem/src/source/main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
+
+        add(bgLabel);
         index.setSize(100,30);
 
         menuBar.setLayout(new GridBagLayout());
@@ -36,10 +48,10 @@ public class GridBag extends JFrame {
 
 
         index.setBackground(Color.white);
-        menuBar.add(index, MyLayout.setValues(0,0,1,1,1,0.1));
+        menuBar.add(index, MyLayout.setValues(0,0,1,1,0.1,1));
+        menuBar.add(jLabel, MyLayout.setValues(1,0,1,1,0.8,1));
 
-
-        menuBar.add(loginButton, MyLayout.setValues(1,0,1,1,1,0.1));
+        menuBar.add(loginButton, MyLayout.setValues(2,0,1,1,0.1,1));
 
 //        gridBagConstraints.gridx = 0;
 //        gridBagConstraints.gridy = 0;
@@ -96,8 +108,8 @@ public class GridBag extends JFrame {
         try {
 //            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.osLookAndFeelDecorated;
             UIManager.put("RootPane.setupButtonVisible", false);
-            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
+//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
             org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
         } catch (Exception e) {
 

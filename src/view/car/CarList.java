@@ -38,7 +38,7 @@ public class CarList extends JPanel {
 
     public CarList() {
 //        setTitle("车辆列表");
-        setSize(1500,1000);
+        setSize(1400,800);
 //        setLocationRelativeTo(null);
         setLayout(null);
 
@@ -52,10 +52,10 @@ public class CarList extends JPanel {
         refreshSearchButton.setBounds(720,30,80,30);
         searchCarButton.setBounds(820,30,80,30);
 
-        editButton.setBounds(1100,30,150,40);
-        deleteButton.setBounds(1300,30,150,40);
+        editButton.setBounds(1000,30,150,40);
+        deleteButton.setBounds(1200,30,150,40);
 
-        jScrollPane.setBounds(15,100,1460,800);
+        jScrollPane.setBounds(15,100,1360,600);
 
 
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");

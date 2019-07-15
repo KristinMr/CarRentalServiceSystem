@@ -37,12 +37,12 @@ public class Mai extends JFrame {
 //        jPanel.setSize(this.getSize());
 //        jPanel.setLayout(new FlowLayout());
 
-//        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-//        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
+        ImageIcon imageIcon = new ImageIcon("/Users/cappuyang/IdeaProjects/CarRentalServiceSystem/src/source/main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
         menuBar.setBounds(10, 10, this.getWidth()-100, 50);
         addCarItem.setBackground(Color.green);
 
@@ -65,9 +65,9 @@ public class Mai extends JFrame {
         add(jPanel1, BorderLayout.CENTER);
         jPanel1.setVisible(true);
         add(jPanel2, BorderLayout.CENTER);
-//        jPanel2.add(bgLabel);
+        jPanel2.add(bgLabel);
         jPanel2.setVisible(false);
-//        add(bgLabel);
+        add(bgLabel);
 //        add(jPanel);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

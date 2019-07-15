@@ -1,6 +1,5 @@
 package view;
 
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import view.car.AddCar;
 import view.car.CarList;
 
@@ -23,36 +22,12 @@ public class Ma extends JFrame {
     private JMenuItem userInfoItem = new JMenuItem("个人信息");
 
     public Ma() {
-
-
-//        JPanel panel = new JPanel() {
-//
-//            public void paintComponent(Graphics g) {
-//
-//                ImageIcon icon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-//
-//                // 图片随窗体大小而变化
-//
-//                g.drawImage(icon.getImage(), 0, 0, this.getSize().width, this.getSize().height,this);
-//            }
-//        };
-
-//        panel.setOpaque(false); //设置透明。
-
         setTitle("欢迎使用车辆租赁系统");
         setSize(1200,900);
         setLocationRelativeTo(null);
         setLayout(null);
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-        this.getContentPane().add(new JLabel());
-        ((JPanel)getContentPane()).setOpaque(false);
-        menuBar.setBounds(10,10,1180,30);
-
-        carMenu.setBounds(200,0,80,50);
+        menuBar.setBounds(10,10,1180,50);
         addCarItem.setBackground(Color.green);
 
         carMenu.add(addCarItem);
@@ -63,10 +38,7 @@ public class Ma extends JFrame {
         menuBar.add(carMenu);
         menuBar.add(userMenu);
 
-
-//        add(panel);
         add(menuBar);
-        add(bgLabel);
 
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
@@ -95,18 +67,5 @@ public class Ma extends JFrame {
         });
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        try {
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.osLookAndFeelDecorated;
-            UIManager.put("RootPane.setupButtonVisible", false);
-            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        } catch (Exception e) {
-
-        }
-        new Ma();
     }
 }

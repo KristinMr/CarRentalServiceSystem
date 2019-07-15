@@ -1,7 +1,6 @@
 <component name="libraryTable">
-  <library name="lib">
+  <library name="mysql-connector-java-5.1.47">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/lib/beautyeye_lnf.jar!/" />
       <root url="jar://$PROJECT_DIR$/src/lib/mysql-connector-java-5.1.47.jar!/" />
     </CLASSES>
     <JAVADOC />
