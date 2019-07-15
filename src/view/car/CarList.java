@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class CarList extends JFrame {
+public class CarList extends JPanel {
 
     private JTextField searchCarID = new JTextField("编号关键字");
     private JTextField searchCarName = new JTextField("名称关键字");
@@ -37,9 +37,9 @@ public class CarList extends JFrame {
 
 
     public CarList() {
-        setTitle("车辆列表");
+//        setTitle("车辆列表");
         setSize(1500,1000);
-        setLocationRelativeTo(null);
+//        setLocationRelativeTo(null);
         setLayout(null);
 
         searchCarID.setForeground(Color.gray);
@@ -56,7 +56,14 @@ public class CarList extends JFrame {
         deleteButton.setBounds(1300,30,150,40);
 
         jScrollPane.setBounds(15,100,1460,800);
-        
+
+
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+//        this.getContentPane().add(new JLabel());
+//        ((JPanel) getContentPane()).setOpaque(false);
         
         add(searchCarID);
         add(searchCarName);
@@ -66,6 +73,7 @@ public class CarList extends JFrame {
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
+        add(bgLabel);
 
         Vector<String> carTHVector = new Vector<String>();
         carTHVector.add("编号");
@@ -168,14 +176,14 @@ public class CarList extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        try {
-            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        } catch (Exception e) {
-
-        }
-        new CarList();
-    }
+//    public static void main(String[] args) {
+//        try {
+//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
+////            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        } catch (Exception e) {
+//
+//        }
+//        new CarList();
+//    }
 }

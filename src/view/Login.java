@@ -82,7 +82,7 @@ public class Login extends JFrame {
 
                     if (rs.next()) {
                         Login.this.dispose();
-                        new Main();
+                        new Mai();
                     } else {
                         JOptionPane.showMessageDialog(null, "登录失败");
                     }

@@ -50,7 +50,9 @@ public class Ma extends JFrame {
         bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
         this.getContentPane().add(new JLabel());
         ((JPanel)getContentPane()).setOpaque(false);
-        menuBar.setBounds(10,10,1180,50);
+        menuBar.setBounds(10,10,1180,30);
+
+        carMenu.setBounds(200,0,80,50);
         addCarItem.setBackground(Color.green);
 
         carMenu.add(addCarItem);
