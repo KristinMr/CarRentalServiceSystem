@@ -34,8 +34,8 @@ public class AddCar extends JDialog {
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
 
-    private JButton resetBotton = new JButton("重置");
-    private JButton addBotton = new JButton("添加");
+    private JButton resetButton = new JButton("重置");
+    private JButton addButton = new JButton("添加");
 
     public AddCar() {
         setTitle("新增车辆");
@@ -67,8 +67,8 @@ public class AddCar extends JDialog {
         carInfoLabel.setBounds(250,340,100,30);
         carInfoArea.setBounds(80,380,420,200);
 
-        resetBotton.setBounds(260,600,80,40);
-        addBotton.setBounds(400,600,80,40);
+        resetButton.setBounds(260,600,80,40);
+        addButton.setBounds(400,600,80,40);
 
 
         carColorField.setEditable(false);
@@ -90,8 +90,8 @@ public class AddCar extends JDialog {
         add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
-        add(resetBotton);
-        add(addBotton);
+        add(resetButton);
+        add(addButton);
 
         Connection connection = DButil.getConnection();
         String sql = "select * from brand where brand_recycle_bin = 0";
@@ -127,6 +127,7 @@ public class AddCar extends JDialog {
                 int brandID = rs1.getInt(1);
                 ps2.setObject(1, brandID);
                 ResultSet rs2 = ps2.executeQuery();
+                int i = 0;
                 while (rs2.next()) {
                     Model carModel = new Model();
                     carModel.setModelID(rs2.getInt(1));
@@ -134,6 +135,12 @@ public class AddCar extends JDialog {
                     carModel.setModelColor(rs2.getString(4));
                     carModel.setModelRent(rs2.getString(5));
                     carModelBox.addItem(carModel);
+
+                    if (i == 0) {
+                        carColorField.setText(rs2.getString(4));
+                        carRentField.setText(rs2.getString(5));
+                        i++;
+                    }
                 }
             }
 
@@ -166,7 +173,7 @@ public class AddCar extends JDialog {
         } finally {
             DButil.releaseConnection(connection);
         }
-        resetBotton.addActionListener(new ActionListener() {
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -188,7 +195,6 @@ public class AddCar extends JDialog {
                     PreparedStatement ps = connection1.prepareStatement(sql3);
                     ps.setObject(1,carBrandID);
                     ResultSet rs = ps.executeQuery();
-
                     while (rs.next()){
                         Model carModel = new Model();
                         carModel.setModelID(rs.getInt(1));
@@ -201,6 +207,19 @@ public class AddCar extends JDialog {
                     e1.printStackTrace();
                 } finally {
                     DButil.releaseConnection(connection1);
+                }
+            }
+        });
+
+        carModelBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Model carModel = (Model) carModelBox.getSelectedItem();
+
+                if (carModel != null) {
+                    carColorField.setText(carModel.getModelColor());
+                    carRentField.setText(carModel.getModelRent());
                 }
             }
         });
@@ -235,7 +254,7 @@ public class AddCar extends JDialog {
             }
         });
 
-        addBotton.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -252,27 +271,31 @@ public class AddCar extends JDialog {
 
                 String carInfo = carInfoArea.getText();
 
-                Connection connection3 = DButil.getConnection();
-                String sql5 = "insert into car (car_model, car_state, car_city, car_info) values(?, ?, ?, ?)";
-                try{
-                    PreparedStatement ps = connection3.prepareStatement(sql5);
-                    ps.setObject(1,carModelID);
-                    ps.setObject(2,carStateID);
-                    ps.setObject(3,carCityID);
-                    ps.setObject(4,carInfo);
+                int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
+                if (m == 0) {
+                    Connection connection3 = DButil.getConnection();
+                    String sql5 = "insert into car (car_model, car_state, car_city, car_info, car_recycle_bin) values(?, ?, ?, ?, 0)";
+                    try{
+                        PreparedStatement ps = connection3.prepareStatement(sql5);
+                        ps.setObject(1,carModelID);
+                        ps.setObject(2,carStateID);
+                        ps.setObject(3,carCityID);
+                        ps.setObject(4,carInfo);
 
-                    int n = ps.executeUpdate();
+                        int n = ps.executeUpdate();
 
-                    if (n>0) {
-                        JOptionPane.showMessageDialog(null, "添加成功！");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "添加失败！");
+                        if (n>0) {
+                            JOptionPane.showMessageDialog(null, "添加成功！");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "添加失败！");
+                        }
+                    } catch (Exception e3) {
+                        e3.printStackTrace();
+                    } finally {
+                        DButil.releaseConnection(connection3);
                     }
-                } catch (Exception e3) {
-                    e3.printStackTrace();
-                } finally {
-                    DButil.releaseConnection(connection3);
                 }
+
             }
         });
 

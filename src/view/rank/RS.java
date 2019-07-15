@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class RankList extends JPanel {
+public class RS extends JPanel {
 
     private JTextField searchRankID = new JTextField("编号关键字");
     private JTextField searchRankName = new JTextField("名称关键字");
@@ -51,7 +51,7 @@ public class RankList extends JPanel {
 
     private JButton deleteButton = new JButton("删除所选权限");
 
-    public RankList() {
+    public RS() {
 //        setTitle("权限列表");
         setSize(950,800);
 //        setLocationRelativeTo(null);
