@@ -166,9 +166,9 @@ public class StateList extends JPanel {
 
         table.getTableHeader().setReorderingAllowed(false);
 
-        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(100);
-        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(200);
-        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(400);
+        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(130);
+        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(400);
+        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(700);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);

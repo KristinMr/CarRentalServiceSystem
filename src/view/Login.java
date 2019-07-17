@@ -1,8 +1,12 @@
 package view;
 
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import util.Admin;
 import util.DButil;
 
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -10,15 +14,16 @@ import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Enumeration;
 
 public class Login extends JFrame {
-    private JLabel usernameLabel = new JLabel("用户名：");
-    private JTextField usernameField = new JTextField("admin");
+    private JLabel adminIDLabel = new JLabel("用户编号");
+    private JTextField adminIDField = new JTextField("1");
 
-    private JLabel passwordLabel = new JLabel("密码：");
+    private JLabel passwordLabel = new JLabel("密码");
     private JTextField passwordField = new JPasswordField("123456");
 
-    private JButton resetButton = new JButton("重置");
+    private JButton clearButton = new JButton("清空");
     private JButton loginButton = new JButton("登录");
 
     public Login() {
@@ -27,29 +32,30 @@ public class Login extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        usernameLabel.setBounds(40, 30, 60, 20);
-        usernameField.setBounds(150, 30, 100, 20);
 
-        passwordLabel.setBounds(40, 100, 60, 20);
-        passwordField.setBounds(150, 100, 100, 20);
+        adminIDLabel.setBounds(40, 30, 100, 30);
+        adminIDField.setBounds(150, 30, 200, 30);
 
-        resetButton.setBounds(40, 170, 60, 20);
-        loginButton.setBounds(190, 170, 60, 20);
+        passwordLabel.setBounds(40, 100, 100, 30);
+        passwordField.setBounds(150, 100, 200, 30);
 
-        add(usernameLabel);
-        add(usernameField);
+        clearButton.setBounds(100, 170, 60, 30);
+        loginButton.setBounds(250, 170, 60, 30);
+
+        add(adminIDLabel);
+        add(adminIDField);
         add(passwordLabel);
         add(passwordField);
-        add(resetButton);
+        add(clearButton);
         add(loginButton);
 
 
 
 
-        resetButton.addActionListener(new ActionListener() {
+        clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                usernameField.setText("");
+                adminIDField.setText("");
                 passwordField.setText("");
             }
         });
@@ -57,23 +63,35 @@ public class Login extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
+                String adminID = adminIDField.getText();
                 String password = passwordField.getText();
 
                 Connection connection = DButil.getConnection();
 
-                String sql = "select user_name, user_password from user where user_name=? and user_password=?";
+                String sql = "select * from admin where admin_id =? and admin_password=? and admin_recycle_bin = 0";
 
                 try {
                     PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setObject(1, username);
+                    ps.setObject(1, adminID);
                     ps.setObject(2, password);
 
                     ResultSet rs = ps.executeQuery();
 
                     if (rs.next()) {
                         Login.this.dispose();
-                        new Mai();
+                        Admin admin = new Admin();
+                        admin.setAdminID(rs.getString(1));
+                        admin.setAdminName(rs.getString(2));
+                        admin.setAdminPassword(rs.getString(3));
+                        admin.setAdminSex(rs.getString(4));
+                        admin.setAdminIDN(rs.getString(5));
+                        admin.setAdminAge(rs.getString(6));
+                        admin.setAdminTel(rs.getString(7));
+                        admin.setAdminEmail(rs.getString(8));
+                        admin.setAdminAddress(rs.getString(9));
+                        admin.setAdminInfo(rs.getString(10));
+                        admin.setAdminRank(rs.getString(11));
+                        new Main(admin);
                     } else {
                         JOptionPane.showMessageDialog(null, "登录失败");
                     }
@@ -87,7 +105,32 @@ public class Login extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * 统一设置字体，父界面设置之后，所有由父界面进入的子界面都不需要再次设置字体
+     */
+    private static void InitGlobalFont(Font font) {
+        FontUIResource fontRes = new FontUIResource(font);
+        for (Enumeration<Object> keys = UIManager.getDefaults().keys();
+             keys.hasMoreElements(); ) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get(key);
+            if (value instanceof FontUIResource) {
+                UIManager.put(key, fontRes);
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        try {
+//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.osLookAndFeelDecorated;
+            UIManager.put("RootPane.setupButtonVisible", false);
+            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
+//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
+            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+            InitGlobalFont(new Font("楷体", 1, 15));
+        } catch (Exception e) {
+
+        }
         new Login();
     }
 }

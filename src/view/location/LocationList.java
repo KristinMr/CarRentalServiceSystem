@@ -109,6 +109,10 @@ public class LocationList extends JPanel {
 
         table.getTableHeader().setReorderingAllowed(false);
 
+        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(110);
+        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(200);
+        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(200);
+        table.getTableHeader().getColumnModel().getColumn(3).setPreferredWidth(800);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);

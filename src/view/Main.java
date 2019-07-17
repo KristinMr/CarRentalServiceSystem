@@ -1,6 +1,7 @@
 package view;
 
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import util.Admin;
 import util.MyLayout;
 import view.car.AddCar;
 import view.car.CarList;
@@ -10,11 +11,13 @@ import view.location.LocationList;
 import view.order.AddOrder;
 import view.order.OrderList;
 import view.pubilc.Footer;
+import view.pubilc.UpdatePassword;
 import view.rank.AddRank;
 import view.rank.RankList;
 import view.state.AddState;
 import view.state.StateList;
 import view.user.AddUser;
+import view.user.UserInfo;
 import view.user.UserList;
 
 import javax.swing.*;
@@ -39,7 +42,6 @@ public class Main extends JFrame {
     private ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\Index.png");
     private JMenuItem index = new JMenuItem("租车管理系统");
     private JLabel dateTimeLabel = new JLabel();
-    private JLabel welcomeUserLabel = new JLabel();
 
     //    private JMenuBar userMenuBar = new JMenuBar();
     private JMenuItem welcomeUser = new JMenuItem();
@@ -48,6 +50,7 @@ public class Main extends JFrame {
     private JLabel jLabel1 = new JLabel("|");
     private JMenuItem signOut = new JMenuItem("退出");
 
+    private JPanel userInfoPanel = new JPanel();
 
 
 //        ------------------------侧边栏------------------------------------
@@ -133,7 +136,7 @@ public class Main extends JFrame {
     private JButton jButton2 = new JButton("car");
     private JButton loginButton = new JButton("登录");
 
-    public Main() {
+    public Main(Admin admin) {
         setSize(1600, 1000);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());
@@ -153,7 +156,7 @@ public class Main extends JFrame {
         footer.setLayout(null);
 //        indexButton.setBounds(0,0,100,40);
         menuBar.setBackground(Color.black);
-//        sidebar.setBackground(Color.PINK);
+        sidebar.setBackground(Color.gray);
 //        main.setBackground(Color.blue);
         footer.setBackground(Color.magenta);
 
@@ -182,7 +185,7 @@ public class Main extends JFrame {
 //        welcomeUser.setText("你好，" + userName);
 //        welcomeUserLabel.setBounds();
 
-        welcomeUser.setText("您好，Kristin");
+        welcomeUser.setText("您好，" + admin.getAdminName());
         welcomeUser.setBounds(1080,40,180,30);
         welcomeUser.setFont(new java.awt.Font("楷体",1,18));
         welcomeUser.setForeground(Color.white);
@@ -196,6 +199,8 @@ public class Main extends JFrame {
         signOut.setBounds(10 + jLabel1.getX(),40,80,30);
         signOut.setFont(new java.awt.Font("楷体",1,18));
         signOut.setForeground(Color.green);
+
+        userInfoPanel = new UserInfo(admin);
 
         menuBar.add(index);
         menuBar.add(dateTimeLabel);
@@ -211,6 +216,7 @@ public class Main extends JFrame {
         user.setBounds(10,10,150,40);
         user.setFont(new java.awt.Font("楷体",1,20));
 
+        userPanel.setBackground(Color.gray);
         userPanel.setBounds(20,50,140,60);
         addUser.setBounds(0 ,0,140,30);
         addUser.setFont(new java.awt.Font("楷体",2,18));
@@ -221,6 +227,7 @@ public class Main extends JFrame {
         order.setBounds(10,60,150,40);
         order.setFont(new java.awt.Font("楷体",1,20));
 
+        orderPanel.setBackground(Color.gray);
         orderPanel.setBounds(20,100,140,60);
         addOrder.setBounds(0 ,0,140,30);
         addOrder.setFont(new java.awt.Font("楷体",2,18));
@@ -231,6 +238,7 @@ public class Main extends JFrame {
         car.setBounds(10,110,150,40);
         car.setFont(new java.awt.Font("楷体",1,20));
 
+        carPanel.setBackground(Color.gray);
         carPanel.setBounds(20,150,140,60);
         addCar.setBounds(0 ,0,140,30);
         addCar.setFont(new java.awt.Font("楷体",2,18));
@@ -241,6 +249,7 @@ public class Main extends JFrame {
         carType.setBounds(10,160,150,40);
         carType.setFont(new java.awt.Font("楷体",1,20));
 
+        carTypePanel.setBackground(Color.gray);
         carTypePanel.setBounds(20,200,140,60);
         addCarType.setBounds(0 ,0,140,30);
         addCarType.setFont(new java.awt.Font("楷体",2,18));
@@ -252,6 +261,7 @@ public class Main extends JFrame {
         location.setBounds(10,210,150,40);
         location.setFont(new java.awt.Font("楷体",1,20));
 
+        locationPanel.setBackground(Color.gray);
         locationPanel.setBounds(20,250,140,60);
         addLocation.setBounds(0 ,0,140,30);
         addLocation.setFont(new java.awt.Font("楷体",2,18));
@@ -263,6 +273,7 @@ public class Main extends JFrame {
         state.setBounds(10,260,150,40);
         state.setFont(new java.awt.Font("楷体",1,20));
 
+        statePanel.setBackground(Color.gray);
         statePanel.setBounds(20,300,140,60);
         addState.setBounds(0 ,0,140,30);
         addState.setFont(new java.awt.Font("楷体",2,18));
@@ -274,6 +285,7 @@ public class Main extends JFrame {
         rank.setBounds(10,310,150,40);
         rank.setFont(new java.awt.Font("楷体",1,20));
 
+        rankPanel.setBackground(Color.gray);
         rankPanel.setBounds(20,350,140,60);
         addRank.setBounds(0 ,0,140,30);
         addRank.setFont(new java.awt.Font("楷体",2,18));
@@ -357,6 +369,7 @@ public class Main extends JFrame {
 
         mainPanel.add(bgLabel);
         main.add(mainPanel);
+//        main.add(userInfoPanel);
 
         addUserPanel.setVisible(false);
         userListPanel.setVisible(false);
@@ -453,7 +466,38 @@ public class Main extends JFrame {
         welcomeUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Login();
+
+                mainPanel.setVisible(false);
+
+                addUserPanel.setVisible(false);
+                userListPanel.setVisible(false);
+
+                addOrderPanel.setVisible(false);
+                orderListPanel.setVisible(false);
+
+                addCarPanel.setVisible(false);
+                carListPanel.setVisible(false);
+
+                addCarTypePanel.setVisible(false);
+                carTypeListPanel.setVisible(false);
+
+                addLocationPanel.setVisible(false);
+                locationListPanel.setVisible(false);
+
+                addStatePanel.setVisible(false);
+                stateListPanel.setVisible(false);
+
+                addRankPanel.setVisible(false);
+                rankListPanel.setVisible(false);
+
+                userInfoPanel.setVisible(true);
+            }
+        });
+
+        updatePassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UpdatePassword(admin);
             }
         });
 
@@ -1034,6 +1078,6 @@ public class Main extends JFrame {
 
         }
 
-        new Main();
+        new Main(new Admin());
     }
 }

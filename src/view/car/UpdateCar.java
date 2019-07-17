@@ -41,7 +41,7 @@ public class UpdateCar extends JDialog {
     public UpdateCar(String carID) {
 
         setTitle("更新车辆");
-        setSize(600, 700);
+        setSize(600, 800);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
