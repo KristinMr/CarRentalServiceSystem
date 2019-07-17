@@ -1,4 +1,7 @@
 package view.user;
 
-public class UserInfo {
+import javax.swing.*;
+
+public class UserInfo extends JPanel {
+//    private
 }

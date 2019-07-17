@@ -45,7 +45,7 @@ public class RankList extends JPanel {
     private JButton clearButton = new JButton("清空");
     private JButton resetButton = new JButton("重置");
 
-    private JButton addRankButton = new JButton("新增权限");
+//    private JButton addRankButton = new JButton("新增权限");
 
     private JButton editButton = new JButton("修改权限信息");
 
@@ -53,7 +53,7 @@ public class RankList extends JPanel {
 
     public RankList() {
 //        setTitle("权限列表");
-        setSize(950,800);
+        setSize(1350,800);
 //        setLocationRelativeTo(null);
         setLayout(null);
 
@@ -62,24 +62,24 @@ public class RankList extends JPanel {
         searchRankName.setForeground(Color.gray);
         searchRankInfo.setForeground(Color.gray);
 
-        searchRankID.setBounds(50,30,150,30);
-        searchRankName.setBounds(220,30,150,30);
-        searchRankInfo.setBounds(390,30,150,30);
-        refreshSearchButton.setBounds(720,30,80,30);
-        searchRankButton.setBounds(820,30,80,30);
-        pane.setBounds(50,100,850,300);
+        searchRankID.setBounds(80,40,150,30);
+        searchRankName.setBounds(250,40,200,30);
+        searchRankInfo.setBounds(470,40,300,30);
+        refreshSearchButton.setBounds(1130,40,80,30);
+        searchRankButton.setBounds(1230,40,80,30);
+        pane.setBounds(80,100,1230,400);
 
-        rankIDLabel.setBounds(80,430,80,30);
-        rankIDField.setBounds(180,430,220,30);
-        rankNameLabel.setBounds(530,430,80,30);
-        rankNameField.setBounds(630,430,220,30);
-        rankInfoLabel.setBounds(80,490,80,30);
-        rankInfoArea.setBounds(180,490,670,100);
-        clearButton.setBounds(80,640,80,30);
-        resetButton.setBounds(180,640,80,30);
-        addRankButton.setBounds(450,640,120,30);
-        editButton.setBounds(590,640,120,30);
-        deleteButton.setBounds(730,640,120,30);
+        rankIDLabel.setBounds(80,550,80,30);
+        rankIDField.setBounds(180,550,480,30);
+        rankNameLabel.setBounds(730,550,80,30);
+        rankNameField.setBounds(830,550,480,30);
+        rankInfoLabel.setBounds(80,610,80,30);
+        rankInfoArea.setBounds(180,610,1130,100);
+        clearButton.setBounds(80,760,80,30);
+        resetButton.setBounds(180,760,80,30);
+//        addRankButton.setBounds(965,640,120,30);
+        editButton.setBounds(1005,760,120,30);
+        deleteButton.setBounds(1145,760,120,30);
 
         add(searchRankID);
         add(searchRankName);
@@ -95,7 +95,7 @@ public class RankList extends JPanel {
         add(rankInfoArea);
         add(clearButton);
         add(resetButton);
-        add(addRankButton);
+//        add(addRankButton);
         add(editButton);
         add(deleteButton);
 
@@ -284,52 +284,52 @@ public class RankList extends JPanel {
             }
         });
 
-        addRankButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新权限（权限编号自动加1）？",JOptionPane.YES_NO_OPTION);
-                if (m == 0) {
-                    String rankName = rankNameField.getText();
-                    String rankInfo = rankInfoArea.getText();
-
-                    Connection connection = DButil.getConnection();
-                    String sql = "insert into rank(rank_name, rank_info, rank_recycle_bin) values(?, ?, ?)";
-                    String sql1 = "select * from rank where rank_recycle_bin = 0";
-                    try {
-                        PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, rankName);
-                        ps.setObject(2, rankInfo);
-                        ps.setObject(3, 0);
-
-                        int n = ps.executeUpdate();
-
-                        if (n>0) {
-                            JOptionPane.showMessageDialog(null, "新增成功！");
-
-                            PreparedStatement ps1 = connection.prepareStatement(sql1);
-                            ResultSet rs = ps.executeQuery();
-                            defaultTableModel.getDataVector().clear();
-                            defaultTableModel.fireTableDataChanged();
-                            while (rs.next()){
-                                Vector<String> vector = new Vector<String>();
-                                vector.add(rs.getString(1));
-                                vector.add(rs.getString(2));
-                                vector.add(rs.getString(3));
-                                dataVector.add(vector);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "新增失败！");
-                        }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection);
-                    }
-                }
-
-            }
-        });
+//        addRankButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新权限（权限编号自动加1）？",JOptionPane.YES_NO_OPTION);
+//                if (m == 0) {
+//                    String rankName = rankNameField.getText();
+//                    String rankInfo = rankInfoArea.getText();
+//
+//                    Connection connection = DButil.getConnection();
+//                    String sql = "insert into rank(rank_name, rank_info, rank_recycle_bin) values(?, ?, ?)";
+//                    String sql1 = "select * from rank where rank_recycle_bin = 0";
+//                    try {
+//                        PreparedStatement ps = connection.prepareStatement(sql);
+//                        ps.setObject(1, rankName);
+//                        ps.setObject(2, rankInfo);
+//                        ps.setObject(3, 0);
+//
+//                        int n = ps.executeUpdate();
+//
+//                        if (n>0) {
+//                            JOptionPane.showMessageDialog(null, "新增成功！");
+//
+//                            PreparedStatement ps1 = connection.prepareStatement(sql1);
+//                            ResultSet rs = ps.executeQuery();
+//                            defaultTableModel.getDataVector().clear();
+//                            defaultTableModel.fireTableDataChanged();
+//                            while (rs.next()){
+//                                Vector<String> vector = new Vector<String>();
+//                                vector.add(rs.getString(1));
+//                                vector.add(rs.getString(2));
+//                                vector.add(rs.getString(3));
+//                                dataVector.add(vector);
+//                            }
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "新增失败！");
+//                        }
+//                    } catch (Exception e1) {
+//                        e1.printStackTrace();
+//                    } finally {
+//                        DButil.releaseConnection(connection);
+//                    }
+//                }
+//
+//            }
+//        });
 
         editButton.addActionListener(new ActionListener() {
             @Override

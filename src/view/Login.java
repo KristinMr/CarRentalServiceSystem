@@ -22,7 +22,7 @@ public class Login extends JFrame {
     private JButton loginButton = new JButton("登录");
 
     public Login() {
-        setTitle("欢迎使用赛杰高级管理系统");
+        setTitle("欢迎登录租车管理系统");
         setSize(500, 400);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -43,17 +43,8 @@ public class Login extends JFrame {
         add(resetButton);
         add(loginButton);
 
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                int n = JOptionPane.showConfirmDialog(null, "退出", "真的要退出吗？", JOptionPane.YES_NO_OPTION);
-                if (n == 0) {
-                    System.exit(0);
-                }
-            }
-        });
+
 
         resetButton.addActionListener(new ActionListener() {
             @Override

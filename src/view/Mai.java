@@ -70,7 +70,6 @@ public class Mai extends JFrame {
         add(bgLabel);
 //        add(jPanel);
 
-        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addCarItem.addActionListener(new ActionListener() {
             @Override

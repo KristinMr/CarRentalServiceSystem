@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class StateList extends JDialog {
+public class StateList extends JPanel {
     private JTextField searchStateID = new JTextField("编号关键字");
     private JTextField searchStateName = new JTextField("名称关键字");
     private JTextField searchStateInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchButton = new JButton("查询");
+    private JButton searchStateButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -49,9 +49,9 @@ public class StateList extends JDialog {
     private JButton deleteButton = new JButton("删除所选状态");
 
     public StateList() {
-        setTitle("状态列表");
-        setSize(950,800);
-        setLocationRelativeTo(null);
+//        setTitle("状态列表");
+        setSize(1350,800);
+//        setLocationRelativeTo(null);
         setLayout(null);
 
 
@@ -59,24 +59,24 @@ public class StateList extends JDialog {
         searchStateName.setForeground(Color.gray);
         searchStateInfo.setForeground(Color.gray);
 
-        searchStateID.setBounds(50,30,150,30);
-        searchStateName.setBounds(220,30,150,30);
-        searchStateInfo.setBounds(390,30,150,30);
-        refreshSearchButton.setBounds(720,30,80,30);
-        searchButton.setBounds(820,30,80,30);
-        pane.setBounds(50,100,850,300);
+        searchStateID.setBounds(80,40,150,30);
+        searchStateName.setBounds(250,40,200,30);
+        searchStateInfo.setBounds(470,40,300,30);
+        refreshSearchButton.setBounds(1130,40,80,30);
+        searchStateButton.setBounds(1230,40,80,30);
+        pane.setBounds(80,100,1230,400);
 
-        stateIDLabel.setBounds(80,430,80,30);
-        stateIDField.setBounds(180,430,220,30);
-        stateNameLabel.setBounds(530,430,80,30);
-        stateNameField.setBounds(630,430,220,30);
-        stateInfoLabel.setBounds(80,490,80,30);
-        stateInfoArea.setBounds(180,490,670,100);
-        clearButton.setBounds(80,640,80,30);
-        resetButton.setBounds(180,640,80,30);
-        addStateButton.setBounds(450,640,120,30);
-        editButton.setBounds(590,640,120,30);
-        deleteButton.setBounds(730,640,120,30);
+        stateIDLabel.setBounds(80,550,80,30);
+        stateIDField.setBounds(180,550,480,30);
+        stateNameLabel.setBounds(730,550,80,30);
+        stateNameField.setBounds(830,550,480,30);
+        stateInfoLabel.setBounds(80,610,80,30);
+        stateInfoArea.setBounds(180,610,1130,100);
+        clearButton.setBounds(80,760,80,30);
+        resetButton.setBounds(180,760,80,30);
+//        addStateButton.setBounds(965,640,120,30);
+        editButton.setBounds(1005,760,120,30);
+        deleteButton.setBounds(1145,760,120,30);
 
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
@@ -180,7 +180,7 @@ public class StateList extends JDialog {
         add(searchStateName);
         add(searchStateInfo);
         add(refreshSearchButton);
-        add(searchButton);
+        add(searchStateButton);
         add(pane);
         add(stateIDLabel);
         add(stateIDField);
@@ -194,7 +194,7 @@ public class StateList extends JDialog {
         add(editButton);
         add(deleteButton);
 
-        searchButton.addActionListener(new ActionListener() {
+        searchStateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String stateID = searchStateID.getText();

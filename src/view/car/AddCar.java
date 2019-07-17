@@ -3,13 +3,14 @@ package view.car;
 import util.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class AddCar extends JDialog {
+public class AddCar extends JPanel {
 
     private JLabel carModelLabel = new JLabel("车辆型号");
     private JComboBox<Brand> carBrandBox = new JComboBox<Brand>();
@@ -38,12 +39,14 @@ public class AddCar extends JDialog {
     private JButton addButton = new JButton("添加");
 
     public AddCar() {
-        setTitle("新增车辆");
-        setSize(600,700);
-        setLocationRelativeTo(null);
+//        setTitle("新增车辆");
+        setSize(1350,800);
+//        setLocationRelativeTo(null);
         setLayout(null);
-        setModal(true);
+//        setModal(true);
 
+//        setBackground(Color.LIGHT_GRAY);
+        carModelLabel.setFont(new java.awt.Font("楷体", 1, 15));
         carModelLabel.setBounds(50,20,100,30);
         carBrandBox.setBounds(170,20,150,30);
         carModelBox.setBounds(340,20,150,30);
@@ -98,7 +101,7 @@ public class AddCar extends JDialog {
         String sql1 = "select * from brand where brand_recycle_bin = 0 order by brand_id limit 1";
         String sql2 = "select * from model where model_brand = ? and model_recycle_bin = 0";
         String sql3 = "select * from state";
-        String sql4 = "select * from province";
+        String sql4 = "select * from province where province_recycle_bin = 0";
         String sql5 = "select * from province where province_recycle_bin = 0 order by province_id limit 1";
         String sql6 = "select * from city where city_province = ? and city_recycle_bin = 0";
         try {
