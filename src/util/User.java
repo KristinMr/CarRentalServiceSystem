@@ -1,7 +1,7 @@
 package util;
 
 public class User {
-    private int userID;
+    private String userID;
     private String userName;
     private String userPassword;
     private int userRank;
@@ -17,11 +17,11 @@ public class User {
     private String userInfo;
     private int userRecycle_bin;
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

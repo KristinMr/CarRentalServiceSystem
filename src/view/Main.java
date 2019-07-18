@@ -9,7 +9,7 @@ import view.carType.AddCarType;
 import view.carType.CarTypeList;
 import view.recharge.AddRecharge;
 import view.recharge.RechargeList;
-import view.order.AddOrder;
+import view.order.AddOrderUser;
 import view.order.OrderList;
 import view.pubilc.Footer;
 import view.pubilc.UpdatePassword;
@@ -108,7 +108,7 @@ public class Main extends JFrame {
     private JPanel addUserPanel = new AddUser();
     private JPanel userListPanel = new UserList();
 
-    private JPanel addOrderPanel = new AddOrder();
+    private JPanel addOrderPanel = new JPanel();
     private JPanel orderListPanel = new OrderList();
 
     private JPanel addCarPanel = new AddCar();
@@ -117,7 +117,7 @@ public class Main extends JFrame {
     private JPanel addCarTypePanel = new AddCarType();
     private JPanel carTypeListPanel = new CarTypeList();
 
-    private JPanel addRechargePanel = new AddRecharge();
+    private JPanel addRechargePanel;
     private JPanel rechargeListPanel = new RechargeList();
 
     private JPanel addStatePanel = new AddState();
@@ -235,6 +235,8 @@ public class Main extends JFrame {
         orderList.setBounds(0,30,140,30);
         orderList.setFont(new java.awt.Font("楷体",2,18));
 
+        addOrderPanel = new AddOrderUser(admin);
+
 //        ---------------车辆管理------------------
         car.setBounds(10,110,150,40);
         car.setFont(new java.awt.Font("楷体",1,20));
@@ -257,7 +259,7 @@ public class Main extends JFrame {
         carTypeList.setBounds(0,30,140,30);
         carTypeList.setFont(new java.awt.Font("楷体",2,18));
 
-//        ---------------地点管理------------------
+//        ---------------充值管理------------------
 
         recharge.setBounds(10,210,150,40);
         recharge.setFont(new java.awt.Font("楷体",1,20));
@@ -269,6 +271,7 @@ public class Main extends JFrame {
         rechargeList.setBounds(0,30,140,30);
         rechargeList.setFont(new java.awt.Font("楷体",2,18));
 
+        addRechargePanel = new AddRecharge(admin);
 //        ---------------状态管理------------------
 
         state.setBounds(10,260,150,40);
@@ -295,7 +298,7 @@ public class Main extends JFrame {
         rankList.setFont(new java.awt.Font("楷体",2,18));
 
         rank.setVisible(false);
-        if (admin.getAdminRank().equals("1")) {
+        if (admin.getAdminRank() == 1) {
             rank.setVisible(true);
         }
 //        userPanel.setBackground(Color.magenta);

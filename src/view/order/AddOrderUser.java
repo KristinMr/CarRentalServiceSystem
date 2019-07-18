@@ -1,4 +1,4 @@
-package view.recharge;
+package view.order;
 
 
 import util.Admin;
@@ -17,15 +17,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class AddRecharge extends JPanel {
+public class AddOrderUser extends JPanel {
     private JTextField searchUserID = new JTextField("编号关键字");
     private JTextField searchUserName = new JTextField("名称关键字");
     private JTextField searchUserInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
     private JButton searchUserButton = new JButton("查询");
-
-    //    private JButton editButton = new JButton("修改所选用户");
-    private JButton addRechargeButton = new JButton("给所选用户充值");
+    
+    private JButton addOrderUserButton = new JButton("给所选用户下单");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -37,7 +36,7 @@ public class AddRecharge extends JPanel {
     };
 
 
-    public AddRecharge(Admin admin) {
+    public AddOrderUser(Admin admin) {
 //        setTitle("用户列表");
         setSize(1350, 800);
 //        setLocationRelativeTo(null);
@@ -52,9 +51,8 @@ public class AddRecharge extends JPanel {
         searchUserInfo.setBounds(355, 40, 150, 30);
         refreshSearchButton.setBounds(720, 40, 80, 30);
         searchUserButton.setBounds(820, 40, 80, 30);
-
-//        editButton.setBounds(1000,40,150,40);
-        addRechargeButton.setBounds(1170, 40, 150, 40);
+        
+        addOrderUserButton.setBounds(1170, 40, 150, 40);
 
         jScrollPane.setBounds(15, 100, 1310, 700);
 
@@ -71,8 +69,7 @@ public class AddRecharge extends JPanel {
         add(searchUserInfo);
         add(refreshSearchButton);
         add(searchUserButton);
-//        add(editButton);
-        add(addRechargeButton);
+        add(addOrderUserButton);
         add(jScrollPane);
         add(bgLabel);
 
@@ -133,26 +130,12 @@ public class AddRecharge extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-//        editButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int row = table.getSelectedRow();
-//                if (row==-1){
-//                    JOptionPane.showMessageDialog(null, "请先选中要修改的用户");
-//                    return;
-//                } else {
-//                    String userID = (String)table.getValueAt(row,0);
-//                    new UpdateUser();
-//                }
-//            }
-//        });
-
-        addRechargeButton.addActionListener(new ActionListener() {
+        addOrderUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row == -1) {
-                    JOptionPane.showMessageDialog(null, "请先选中要充值的用户");
+                    JOptionPane.showMessageDialog(null, "请先选中要下单的用户");
                     return;
                 } else {
                     String userID = (String) table.getValueAt(row, 0);
@@ -169,7 +152,7 @@ public class AddRecharge extends JPanel {
                             user.setUserID(rs.getString(1));
                             user.setUserName(rs.getString(2));
                             user.setUserMoney(rs.getString(3));
-                            new Recharging(admin, user);
+                            new AddOrderCar(admin, user);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -193,5 +176,6 @@ public class AddRecharge extends JPanel {
 //        }
 //        new UserList();
 //    }
+
 
 }

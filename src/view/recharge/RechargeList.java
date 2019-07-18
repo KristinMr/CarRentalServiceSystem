@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class RechargeList extends JPanel {
@@ -93,6 +95,7 @@ public class RechargeList extends JPanel {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+                System.out.println(rs.getString(7).substring(0,19));
                 Vector<String> vector = new Vector<String>();
                 vector.add(rs.getString(1));
                 vector.add(rs.getString(2));
@@ -100,7 +103,7 @@ public class RechargeList extends JPanel {
                 vector.add(rs.getString(4));
                 vector.add(rs.getString(5));
                 vector.add(rs.getString(6));
-                vector.add(rs.getString(7));
+                vector.add(rs.getString(7).substring(0,19));
                 vector.add(rs.getString(8));
 
 

@@ -2,20 +2,21 @@ package util;
 
 public class Car {
 
-    private int carID;
+    private String carID;
     private String carNumber;
-    private int carBrand;
-    private int carModel;
-    private int carState;
+    private String carBrand;
+    private String carModel;
+    private String carRent;
+    private String carState;
     private String carPicture;
     private String carInfo;
     private int carRecycleBin;
 
-    public int getCarID() {
+    public String getCarID() {
         return carID;
     }
 
-    public void setCarID(int carID) {
+    public void setCarID(String carID) {
         this.carID = carID;
     }
 
@@ -27,27 +28,35 @@ public class Car {
         this.carNumber = carNumber;
     }
 
-    public int getCarBrand() {
+    public String getCarBrand() {
         return carBrand;
     }
 
-    public void setCarBrand(int carBrand) {
+    public void setCarBrand(String carBrand) {
         this.carBrand = carBrand;
     }
 
-    public int getCarModel() {
+    public String getCarModel() {
         return carModel;
     }
 
-    public void setCarModel(int carModel) {
+    public void setCarModel(String carModel) {
         this.carModel = carModel;
     }
 
-    public int getCarState() {
+    public String getCarRent() {
+        return carRent;
+    }
+
+    public void setCarRent(String carRent) {
+        this.carRent = carRent;
+    }
+
+    public String getCarState() {
         return carState;
     }
 
-    public void setCarState(int carState) {
+    public void setCarState(String carState) {
         this.carState = carState;
     }
 

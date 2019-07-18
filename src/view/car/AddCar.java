@@ -121,7 +121,7 @@ public class AddCar extends JPanel {
 
             while (rs.next()) {
                 Brand brand = new Brand();
-                brand.setBrandID(rs.getInt(1));
+                brand.setBrandID(rs.getString(1));
                 brand.setBrandName(rs.getString(2));
                 carBrandBox.addItem(brand);
             }
@@ -133,7 +133,7 @@ public class AddCar extends JPanel {
                 int i = 0;
                 while (rs2.next()) {
                     Model carModel = new Model();
-                    carModel.setModelID(rs2.getInt(1));
+                    carModel.setModelID(rs2.getString(1));
                     carModel.setModelName(rs2.getString(3));
                     carModel.setModelColor(rs2.getString(4));
                     carModel.setModelRent(rs2.getString(5));
@@ -190,7 +190,7 @@ public class AddCar extends JPanel {
                 carModelBox.removeAllItems();
 
                 Brand carBrain = (Brand) carBrandBox.getSelectedItem();
-                int carBrandID = carBrain.getBrandID();
+                String carBrandID = carBrain.getBrandID();
 
                 Connection connection1 = DButil.getConnection();
                 String sql3 = "select * from model where model_brand = ? and model_recycle_bin = 0";
@@ -200,7 +200,7 @@ public class AddCar extends JPanel {
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()){
                         Model carModel = new Model();
-                        carModel.setModelID(rs.getInt(1));
+                        carModel.setModelID(rs.getString(1));
                         carModel.setModelName(rs.getString(3));
                         carModel.setModelColor(rs.getString(4));
                         carModel.setModelRent(rs.getString(5));
@@ -262,7 +262,7 @@ public class AddCar extends JPanel {
             public void actionPerformed(ActionEvent e) {
 
                 Model carModel = (Model) carModelBox.getSelectedItem();
-                int carModelID = carModel.getModelID();
+                String carModelID = carModel.getModelID();
 
                 State carState = (State) carStateBox.getSelectedItem();
                 int carStateID = carState.getStateID();

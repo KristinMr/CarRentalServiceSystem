@@ -98,7 +98,7 @@ public class Login extends JFrame {
                         admin.setAdminEmail(rs.getString(8));
                         admin.setAdminAddress(rs.getString(9));
                         admin.setAdminInfo(rs.getString(10));
-                        admin.setAdminRank(rs.getString(11));
+                        admin.setAdminRank(rs.getInt(11));
                         new Main(admin);
                     } else {
                         JOptionPane.showMessageDialog(null, "登录失败");

@@ -11,7 +11,7 @@ public class Admin {
     private String adminEmail;
     private String adminAddress;
     private String adminInfo;
-    private String adminRank;
+    private int adminRank;
     private String adminRecycleBin;
 
     public String getAdminID() {
@@ -94,11 +94,11 @@ public class Admin {
         this.adminInfo = adminInfo;
     }
 
-    public String getAdminRank() {
+    public int getAdminRank() {
         return adminRank;
     }
 
-    public void setAdminRank(String adminRank) {
+    public void setAdminRank(int adminRank) {
         this.adminRank = adminRank;
     }
 

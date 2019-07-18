@@ -120,15 +120,15 @@ public class UpdateCar extends JDialog {
             ps.setObject(1, carID);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                car.setCarID(rs.getInt(1));
+                car.setCarID(rs.getString(1));
                 car.setCarNumber(rs.getString(2));
-                car.setCarModel(rs.getInt(3));
-                car.setCarState(rs.getInt(4));
+                car.setCarModel(rs.getString(3));
+                car.setCarState(rs.getString(4));
 //                car.setCarCity(rs.getInt(4));
                 car.setCarPicture(rs.getString(5));
                 car.setCarInfo(rs.getString(6));
                 car.setCarRecycleBin(rs.getInt(7));
-                car.setCarBrand(rs.getInt(8));
+                car.setCarBrand(rs.getString(8));
 //                car.setCarProvince(rs.getInt(9));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
@@ -149,7 +149,7 @@ public class UpdateCar extends JDialog {
             carNumberField.setText(car.getCarNumber());
             while (rs1.next()) {
                 Brand brand = new Brand();
-                brand.setBrandID(rs1.getInt(1));
+                brand.setBrandID(rs1.getString(1));
                 brand.setBrandName(rs1.getString(2));
                 carBrandBox.addItem(brand);
 
@@ -169,7 +169,7 @@ public class UpdateCar extends JDialog {
                     carBrandBox.setSelectedItem(brand);
                     while (rs2.next()) {
                         Model model = new Model();
-                        model.setModelID(rs2.getInt(1));
+                        model.setModelID(rs2.getString(1));
                         model.setModelName(rs2.getString(3));
                         model.setModelColor(rs2.getString(4));
                         model.setModelRent(rs2.getString(5));
@@ -243,7 +243,7 @@ public class UpdateCar extends JDialog {
                 carModelBox.removeAllItems();
 
                 Brand carBrand = (Brand) carBrandBox.getSelectedItem();
-                int carBrandID = carBrand.getBrandID();
+                String carBrandID = carBrand.getBrandID();
 
                 Connection connection1 = DButil.getConnection();
                 String sql6 = "select model_id, model_name, model_color, model_rent, model_info from model where model_brand = ? and model_recycle_bin = 0";
@@ -254,7 +254,7 @@ public class UpdateCar extends JDialog {
 
                     while (rs.next()) {
                         Model carModel = new Model();
-                        carModel.setModelID(rs.getInt(1));
+                        carModel.setModelID(rs.getString(1));
                         carModel.setModelName(rs.getString(2));
                         carModel.setModelColor(rs.getString(3));
                         carModel.setModelRent(rs.getString(4));
@@ -320,7 +320,7 @@ public class UpdateCar extends JDialog {
                 State state = (State) carStateBox.getSelectedItem();
 //                City city = (City) carCityBox.getSelectedItem();
 
-                int carModelID = model.getModelID();
+                String carModelID = model.getModelID();
                 int carStateID = state.getStateID();
 //                int carCityID = city.getCityID();
                 String carInfo = carInfoArea.getText();

@@ -9,7 +9,7 @@ import java.awt.event.*;
 
 public class Mai extends JFrame {
 
-//    JPanel jPanel = new JPanel();
+    JPanel jPanel = new JPanel();
     private JMenuBar menuBar = new JMenuBar();
 
     private JMenu carMenu = new JMenu("车辆管理");
@@ -18,6 +18,11 @@ public class Mai extends JFrame {
 
     private JMenu userMenu = new JMenu("用户管理");
     private JMenuItem userInfoItem = new JMenuItem("个人信息");
+
+    private JButton jButton = new JButton("dfsafsafsdag ew aewavfewa");
+    private JButton jButton1 = new JButton("dfsafsafsdag ew aewavfewa");
+    private JButton jButton2 = new JButton("dfsafsafsdag ew aewavfewa");
+    private JButton jButton3 = new JButton("dfsafsafsdag ew aewavfewa");
 
     JPanel jPanel1 = new JPanel();
     JPanel jPanel2 = new CarList();
@@ -34,18 +39,24 @@ public class Mai extends JFrame {
         setLayout(new BorderLayout());
 
 
-//        jPanel.setSize(this.getSize());
-//        jPanel.setLayout(new FlowLayout());
+        jPanel.setSize(this.getSize());
+        jPanel.setLayout(new FlowLayout());
 
-        ImageIcon imageIcon = new ImageIcon("/Users/cappuyang/IdeaProjects/CarRentalServiceSystem/src/source/main.jpg");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
         JLabel bgLabel = new JLabel(imageIcon);
         this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
         bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
         this.getContentPane().add(new JLabel());
         ((JPanel) getContentPane()).setOpaque(false);
+
         menuBar.setBounds(10, 10, this.getWidth()-100, 50);
         addCarItem.setBackground(Color.green);
 
+
+        jButton.setBounds(200,20,80,60);
+        jButton1.setBounds(200,150,50,20);
+        jButton2.setBounds(200,250,150,60);
+        jButton3.setBounds(200,350,100,80);
         carMenu.add(addCarItem);
         carMenu.add(queryCarItem);
 
@@ -65,7 +76,11 @@ public class Mai extends JFrame {
         add(jPanel1, BorderLayout.CENTER);
         jPanel1.setVisible(true);
         add(jPanel2, BorderLayout.CENTER);
-        jPanel2.add(bgLabel);
+        add(jButton);
+        add(jButton1);
+        add(jButton2);
+        add(jButton3);
+//        jPanel2.add(bgLabel);
         jPanel2.setVisible(false);
         add(bgLabel);
 //        add(jPanel);

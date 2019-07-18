@@ -6,27 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Model {
-    private int modelID;
-    private int modelBrand;
+    private String modelID;
+    private String modelBrand;
     private String modelName;
     private String modelColor;
     private String modelRent;
     private String modelInfo;
     private String model_recycle_bin;
 
-    public int getModelID() {
+    public String getModelID() {
         return modelID;
     }
 
-    public void setModelID(int modelID) {
+    public void setModelID(String modelID) {
         this.modelID = modelID;
     }
 
-    public int getModelBrand() {
+    public String getModelBrand() {
         return modelBrand;
     }
 
-    public void setModelBrand(int modelBrand) {
+    public void setModelBrand(String modelBrand) {
         this.modelBrand = modelBrand;
     }
 
@@ -75,7 +75,7 @@ public class Model {
         return modelName;
     }
 
-    public Model searchModel(int modelID) {
+    public Model searchModel(String modelID) {
         Connection connection = DButil.getConnection();
         String sql = "select * from model where model_id = ? and model_recycle_bin = 0";
         Model model = new Model();
@@ -85,7 +85,7 @@ public class Model {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-                model.setModelID(rs.getInt(1));
+                model.setModelID(rs.getString(1));
                 model.setModelName(rs.getString(3));
                 model.setModelColor(rs.getString(4));
                 model.setModelRent(rs.getString(5));

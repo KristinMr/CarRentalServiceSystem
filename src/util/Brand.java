@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Brand {
-    private int brandID;
+    private String brandID;
     private String brandName;
 //    private String brandInfo;
 
-    public int getBrandID() {
+    public String getBrandID() {
         return brandID;
     }
 
-    public void setBrandID(int brandID) {
+    public void setBrandID(String brandID) {
         this.brandID = brandID;
     }
 
@@ -33,7 +33,7 @@ public class Brand {
     }
 
 
-    public Brand searchBrand(int brandID) {
+    public Brand searchBrand(String brandID) {
         Connection connection = DButil.getConnection();
         String sql = "select * from brand where brand_id = ?";
         Brand brand = new Brand();
@@ -43,7 +43,7 @@ public class Brand {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
-                brand.setBrandID(rs.getInt(1));
+                brand.setBrandID(rs.getString(1));
                 brand.setBrandName(rs.getString(2));
             }
 
