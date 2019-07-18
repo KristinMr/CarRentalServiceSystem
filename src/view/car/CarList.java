@@ -77,20 +77,22 @@ public class CarList extends JPanel {
 
         Vector<String> carTHVector = new Vector<String>();
         carTHVector.add("编号");
+        carTHVector.add("车牌号");
         carTHVector.add("品牌");
         carTHVector.add("型号");
         carTHVector.add("颜色");
         carTHVector.add("租金/（每天）");
         carTHVector.add("图片");
         carTHVector.add("状态");
-        carTHVector.add("所在省份");
-        carTHVector.add("所在城市");
+//        carTHVector.add("所在省份");
+//        carTHVector.add("所在城市");
         carTHVector.add("备注");
 
         Vector<Vector<String>> carDataVector = new Vector<Vector<String>>();
 
         Connection collection = DButil.getConnection();
-        String sql = "select car.car_id, brand.brand_name, model.model_name, model.model_color, model.model_rent, car.car_picture, state.state_name, province.province_name, city.city_name, car.car_info from car, model, brand, state, city, province where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and car.car_city = city.city_id and city.city_province = province.province_id and car.car_recycle_bin = 0";
+//        String sql = "select car.car_id, brand.brand_name, model.model_name, model.model_color, model.model_rent, car.car_picture, state.state_name, province.province_name, city.city_name, car.car_info from car, model, brand, state, city, province where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and car.car_city = city.city_id and city.city_province = province.province_id and car.car_recycle_bin = 0";
+        String sql = "select car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_color, model.model_rent, car.car_picture, state.state_name, car.car_info from car, model, brand, state where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id  and car.car_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -107,7 +109,6 @@ public class CarList extends JPanel {
                 vector.add(rs.getString(7));
                 vector.add(rs.getString(8));
                 vector.add(rs.getString(9));
-                vector.add(rs.getString(10));
 
                 carDataVector.add(vector);
             }

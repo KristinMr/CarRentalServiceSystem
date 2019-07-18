@@ -5,14 +5,17 @@ public class User {
     private String userName;
     private String userPassword;
     private int userRank;
-    private int userSex;
+    private String userSex;
     private String userIDN;
     private String userTel;
     private String userEmail;
     private String userDLN;
-    private int userDAge;
-    private int userAge;
+    private String userDAge;
+    private String userAge;
     private String userAddress;
+    private String userMoney;
+    private String userInfo;
+    private int userRecycle_bin;
 
     public int getUserID() {
         return userID;
@@ -46,11 +49,11 @@ public class User {
         this.userRank = userRank;
     }
 
-    public int getUserSex() {
+    public String getUserSex() {
         return userSex;
     }
 
-    public void setUserSex(int userSex) {
+    public void setUserSex(String userSex) {
         this.userSex = userSex;
     }
 
@@ -86,19 +89,19 @@ public class User {
         this.userDLN = userDLN;
     }
 
-    public int getUserDAge() {
+    public String getUserDAge() {
         return userDAge;
     }
 
-    public void setUserDAge(int userDAge) {
+    public void setUserDAge(String userDAge) {
         this.userDAge = userDAge;
     }
 
-    public int getUserAge() {
+    public String getUserAge() {
         return userAge;
     }
 
-    public void setUserAge(int userAge) {
+    public void setUserAge(String userAge) {
         this.userAge = userAge;
     }
 
@@ -110,6 +113,14 @@ public class User {
         this.userAddress = userAddress;
     }
 
+    public String getUserMoney() {
+        return userMoney;
+    }
+
+    public void setUserMoney(String userMoney) {
+        this.userMoney = userMoney;
+    }
+
     public String getUserInfo() {
         return userInfo;
     }
@@ -118,5 +129,11 @@ public class User {
         this.userInfo = userInfo;
     }
 
-    private String userInfo;
+    public int getUserRecycle_bin() {
+        return userRecycle_bin;
+    }
+
+    public void setUserRecycle_bin(int userRecycle_bin) {
+        this.userRecycle_bin = userRecycle_bin;
+    }
 }

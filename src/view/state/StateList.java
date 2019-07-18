@@ -36,6 +36,10 @@ public class StateList extends JPanel {
     private JLabel stateNameLabel = new JLabel("状态名称");
     private JTextField stateNameField = new JTextField();
 
+    private JLabel stateTypeLabel = new JLabel("状态类型");
+    private JRadioButton stateCarButton = new JRadioButton("车辆");
+    private JRadioButton stateOrderButton = new JRadioButton("订单");
+
     private JLabel stateInfoLabel = new JLabel("状态介绍");
     private JTextArea stateInfoArea = new JTextArea();
 
@@ -67,9 +71,16 @@ public class StateList extends JPanel {
         pane.setBounds(80,100,1230,400);
 
         stateIDLabel.setBounds(80,550,80,30);
-        stateIDField.setBounds(180,550,480,30);
-        stateNameLabel.setBounds(730,550,80,30);
-        stateNameField.setBounds(830,550,480,30);
+        stateIDField.setBounds(180,550,250,30);
+        stateNameLabel.setBounds(530,550,80,30);
+        stateNameField.setBounds(630,550,250,30);
+        stateTypeLabel.setBounds(980,550,80,30);
+        stateCarButton.setBounds(1080,550,100,30);
+        stateOrderButton.setBounds(1180,550,100,30);
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(stateCarButton);
+        buttonGroup.add(stateOrderButton);
         stateInfoLabel.setBounds(80,610,80,30);
         stateInfoArea.setBounds(180,610,1130,100);
         clearButton.setBounds(80,760,80,30);
@@ -81,6 +92,7 @@ public class StateList extends JPanel {
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
         thVector.add("名称");
+        thVector.add("类型");
         thVector.add("介绍");
         Vector<Vector<String>> dataVector = new Vector<Vector<String>>();
 
@@ -152,6 +164,7 @@ public class StateList extends JPanel {
                 vector.add(rs.getString(1));
                 vector.add(rs.getString(2));
                 vector.add(rs.getString(3));
+                vector.add(rs.getString(4));
                 dataVector.add(vector);
             }
         } catch (Exception e) {
@@ -165,10 +178,6 @@ public class StateList extends JPanel {
         pane.getViewport().add(table);
 
         table.getTableHeader().setReorderingAllowed(false);
-
-        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(130);
-        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(400);
-        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(700);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -186,6 +195,9 @@ public class StateList extends JPanel {
         add(stateIDField);
         add(stateNameLabel);
         add(stateNameField);
+        add(stateTypeLabel);
+        add(stateCarButton);
+        add(stateOrderButton);
         add(stateInfoLabel);
         add(stateInfoArea);
         add(clearButton);
@@ -226,7 +238,6 @@ public class StateList extends JPanel {
 
                     for (int i = 0; i < list.size(); i++) {
                         ps.setObject(i + 1, list.get(i));
-                        System.out.println(123456);
                         System.out.println(stringBuffer);
 
                     }
@@ -241,6 +252,7 @@ public class StateList extends JPanel {
                         vector.add(rs.getString(1));
                         vector.add(rs.getString(2));
                         vector.add(rs.getString(3));
+                        vector.add(rs.getString(4));
                         dataVector.add(vector);
                     }
                 } catch (Exception e1) {
@@ -257,11 +269,16 @@ public class StateList extends JPanel {
                 int row = table.getSelectedRow();
                 String stateID = (String) table.getValueAt(row, 0);
                 String stateName = (String) table.getValueAt(row, 1);
-                String stateInfo = (String) table.getValueAt(row, 2);
+                String stateType = (String) table.getValueAt(row, 2);
+                String stateInfo = (String) table.getValueAt(row, 3);
                 stateIDField.setText(stateID);
                 stateNameField.setText(stateName);
+                if (stateType == "车辆") {
+                    stateCarButton.setSelected(true);
+                } else {
+                    stateOrderButton.setSelected(true);
+                }
                 stateInfoArea.setText(stateInfo);
-
             }
         });
 
@@ -269,6 +286,8 @@ public class StateList extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stateNameField.setText("");
+                stateCarButton.setSelected(false);
+                stateOrderButton.setSelected(false);
                 stateInfoArea.setText("");
             }
         });
@@ -276,8 +295,15 @@ public class StateList extends JPanel {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int row = table.getSelectedRow();
                 stateNameField.setText((String) table.getValueAt(table.getSelectedRow(), 1));
                 stateInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
+                String stateType = (String) table.getValueAt(row, 2);
+                if (stateType.equals("车辆")) {
+                    stateCarButton.setSelected(true);
+                } else {
+                    stateOrderButton.setSelected(true);
+                }
             }
         });
 
@@ -285,16 +311,23 @@ public class StateList extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String stateName = stateNameField.getText();
+                int stateType;
+                if (stateCarButton.isSelected()) {
+                    stateType = 1;
+                } else {
+                    stateType = 2;
+                }
                 String stateInfo = stateInfoArea.getText();
 
                 Connection connection = DButil.getConnection();
-                String sql = "insert into state(state_name, state_info, state_recycle_bin) values(?, ?, ?)";
+                String sql = "insert into state(state_name, state_type, state_info, state_recycle_bin) values(?, ?, ?, ?)";
                 String sql1 = "select * from state where state_recycle_bin = 0";
                 try {
                     PreparedStatement ps = connection.prepareStatement(sql);
                     ps.setObject(1, stateName);
-                    ps.setObject(2, stateInfo);
-                    ps.setObject(3, 0);
+                    ps.setObject(2, stateType);
+                    ps.setObject(3, stateInfo);
+                    ps.setObject(4, 0);
 
                     int n = ps.executeUpdate();
 
@@ -310,6 +343,7 @@ public class StateList extends JPanel {
                                 vector.add(rs.getString(1));
                                 vector.add(rs.getString(2));
                                 vector.add(rs.getString(3));
+                                vector.add(rs.getString(4));
                                 dataVector.add(vector);
                             }
                     } else {
@@ -332,14 +366,21 @@ public class StateList extends JPanel {
                 } else {
                     String stateID = stateIDField.getText();
                     String stateName = stateNameField.getText();
+                    int stateType;
+                    if (stateCarButton.isSelected()) {
+                        stateType = 1;
+                    } else {
+                        stateType = 2;
+                    }
                     String stateInfo = stateInfoArea.getText();
 
                     Connection connection1 = DButil.getConnection();
-                    String sql = "update state set state_name = ?, state_info = ? where state_id = ?";
+                    String sql = "update state set state_name = ?, state_type = ?, state_info = ? where state_id = ?";
 
                     try {
                         PreparedStatement ps = connection1.prepareStatement(sql);
                         ps.setObject(1, stateName);
+                        ps.setObject(1, stateType);
                         ps.setObject(2, stateInfo);
                         ps.setObject(3,stateID);
                         int n = ps.executeUpdate();
@@ -347,7 +388,8 @@ public class StateList extends JPanel {
                         if (n > 0) {
                             JOptionPane.showMessageDialog(null, "状态修改成功！");
                             ((DefaultTableModel)table.getModel()).setValueAt(stateName, row,1);
-                            ((DefaultTableModel)table.getModel()).setValueAt(stateInfo, row,2);
+                            ((DefaultTableModel)table.getModel()).setValueAt(stateType, row,2);
+                            ((DefaultTableModel)table.getModel()).setValueAt(stateInfo, row,3);
                         }
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -381,6 +423,8 @@ public class StateList extends JPanel {
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
                                 stateIDField.setText("");
                                 stateNameField.setText("");
+                                stateCarButton.setSelected(false);
+                                stateOrderButton.setSelected(false);
                                 stateInfoArea.setText("");
                             } else {
                                 JOptionPane.showMessageDialog(null, "删除失败！");

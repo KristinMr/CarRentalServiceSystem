@@ -5,9 +5,10 @@ import util.Admin;
 import util.MyLayout;
 import view.car.AddCar;
 import view.car.CarList;
-import view.location.AddCity;
-import view.location.AddCity;
-import view.location.LocationList;
+import view.carType.AddCarType;
+import view.carType.CarTypeList;
+import view.recharge.AddRecharge;
+import view.recharge.RechargeList;
 import view.order.AddOrder;
 import view.order.OrderList;
 import view.pubilc.Footer;
@@ -76,10 +77,10 @@ public class Main extends JFrame {
     private JMenuItem addCarType = new JMenuItem("新增车型");
     private JMenuItem carTypeList = new JMenuItem("车型列表");
 
-    private JMenuItem location = new JMenuItem("地点管理");
-    private JPanel locationPanel = new JPanel();
-    private JMenuItem addLocation = new JMenuItem("新增地点");
-    private JMenuItem locationList = new JMenuItem("地点列表");
+    private JMenuItem recharge = new JMenuItem("充值管理");
+    private JPanel rechargePanel = new JPanel();
+    private JMenuItem addRecharge = new JMenuItem("新增充值");
+    private JMenuItem rechargeList = new JMenuItem("充值列表");
 
     private JMenuItem state = new JMenuItem("状态管理");
     private JPanel statePanel = new JPanel();
@@ -113,11 +114,11 @@ public class Main extends JFrame {
     private JPanel addCarPanel = new AddCar();
     private JPanel carListPanel = new CarList();
 
-    private JPanel addCarTypePanel = new AddCar();
-    private JPanel carTypeListPanel = new CarList();
+    private JPanel addCarTypePanel = new AddCarType();
+    private JPanel carTypeListPanel = new CarTypeList();
 
-    private JPanel addLocationPanel = new AddCity();
-    private JPanel locationListPanel = new LocationList();
+    private JPanel addRechargePanel = new AddRecharge();
+    private JPanel rechargeListPanel = new RechargeList();
 
     private JPanel addStatePanel = new AddState();
     private JPanel stateListPanel = new StateList();
@@ -148,7 +149,7 @@ public class Main extends JFrame {
 //        orderPanel.setLayout(null);
 //        carPanel.setLayout(null);
 //        carTypePanel.setLayout(null);
-//        locationPanel.setLayout(null);
+//        rechargePanel.setLayout(null);
 //        statePanel.setLayout(null);
 //        rankPanel.setLayout(null);
 
@@ -258,15 +259,15 @@ public class Main extends JFrame {
 
 //        ---------------地点管理------------------
 
-        location.setBounds(10,210,150,40);
-        location.setFont(new java.awt.Font("楷体",1,20));
+        recharge.setBounds(10,210,150,40);
+        recharge.setFont(new java.awt.Font("楷体",1,20));
 
-        locationPanel.setBackground(Color.gray);
-        locationPanel.setBounds(20,250,140,60);
-        addLocation.setBounds(0 ,0,140,30);
-        addLocation.setFont(new java.awt.Font("楷体",2,18));
-        locationList.setBounds(0,30,140,30);
-        locationList.setFont(new java.awt.Font("楷体",2,18));
+        rechargePanel.setBackground(Color.gray);
+        rechargePanel.setBounds(20,250,140,60);
+        addRecharge.setBounds(0 ,0,140,30);
+        addRecharge.setFont(new java.awt.Font("楷体",2,18));
+        rechargeList.setBounds(0,30,140,30);
+        rechargeList.setFont(new java.awt.Font("楷体",2,18));
 
 //        ---------------状态管理------------------
 
@@ -282,6 +283,7 @@ public class Main extends JFrame {
 
 //        ---------------权限管理------------------
 
+
         rank.setBounds(10,310,150,40);
         rank.setFont(new java.awt.Font("楷体",1,20));
 
@@ -292,6 +294,10 @@ public class Main extends JFrame {
         rankList.setBounds(0,30,140,30);
         rankList.setFont(new java.awt.Font("楷体",2,18));
 
+        rank.setVisible(false);
+        if (admin.getAdminRank().equals("1")) {
+            rank.setVisible(true);
+        }
 //        userPanel.setBackground(Color.magenta);
 
 //        state.setBounds(10,car.getY() + car.getHeight() + 10,this.getWidth(),40);
@@ -308,7 +314,7 @@ public class Main extends JFrame {
         orderPanel.setVisible(false);
         carPanel.setVisible(false);
         carTypePanel.setVisible(false);
-        locationPanel.setVisible(false);
+        rechargePanel.setVisible(false);
         statePanel.setVisible(false);
         rankPanel.setVisible(false);
 
@@ -332,10 +338,10 @@ public class Main extends JFrame {
         carTypePanel.add(carTypeList);
         sidebar.add(carTypePanel);
 
-        sidebar.add(location);
-        locationPanel.add(addLocation);
-        locationPanel.add(locationList);
-        sidebar.add(locationPanel);
+        sidebar.add(recharge);
+        rechargePanel.add(addRecharge);
+        rechargePanel.add(rechargeList);
+        sidebar.add(rechargePanel);
 
         sidebar.add(state);
         statePanel.add(addState);
@@ -383,8 +389,8 @@ public class Main extends JFrame {
         addCarTypePanel.setVisible(false);
         carTypeListPanel.setVisible(false);
 
-        addLocationPanel.setVisible(false);
-        locationListPanel.setVisible(false);
+        addRechargePanel.setVisible(false);
+        rechargeListPanel.setVisible(false);
 
         addStatePanel.setVisible(false);
         stateListPanel.setVisible(false);
@@ -401,8 +407,8 @@ public class Main extends JFrame {
         main.add(carListPanel);
         main.add(addCarTypePanel);
         main.add(carTypeListPanel);
-        main.add(addLocationPanel);
-        main.add(locationListPanel);
+        main.add(addRechargePanel);
+        main.add(rechargeListPanel);
         main.add(addStatePanel);
         main.add(stateListPanel);
         main.add(addRankPanel);
@@ -450,8 +456,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -481,8 +487,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -517,13 +523,13 @@ public class Main extends JFrame {
                 orderPanel.setVisible(false);
                 carPanel.setVisible(false);
                 carTypePanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 statePanel.setVisible(false);
                 rankPanel.setVisible(false);
                 order.setBounds(10,120,150,40);
                 car.setBounds(10,170,150,40);
                 carType.setBounds(10,220,150,40);
-                location.setBounds(10,270,150,40);
+                recharge.setBounds(10,270,150,40);
                 state.setBounds(10,320,150,40);
                 rank.setBounds(10,370,150,40);
                 userPanel.setVisible(true);
@@ -548,8 +554,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -576,8 +582,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -593,13 +599,13 @@ public class Main extends JFrame {
                 userPanel.setVisible(false);
                 carPanel.setVisible(false);
                 carTypePanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 statePanel.setVisible(false);
                 rankPanel.setVisible(false);
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,170,150,40);
                 carType.setBounds(10,220,150,40);
-                location.setBounds(10,270,150,40);
+                recharge.setBounds(10,270,150,40);
                 state.setBounds(10,320,150,40);
                 rank.setBounds(10,370,150,40);
                 orderPanel.setVisible(true);
@@ -624,8 +630,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -652,8 +658,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -671,13 +677,13 @@ public class Main extends JFrame {
                 userPanel.setVisible(false);
                 orderPanel.setVisible(false);
                 carTypePanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 statePanel.setVisible(false);
                 rankPanel.setVisible(false);
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,110,150,40);
                 carType.setBounds(10,220,150,40);
-                location.setBounds(10,270,150,40);
+                recharge.setBounds(10,270,150,40);
                 state.setBounds(10,320,150,40);
                 rank.setBounds(10,370,150,40);
                 carPanel.setVisible(true);
@@ -702,8 +708,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -730,8 +736,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -748,13 +754,13 @@ public class Main extends JFrame {
                 userPanel.setVisible(false);
                 orderPanel.setVisible(false);
                 carPanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 statePanel.setVisible(false);
                 rankPanel.setVisible(false);
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,110,150,40);
                 carType.setBounds(10,160,150,40);
-                location.setBounds(10,270,150,40);
+                recharge.setBounds(10,270,150,40);
                 state.setBounds(10,320,150,40);
                 rank.setBounds(10,370,150,40);
                 carTypePanel.setVisible(true);
@@ -779,8 +785,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(true);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -807,8 +813,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(true);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -819,7 +825,7 @@ public class Main extends JFrame {
         });
 
 //        ---------------地点管理------------------
-        location.addActionListener(new ActionListener() {
+        recharge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 userPanel.setVisible(false);
@@ -831,14 +837,14 @@ public class Main extends JFrame {
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,110,150,40);
                 carType.setBounds(10,160,150,40);
-                location.setBounds(10,210,150,40);
+                recharge.setBounds(10,210,150,40);
                 state.setBounds(10,320,150,40);
                 rank.setBounds(10,370,150,40);
-                locationPanel.setVisible(true);
+                rechargePanel.setVisible(true);
             }
         });
 
-        addLocation.addActionListener(new ActionListener() {
+        addRecharge.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -856,8 +862,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(true);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(true);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -866,7 +872,7 @@ public class Main extends JFrame {
                 rankListPanel.setVisible(false);
             }
         });
-        locationList.addActionListener(new ActionListener() {
+        rechargeList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -884,8 +890,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(true);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(true);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -903,12 +909,12 @@ public class Main extends JFrame {
                 orderPanel.setVisible(false);
                 carPanel.setVisible(false);
                 carTypePanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 rankPanel.setVisible(false);
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,110,150,40);
                 carType.setBounds(10,160,150,40);
-                location.setBounds(10,210,150,40);
+                recharge.setBounds(10,210,150,40);
                 state.setBounds(10,260,150,40);
                 rank.setBounds(10,370,150,40);
                 statePanel.setVisible(true);
@@ -933,8 +939,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(true);
                 stateListPanel.setVisible(false);
@@ -961,8 +967,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(true);
@@ -980,12 +986,12 @@ public class Main extends JFrame {
                 orderPanel.setVisible(false);
                 carPanel.setVisible(false);
                 carTypePanel.setVisible(false);
-                locationPanel.setVisible(false);
+                rechargePanel.setVisible(false);
                 statePanel.setVisible(false);
                 order.setBounds(10,60,150,40);
                 car.setBounds(10,110,150,40);
                 carType.setBounds(10,160,150,40);
-                location.setBounds(10,210,150,40);
+                recharge.setBounds(10,210,150,40);
                 state.setBounds(10,260,150,40);
                 rank.setBounds(10,310,150,40);
                 rankPanel.setVisible(true);
@@ -1010,8 +1016,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);
@@ -1038,8 +1044,8 @@ public class Main extends JFrame {
                 addCarTypePanel.setVisible(false);
                 carTypeListPanel.setVisible(false);
 
-                addLocationPanel.setVisible(false);
-                locationListPanel.setVisible(false);
+                addRechargePanel.setVisible(false);
+                rechargeListPanel.setVisible(false);
 
                 addStatePanel.setVisible(false);
                 stateListPanel.setVisible(false);

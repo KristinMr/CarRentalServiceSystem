@@ -1,4 +1,4 @@
-package view.location;
+package view.recharge;
 
 import util.DButil;
 import util.Province;
@@ -10,9 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class AddCity extends JPanel {
+public class ddd extends JPanel {
     private JMenuItem addProvince = new JMenuItem("新增省份");
-    
+
     private JLabel provinceLabel = new JLabel("所属省份");
     private JComboBox<Province> provinceBox = new JComboBox<Province>();
 
@@ -25,7 +25,7 @@ public class AddCity extends JPanel {
     private JButton resetButton = new JButton("重置");
     private JButton addButton = new JButton("添加");
 
-    public AddCity() {
+    public ddd() {
         setSize(1350,800);
         setLayout(null);
 

@@ -19,9 +19,9 @@ public class AddCar extends JPanel {
     private JLabel carStateLabel = new JLabel("车辆状态");
     private JComboBox<State> carStateBox = new JComboBox<State>();
 
-    private JLabel carLocationLabel = new JLabel("车辆地点");
-    private JComboBox<Province> carProvinceBox = new JComboBox<Province>();
-    private JComboBox<City> carCityBox = new JComboBox<City>();
+//    private JLabel carLocationLabel = new JLabel("车辆地点");
+//    private JComboBox<Province> carProvinceBox = new JComboBox<Province>();
+//    private JComboBox<City> carCityBox = new JComboBox<City>();
 
     private JLabel carColorLabel = new JLabel("车辆颜色");
     private JTextField carColorField = new JTextField();
@@ -54,24 +54,24 @@ public class AddCar extends JPanel {
         carStateLabel.setBounds(50,70,100,30);
         carStateBox.setBounds(170,70,320,30);
 
-        carLocationLabel.setBounds(50,120,100,30);
-        carProvinceBox.setBounds(170,120,150,30);
-        carCityBox.setBounds(340,120,150,30);
+//        carLocationLabel.setBounds(50,120,100,30);
+//        carProvinceBox.setBounds(170,120,150,30);
+//        carCityBox.setBounds(340,120,150,30);
 
-        carColorLabel.setBounds(50,170,100,30);
-        carColorField.setBounds(170,170,320,30);
+        carColorLabel.setBounds(50,120,100,30);
+        carColorField.setBounds(170,120,320,30);
 
-        carRentLabel.setBounds(50,220,100,30);
-        carRentField.setBounds(170,220,320,30);
+        carRentLabel.setBounds(50,170,100,30);
+        carRentField.setBounds(170,170,320,30);
 
-        carPictureLabel.setBounds(50,280,100,30);
-        carPictureField.setBounds(170,280,320,30);
+        carPictureLabel.setBounds(50,230,100,30);
+        carPictureField.setBounds(170,230,320,30);
 
-        carInfoLabel.setBounds(250,340,100,30);
-        carInfoArea.setBounds(80,380,420,200);
+        carInfoLabel.setBounds(250,290,100,30);
+        carInfoArea.setBounds(80,350,420,200);
 
-        resetButton.setBounds(260,600,80,40);
-        addButton.setBounds(400,600,80,40);
+        resetButton.setBounds(260,580,80,40);
+        addButton.setBounds(400,580,80,40);
 
 
         carColorField.setEditable(false);
@@ -82,9 +82,9 @@ public class AddCar extends JPanel {
         add(carModelBox);
         add(carStateLabel);
         add(carStateBox);
-        add(carLocationLabel);
-        add(carProvinceBox);
-        add(carCityBox);
+//        add(carLocationLabel);
+//        add(carProvinceBox);
+//        add(carCityBox);
         add(carColorLabel);
         add(carColorField);
         add(carRentLabel);
@@ -100,24 +100,24 @@ public class AddCar extends JPanel {
         String sql = "select * from brand where brand_recycle_bin = 0";
         String sql1 = "select * from brand where brand_recycle_bin = 0 order by brand_id limit 1";
         String sql2 = "select * from model where model_brand = ? and model_recycle_bin = 0";
-        String sql3 = "select * from state";
-        String sql4 = "select * from province where province_recycle_bin = 0";
-        String sql5 = "select * from province where province_recycle_bin = 0 order by province_id limit 1";
-        String sql6 = "select * from city where city_province = ? and city_recycle_bin = 0";
+        String sql3 = "select * from state where state_type = 1 and state_recycle_bin = 0";
+//        String sql4 = "select * from province where province_recycle_bin = 0";
+//        String sql5 = "select * from province where province_recycle_bin = 0 order by province_id limit 1";
+//        String sql6 = "select * from city where city_province = ? and city_recycle_bin = 0";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             PreparedStatement ps2 = connection.prepareStatement(sql2);
             PreparedStatement ps3 = connection.prepareStatement(sql3);
-            PreparedStatement ps4 = connection.prepareStatement(sql4);
-            PreparedStatement ps5 = connection.prepareStatement(sql5);
-            PreparedStatement ps6 = connection.prepareStatement(sql6);
+//            PreparedStatement ps4 = connection.prepareStatement(sql4);
+//            PreparedStatement ps5 = connection.prepareStatement(sql5);
+//            PreparedStatement ps6 = connection.prepareStatement(sql6);
 
             ResultSet rs = ps.executeQuery();
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs3 = ps3.executeQuery();
-            ResultSet rs4 = ps4.executeQuery();
-            ResultSet rs5 = ps5.executeQuery();
+//            ResultSet rs4 = ps4.executeQuery();
+//            ResultSet rs5 = ps5.executeQuery();
 
             while (rs.next()) {
                 Brand brand = new Brand();
@@ -153,24 +153,24 @@ public class AddCar extends JPanel {
                 state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
-            while (rs4.next()){
-                Province province = new Province();
-                province.setProvinceID(rs4.getInt(1));
-                province.setProvinceName(rs4.getString(2));
-                carProvinceBox.addItem(province);
-            }
+//            while (rs4.next()){
+//                Province province = new Province();
+//                province.setProvinceID(rs4.getInt(1));
+//                province.setProvinceName(rs4.getString(2));
+//                carProvinceBox.addItem(province);
+//            }
 
-            if (rs5.next()) {
-                int provinceID = rs5.getInt(1);
-                ps6.setObject(1, provinceID);
-                ResultSet rs6 = ps6.executeQuery();
-                while (rs6.next()) {
-                    City carCity = new City();
-                    carCity.setCityID(rs6.getInt(1));
-                    carCity.setCityName(rs6.getString(3));
-                    carCityBox.addItem(carCity);
-                }
-            }
+//            if (rs5.next()) {
+//                int provinceID = rs5.getInt(1);
+//                ps6.setObject(1, provinceID);
+//                ResultSet rs6 = ps6.executeQuery();
+//                while (rs6.next()) {
+//                    City carCity = new City();
+//                    carCity.setCityID(rs6.getInt(1));
+//                    carCity.setCityName(rs6.getString(3));
+//                    carCityBox.addItem(carCity);
+//                }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -227,35 +227,35 @@ public class AddCar extends JPanel {
             }
         });
 
-        carProvinceBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                carCityBox.removeAllItems();
-
-                Province carProvince = (Province) carProvinceBox.getSelectedItem();
-                int carProvinceID = carProvince.getProvinceID();
-
-                Connection connection2 = DButil.getConnection();
-                String sql4 = "select city_id, city_name from city where city_province = ?";
-
-                try {
-                    PreparedStatement ps = connection2.prepareStatement(sql4);
-                    ps.setObject(1,carProvinceID);
-                    ResultSet rs = ps.executeQuery();
-
-                    while (rs.next()) {
-                        City carCity = new City();
-                        carCity.setCityID(rs.getInt(1));
-                        carCity.setCityName(rs.getString(2));
-                        carCityBox.addItem(carCity);
-                    }
-                } catch (Exception e2) {
-                    e2.printStackTrace();
-                } finally {
-                    DButil.releaseConnection(connection2);
-                }
-            }
-        });
+//        carProvinceBox.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                carCityBox.removeAllItems();
+//
+//                Province carProvince = (Province) carProvinceBox.getSelectedItem();
+//                int carProvinceID = carProvince.getProvinceID();
+//
+//                Connection connection2 = DButil.getConnection();
+//                String sql4 = "select city_id, city_name from city where city_province = ?";
+//
+//                try {
+//                    PreparedStatement ps = connection2.prepareStatement(sql4);
+//                    ps.setObject(1,carProvinceID);
+//                    ResultSet rs = ps.executeQuery();
+//
+//                    while (rs.next()) {
+//                        City carCity = new City();
+//                        carCity.setCityID(rs.getInt(1));
+//                        carCity.setCityName(rs.getString(2));
+//                        carCityBox.addItem(carCity);
+//                    }
+//                } catch (Exception e2) {
+//                    e2.printStackTrace();
+//                } finally {
+//                    DButil.releaseConnection(connection2);
+//                }
+//            }
+//        });
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -267,8 +267,8 @@ public class AddCar extends JPanel {
                 State carState = (State) carStateBox.getSelectedItem();
                 int carStateID = carState.getStateID();
 
-                City carCity = (City) carCityBox.getSelectedItem();
-                int carCityID = carCity.getCityID();
+//                City carCity = (City) carCityBox.getSelectedItem();
+//                int carCityID = carCity.getCityID();
 
                 String carColor = carColorField.getText();
 
@@ -277,13 +277,13 @@ public class AddCar extends JPanel {
                 int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
                 if (m == 0) {
                     Connection connection3 = DButil.getConnection();
-                    String sql5 = "insert into car (car_model, car_state, car_city, car_info, car_recycle_bin) values(?, ?, ?, ?, 0)";
+                    String sql5 = "insert into car (car_model, car_state, car_info, car_recycle_bin) values(?, ?, ?, 0)";
                     try{
                         PreparedStatement ps = connection3.prepareStatement(sql5);
                         ps.setObject(1,carModelID);
                         ps.setObject(2,carStateID);
-                        ps.setObject(3,carCityID);
-                        ps.setObject(4,carInfo);
+//                        ps.setObject(3,carCityID);
+                        ps.setObject(3,carInfo);
 
                         int n = ps.executeUpdate();
 

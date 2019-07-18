@@ -2,7 +2,7 @@ package view.carType;
 
 import javax.swing.*;
 
-public class AddModel extends JDialog {
+public class AddCarType extends JPanel {
     private JLabel modelBrandLabel = new JLabel("品牌");
     private JComboBox modelBrandBox = new JComboBox();
 
@@ -18,7 +18,7 @@ public class AddModel extends JDialog {
     private JLabel modelInfoLabel = new JLabel("介绍");
     private JTextArea modelInfoArea = new JTextArea();
 
-    public AddModel() {
+    public AddCarType() {
 
     }
 }

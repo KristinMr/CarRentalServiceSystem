@@ -3,13 +3,13 @@ package util;
 public class Car {
 
     private int carID;
+    private String carNumber;
     private int carBrand;
     private int carModel;
     private int carState;
-    private int carProvince;
-    private int carCity;
     private String carPicture;
     private String carInfo;
+    private int carRecycleBin;
 
     public int getCarID() {
         return carID;
@@ -17,6 +17,14 @@ public class Car {
 
     public void setCarID(int carID) {
         this.carID = carID;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
     public int getCarBrand() {
@@ -43,22 +51,6 @@ public class Car {
         this.carState = carState;
     }
 
-    public int getCarProvince() {
-        return carProvince;
-    }
-
-    public void setCarProvince(int carProvince) {
-        this.carProvince = carProvince;
-    }
-
-    public int getCarCity() {
-        return carCity;
-    }
-
-    public void setCarCity(int carCity) {
-        this.carCity = carCity;
-    }
-
     public String getCarPicture() {
         return carPicture;
     }
@@ -73,5 +65,13 @@ public class Car {
 
     public void setCarInfo(String carInfo) {
         this.carInfo = carInfo;
+    }
+
+    public int getCarRecycleBin() {
+        return carRecycleBin;
+    }
+
+    public void setCarRecycleBin(int carRecycleBin) {
+        this.carRecycleBin = carRecycleBin;
     }
 }

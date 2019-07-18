@@ -1,6 +1,7 @@
-package view.location;
+package view.carType;
 
 import util.DButil;
+import view.carType.UpdateCarType;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -14,15 +15,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class LocationList extends JPanel {
-    private JTextField searchLocationID = new JTextField("编号关键字");
-    private JTextField searchLocationName = new JTextField("名称关键字");
-    private JTextField searchLocationInfo = new JTextField("介绍关键字");
+public class CarTypeList extends JPanel {
+    private JTextField searchCarTypeID = new JTextField("编号关键字");
+    private JTextField searchCarTypeName = new JTextField("型号关键字");
+    private JTextField searchCarTypeInfo = new JTextField("颜色关键字");
     private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchLocationButton = new JButton("查询");
+    private JButton searchCarTypeButton = new JButton("查询");
 
-    private JButton editButton = new JButton("修改所选地点");
-    private JButton deleteButton = new JButton("删除所选地点");
+    private JButton editButton = new JButton("修改所选车型");
+    private JButton deleteButton = new JButton("删除所选车型");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -34,21 +35,21 @@ public class LocationList extends JPanel {
     };
 
 
-    public LocationList() {
-//        setTitle("地点列表");
+    public CarTypeList() {
+//        setTitle("车型列表");
         setSize(1350,800);
 //        setLocationRelativeTo(null);
         setLayout(null);
 
-        searchLocationID.setForeground(Color.gray);
-        searchLocationName.setForeground(Color.gray);
-        searchLocationInfo.setForeground(Color.gray);
+        searchCarTypeID.setForeground(Color.gray);
+        searchCarTypeName.setForeground(Color.gray);
+        searchCarTypeInfo.setForeground(Color.gray);
 
-        searchLocationID.setBounds(15,40,150,30);
-        searchLocationName.setBounds(185,40,150,30);
-        searchLocationInfo.setBounds(355,40,150,30);
+        searchCarTypeID.setBounds(15,40,150,30);
+        searchCarTypeName.setBounds(185,40,150,30);
+        searchCarTypeInfo.setBounds(355,40,150,30);
         refreshSearchButton.setBounds(720,40,80,30);
-        searchLocationButton.setBounds(820,40,80,30);
+        searchCarTypeButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
@@ -56,33 +57,35 @@ public class LocationList extends JPanel {
         jScrollPane.setBounds(15,100,1310,700);
 
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\LocationRentalServiceSystem\\src\\source\\main.jpg");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
         JLabel bgLabel = new JLabel(imageIcon);
 //        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
 //        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
 //        this.getContentPane().add(new JLabel());
 //        ((JPanel) getContentPane()).setOpaque(false);
 
-        add(searchLocationID);
-        add(searchLocationName);
-        add(searchLocationInfo);
+        add(searchCarTypeID);
+        add(searchCarTypeName);
+        add(searchCarTypeInfo);
         add(refreshSearchButton);
-        add(searchLocationButton);
+        add(searchCarTypeButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
         add(bgLabel);
 
-        Vector<String> locationTHVector = new Vector<String>();
-        locationTHVector.add("编号");
-        locationTHVector.add("省份");
-        locationTHVector.add("城市");
-        locationTHVector.add("备注");
+        Vector<String> carTypeTHVector = new Vector<String>();
+        carTypeTHVector.add("车型编号");
+        carTypeTHVector.add("品牌");
+        carTypeTHVector.add("型号");
+        carTypeTHVector.add("颜色");
+        carTypeTHVector.add("租金/（每天）");
+        carTypeTHVector.add("备注");
 
-        Vector<Vector<String>> locationDataVector = new Vector<Vector<String>>();
+        Vector<Vector<String>> carTypeDataVector = new Vector<Vector<String>>();
 
         Connection collection = DButil.getConnection();
-        String sql = "select city.city_id, province.province_name, city.city_name, city.city_info, province.province_info from city, province where city.city_province = province.province_id and city.city_recycle_bin = 0";
+        String sql = "select model.*, brand.brand_name from model, brand where model.model_brand = brand.brand_id and model.model_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -91,11 +94,12 @@ public class LocationList extends JPanel {
             while (rs.next()) {
                 Vector<String> vector = new Vector<String>();
                 vector.add(rs.getString(1));
-                vector.add(rs.getString(2));
+                vector.add(rs.getString(8));
                 vector.add(rs.getString(3));
-                vector.add("省份备注：（" + rs.getString(4) + "）。城市备注：（" + rs.getString(5) + "）。");
-
-                locationDataVector.add(vector);
+                vector.add(rs.getString(4));
+                vector.add(rs.getString(5));
+                vector.add(rs.getString(6));
+                carTypeDataVector.add(vector);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,16 +107,12 @@ public class LocationList extends JPanel {
             DButil.releaseConnection(collection);
         }
 
-        DefaultTableModel defaultTableModel = new DefaultTableModel(locationDataVector, locationTHVector);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(carTypeDataVector, carTypeTHVector);
         table.setModel(defaultTableModel);
         jScrollPane.getViewport().add(table);
 
         table.getTableHeader().setReorderingAllowed(false);
 
-        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(110);
-        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(200);
-        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(200);
-        table.getTableHeader().getColumnModel().getColumn(3).setPreferredWidth(800);
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -123,11 +123,11 @@ public class LocationList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的地点");
+                    JOptionPane.showMessageDialog(null, "请先选中要修改的车型");
                     return;
                 } else {
-                    String locationID = (String)table.getValueAt(row,0);
-                    new UpdateLocation();
+                    String carTypeID = (String)table.getValueAt(row,0);
+                    new UpdateCarType(carTypeID);
                 }
             }
         });
@@ -137,21 +137,21 @@ public class LocationList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要删除的地点");
+                    JOptionPane.showMessageDialog(null, "请先选中要删除的车型");
                     return;
                 } else {
-                    String locationID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选地点移入回收站？",JOptionPane.YES_NO_OPTION);
+                    String carTypeID = (String)table.getValueAt(row,0);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选车型移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql1 = "update city set city_recycle_bin = 1 where city_id = ?";
+                        String sql1 = "update model set model_recycle_bin = 1 where model_id = ?";
                         try{
                             PreparedStatement ps = connection1.prepareStatement(sql1);
-                            ps.setObject(1, locationID);
+                            ps.setObject(1, carTypeID);
                             int n = ps.executeUpdate();
                             if (n>0){
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
-                                JOptionPane.showMessageDialog(null, "地点删除成功");
+                                JOptionPane.showMessageDialog(null, "车型删除成功");
                             }
                         } catch (Exception e1) {
                             e1.printStackTrace();
@@ -165,4 +165,15 @@ public class LocationList extends JPanel {
 
         setVisible(true);
     }
+
+//    public static void main(String[] args) {
+//        try {
+//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
+////            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
+//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//        } catch (Exception e) {
+//
+//        }
+//        new CarTypeList();
+//    }
 }

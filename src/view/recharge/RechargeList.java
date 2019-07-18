@@ -1,7 +1,6 @@
-package view.user;
+package view.recharge;
 
 import util.DButil;
-import view.user.UpdateUser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -15,15 +14,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-public class UserList extends JPanel {
-    private JTextField searchUserID = new JTextField("编号关键字");
-    private JTextField searchUserName = new JTextField("名称关键字");
-    private JTextField searchUserInfo = new JTextField("介绍关键字");
+public class RechargeList extends JPanel {
+    private JTextField searchLocationID = new JTextField("编号关键字");
+    private JTextField searchLocationName = new JTextField("名称关键字");
+    private JTextField searchLocationInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchUserButton = new JButton("查询");
+    private JButton searchLocationButton = new JButton("查询");
 
-    private JButton editButton = new JButton("修改所选用户");
-    private JButton deleteButton = new JButton("删除所选用户");
+    private JButton editButton = new JButton("修改所选充值记录");
+    private JButton deleteButton = new JButton("删除所选充值记录");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -35,21 +34,21 @@ public class UserList extends JPanel {
     };
 
 
-    public UserList() {
-//        setTitle("用户列表");
+    public RechargeList() {
+//        setTitle("充值记录列表");
         setSize(1350,800);
 //        setLocationRelativeTo(null);
         setLayout(null);
 
-        searchUserID.setForeground(Color.gray);
-        searchUserName.setForeground(Color.gray);
-        searchUserInfo.setForeground(Color.gray);
+        searchLocationID.setForeground(Color.gray);
+        searchLocationName.setForeground(Color.gray);
+        searchLocationInfo.setForeground(Color.gray);
 
-        searchUserID.setBounds(15,40,150,30);
-        searchUserName.setBounds(185,40,150,30);
-        searchUserInfo.setBounds(355,40,150,30);
+        searchLocationID.setBounds(15,40,150,30);
+        searchLocationName.setBounds(185,40,150,30);
+        searchLocationInfo.setBounds(355,40,150,30);
         refreshSearchButton.setBounds(720,40,80,30);
-        searchUserButton.setBounds(820,40,80,30);
+        searchLocationButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
@@ -57,41 +56,37 @@ public class UserList extends JPanel {
         jScrollPane.setBounds(15,100,1310,700);
 
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\UserRentalServiceSystem\\src\\source\\main.jpg");
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\LocationRentalServiceSystem\\src\\source\\main.jpg");
         JLabel bgLabel = new JLabel(imageIcon);
 //        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
 //        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
 //        this.getContentPane().add(new JLabel());
 //        ((JPanel) getContentPane()).setOpaque(false);
 
-        add(searchUserID);
-        add(searchUserName);
-        add(searchUserInfo);
+        add(searchLocationID);
+        add(searchLocationName);
+        add(searchLocationInfo);
         add(refreshSearchButton);
-        add(searchUserButton);
+        add(searchLocationButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
         add(bgLabel);
 
-        Vector<String> userTHVector = new Vector<String>();
-        userTHVector.add("编号");
-        userTHVector.add("姓名");
-        userTHVector.add("性别");
-        userTHVector.add("身份证号");
-        userTHVector.add("联系电话");
-        userTHVector.add("电子邮箱");
-        userTHVector.add("驾照编号");
-        userTHVector.add("驾驶年龄");
-        userTHVector.add("年龄");
-        userTHVector.add("联系地址");
-        userTHVector.add("剩余金额");
-        userTHVector.add("用户备注");
+        Vector<String> locationTHVector = new Vector<String>();
+        locationTHVector.add("充值编号");
+        locationTHVector.add("充值管理员编号");
+        locationTHVector.add("管理员名称");
+        locationTHVector.add("充值用户编号");
+        locationTHVector.add("充值用户名称");
+        locationTHVector.add("充值金额");
+        locationTHVector.add("充值时间");
+        locationTHVector.add("充值备注");
 
-        Vector<Vector<String>> userDataVector = new Vector<Vector<String>>();
+        Vector<Vector<String>> locationDataVector = new Vector<Vector<String>>();
 
         Connection collection = DButil.getConnection();
-        String sql = "select * from user where user_recycle_bin = 0";
+        String sql = "select recharge.recharge_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, recharge.recharge_num, recharge.recharge_date,recharge.recharge_info from recharge, admin, user where recharge.recharge_admin = admin.admin_id and recharge.recharge_user = user.user_id and recharge.recharge_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -101,18 +96,15 @@ public class UserList extends JPanel {
                 Vector<String> vector = new Vector<String>();
                 vector.add(rs.getString(1));
                 vector.add(rs.getString(2));
+                vector.add(rs.getString(3));
+                vector.add(rs.getString(4));
                 vector.add(rs.getString(5));
                 vector.add(rs.getString(6));
                 vector.add(rs.getString(7));
                 vector.add(rs.getString(8));
-                vector.add(rs.getString(9));
-                vector.add(rs.getString(10));
-                vector.add(rs.getString(11));
-                vector.add(rs.getString(12));
-                vector.add(rs.getString(13));
-                vector.add(rs.getString(14));
 
-                userDataVector.add(vector);
+
+                locationDataVector.add(vector);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,12 +112,11 @@ public class UserList extends JPanel {
             DButil.releaseConnection(collection);
         }
 
-        DefaultTableModel defaultTableModel = new DefaultTableModel(userDataVector, userTHVector);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(locationDataVector, locationTHVector);
         table.setModel(defaultTableModel);
         jScrollPane.getViewport().add(table);
 
         table.getTableHeader().setReorderingAllowed(false);
-
 
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -136,11 +127,11 @@ public class UserList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的用户");
+                    JOptionPane.showMessageDialog(null, "请先选中要修改的充值记录");
                     return;
                 } else {
-                    String userID = (String)table.getValueAt(row,0);
-                    new UpdateUser();
+                    String locationID = (String)table.getValueAt(row,0);
+                    new UpdateRecharge();
                 }
             }
         });
@@ -150,21 +141,21 @@ public class UserList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要删除的用户");
+                    JOptionPane.showMessageDialog(null, "请先选中要删除的充值记录");
                     return;
                 } else {
-                    String userID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选用户移入回收站？",JOptionPane.YES_NO_OPTION);
+                    String locationID = (String)table.getValueAt(row,0);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选充值记录移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql1 = "update user set user_recycle_bin = 1 where user_id = ?";
+                        String sql1 = "update recharge set recharge_recycle_bin = 1 where recharge_id = ?";
                         try{
                             PreparedStatement ps = connection1.prepareStatement(sql1);
-                            ps.setObject(1, userID);
+                            ps.setObject(1, locationID);
                             int n = ps.executeUpdate();
                             if (n>0){
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
-                                JOptionPane.showMessageDialog(null, "用户删除成功");
+                                JOptionPane.showMessageDialog(null, "充值记录删除成功");
                             }
                         } catch (Exception e1) {
                             e1.printStackTrace();
@@ -178,15 +169,4 @@ public class UserList extends JPanel {
 
         setVisible(true);
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-////            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//        } catch (Exception e) {
-//
-//        }
-//        new UserList();
-//    }
 }
