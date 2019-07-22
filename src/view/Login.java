@@ -32,6 +32,13 @@ public class Login extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
+
 
         adminIDLabel.setBounds(40, 50, 100, 30);
         adminIDField.setBounds(150, 50, 200, 30);
@@ -48,6 +55,7 @@ public class Login extends JFrame {
         add(passwordField);
         add(clearButton);
         add(loginButton);
+        add(bgLabel);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -135,7 +143,7 @@ public class Login extends JFrame {
             BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
 //            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
             org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-            InitGlobalFont(new Font("楷体", 1, 15));
+            InitGlobalFont(new Font("楷体", 1, 16));
         } catch (Exception e) {
 
         }

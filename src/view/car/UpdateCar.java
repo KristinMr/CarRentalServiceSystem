@@ -2,6 +2,7 @@ package view.car;
 
 import jdk.nashorn.internal.scripts.JO;
 import util.*;
+import view.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,13 @@ public class UpdateCar extends JDialog {
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
+
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
 
         carNumberLabel.setBounds(50,20,100,30);
         carNumberField.setBounds(170,20,320,30);
@@ -102,6 +110,8 @@ public class UpdateCar extends JDialog {
         add(carInfoArea);
         add(resetButton);
         add(confirmButton);
+
+        add(bgLabel);
 
         Connection connection = DButil.getConnection();
         String sql = "select car.*, model.model_brand from car, model where car.car_id = ? and model.model_id = car.car_model";
@@ -340,6 +350,12 @@ public class UpdateCar extends JDialog {
                     int n = ps.executeUpdate();
                     if (n > 0) {
                         JOptionPane.showMessageDialog(null, "修改成功！");
+                        UpdateCar.this.dispose();
+                        Main.main.removeAll();
+                        Main.main.repaint();
+                        Main.main.updateUI();
+
+                        Main.main.add(new CarList());
                     } else {
                         JOptionPane.showMessageDialog(null, "修改失败！");
                     }

@@ -92,7 +92,7 @@ public class AddOrderUser extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         Connection collection = DButil.getConnection();
-        String sql = "select * from user where user_recycle_bin = 0";
+        String sql = "select user_id, user_name, user_sex, user_idn, user_tel, user_email, user_dln, user_dage, user_age, user_address, user_money, user_info from user where user_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -102,6 +102,8 @@ public class AddOrderUser extends JPanel {
                 Vector<String> vector = new Vector<String>();
                 vector.add(rs.getString(1));
                 vector.add(rs.getString(2));
+                vector.add(rs.getString(3));
+                vector.add(rs.getString(4));
                 vector.add(rs.getString(5));
                 vector.add(rs.getString(6));
                 vector.add(rs.getString(7));
@@ -110,8 +112,6 @@ public class AddOrderUser extends JPanel {
                 vector.add(rs.getString(10));
                 vector.add(rs.getString(11));
                 vector.add(rs.getString(12));
-                vector.add(rs.getString(13));
-                vector.add(rs.getString(14));
 
                 userDataVector.add(vector);
             }

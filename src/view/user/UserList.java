@@ -1,5 +1,6 @@
 package view.user;
 
+import util.Admin;
 import util.DButil;
 import view.user.UpdateUser;
 
@@ -35,7 +36,7 @@ public class UserList extends JPanel {
     };
 
 
-    public UserList() {
+    public UserList(Admin admin) {
 //        setTitle("用户列表");
         setSize(1350,800);
 //        setLocationRelativeTo(null);
@@ -142,7 +143,7 @@ public class UserList extends JPanel {
                     return;
                 } else {
                     String userID = (String)table.getValueAt(row,0);
-                    new UpdateUser();
+                    new UpdateUser(admin, userID);
                 }
             }
         });

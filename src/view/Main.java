@@ -407,7 +407,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new AddUser());
+                main.add(new AddUser(admin));
             }
         });
         userList.addActionListener(new ActionListener() {
@@ -417,7 +417,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new UserList());
+                main.add(new UserList(admin));
             }
         });
 
