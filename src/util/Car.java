@@ -8,7 +8,7 @@ public class Car {
     private String carModel;
     private String carRent;
     private String carState;
-    private String carPicture;
+//    private String carPicture;
     private String carInfo;
     private int carRecycleBin;
 
@@ -60,13 +60,13 @@ public class Car {
         this.carState = carState;
     }
 
-    public String getCarPicture() {
-        return carPicture;
-    }
-
-    public void setCarPicture(String carPicture) {
-        this.carPicture = carPicture;
-    }
+//    public String getCarPicture() {
+//        return carPicture;
+//    }
+//
+//    public void setCarPicture(String carPicture) {
+//        this.carPicture = carPicture;
+//    }
 
     public String getCarInfo() {
         return carInfo;

@@ -1,6 +1,7 @@
 package view.car;
 
 import util.*;
+import view.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,10 @@ import java.sql.ResultSet;
 
 public class AddCar extends JPanel {
 
-    private JLabel carModelLabel = new JLabel("车辆型号");
+    private JLabel carNumberLabel = new JLabel("车牌号");
+    private JTextField carNumberField = new JTextField();
+    
+    private JLabel carTypeLabel = new JLabel("车辆类型");
     private JComboBox<Brand> carBrandBox = new JComboBox<Brand>();
     private JComboBox<Model> carModelBox = new JComboBox<Model>();
 
@@ -29,8 +33,8 @@ public class AddCar extends JPanel {
     private JLabel carRentLabel = new JLabel("车辆租金");
     private JTextField carRentField = new JTextField();
 
-    private JLabel carPictureLabel = new JLabel("车辆图片");
-    private JTextField carPictureField = new JTextField();
+//    private JLabel carPictureLabel = new JLabel("车辆图片");
+//    private JTextField carPictureField = new JTextField();
 
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
@@ -40,45 +44,51 @@ public class AddCar extends JPanel {
 
     public AddCar() {
 //        setTitle("新增车辆");
-        setSize(1350,800);
+        setSize(1350,750);
 //        setLocationRelativeTo(null);
         setLayout(null);
 //        setModal(true);
 
 //        setBackground(Color.LIGHT_GRAY);
-        carModelLabel.setFont(new java.awt.Font("楷体", 1, 15));
-        carModelLabel.setBounds(50,20,100,30);
-        carBrandBox.setBounds(170,20,150,30);
-        carModelBox.setBounds(340,20,150,30);
 
-        carStateLabel.setBounds(50,70,100,30);
-        carStateBox.setBounds(170,70,320,30);
+        carNumberLabel.setBounds(50,50,100,30);
+        carNumberField.setBounds(170,50,320,30);
+
+        carTypeLabel.setFont(new java.awt.Font("楷体", 1, 15));
+        carTypeLabel.setBounds(50,100,100,30);
+        carBrandBox.setBounds(170,100,150,30);
+        carModelBox.setBounds(340,100,150,30);
+
+        carStateLabel.setBounds(50,150,100,30);
+        carStateBox.setBounds(170,150,320,30);
 
 //        carLocationLabel.setBounds(50,120,100,30);
 //        carProvinceBox.setBounds(170,120,150,30);
 //        carCityBox.setBounds(340,120,150,30);
 
-        carColorLabel.setBounds(50,120,100,30);
-        carColorField.setBounds(170,120,320,30);
+        carColorLabel.setBounds(50,200,100,30);
+        carColorField.setBounds(170,200,320,30);
 
-        carRentLabel.setBounds(50,170,100,30);
-        carRentField.setBounds(170,170,320,30);
+        carRentLabel.setBounds(50,250,100,30);
+        carRentField.setBounds(170,250,320,30);
 
-        carPictureLabel.setBounds(50,230,100,30);
-        carPictureField.setBounds(170,230,320,30);
+//        carPictureLabel.setBounds(50,230,100,30);
+//        carPictureField.setBounds(170,230,320,30);
 
-        carInfoLabel.setBounds(250,290,100,30);
-        carInfoArea.setBounds(80,350,420,200);
+        carInfoLabel.setBounds(250,310,100,30);
+        carInfoArea.setBounds(80,370,420,200);
 
-        resetButton.setBounds(260,580,80,40);
-        addButton.setBounds(400,580,80,40);
+        resetButton.setBounds(260,600,80,40);
+        addButton.setBounds(400,600,80,40);
 
 
         carColorField.setEditable(false);
         carRentField.setEditable(false);
 
+        add(carNumberLabel);
+        add(carNumberField);
+        add(carTypeLabel);
         add(carBrandBox);
-        add(carModelLabel);
         add(carModelBox);
         add(carStateLabel);
         add(carStateBox);
@@ -89,8 +99,8 @@ public class AddCar extends JPanel {
         add(carColorField);
         add(carRentLabel);
         add(carRentField);
-        add(carPictureLabel);
-        add(carPictureField);
+//        add(carPictureLabel);
+//        add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
         add(resetButton);
@@ -149,7 +159,7 @@ public class AddCar extends JPanel {
 
             while (rs3.next()){
                 State state = new State();
-                state.setStateID(rs3.getInt(1));
+                state.setStateID(rs3.getString(1));
                 state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
@@ -261,11 +271,12 @@ public class AddCar extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                String carNumber = carNumberField.getText();
                 Model carModel = (Model) carModelBox.getSelectedItem();
                 String carModelID = carModel.getModelID();
 
                 State carState = (State) carStateBox.getSelectedItem();
-                int carStateID = carState.getStateID();
+                String carStateID = carState.getStateID();
 
 //                City carCity = (City) carCityBox.getSelectedItem();
 //                int carCityID = carCity.getCityID();
@@ -277,18 +288,24 @@ public class AddCar extends JPanel {
                 int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
                 if (m == 0) {
                     Connection connection3 = DButil.getConnection();
-                    String sql5 = "insert into car (car_model, car_state, car_info, car_recycle_bin) values(?, ?, ?, 0)";
+                    String sql5 = "insert into car (car_number, car_model, car_state, car_info, car_recycle_bin) values(?, ?, ?, ?, 0)";
                     try{
                         PreparedStatement ps = connection3.prepareStatement(sql5);
-                        ps.setObject(1,carModelID);
-                        ps.setObject(2,carStateID);
+                        ps.setObject(1, carNumber);
+                        ps.setObject(2,carModelID);
+                        ps.setObject(3,carStateID);
 //                        ps.setObject(3,carCityID);
-                        ps.setObject(3,carInfo);
+                        ps.setObject(4,carInfo);
 
                         int n = ps.executeUpdate();
 
                         if (n>0) {
                             JOptionPane.showMessageDialog(null, "添加成功！");
+                            Main.main.removeAll();
+                            Main.main.repaint();
+                            Main.main.updateUI();
+
+                            Main.main.add(new CarList());
                         } else {
                             JOptionPane.showMessageDialog(null, "添加失败！");
                         }

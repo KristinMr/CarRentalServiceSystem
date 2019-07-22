@@ -1,15 +1,16 @@
 package util;
 
 public class State {
-    private int stateID;
+    private String stateID;
     private String stateName;
+    private String stateType;
     private String stateInfo;
 
-    public int getStateID() {
+    public String getStateID() {
         return stateID;
     }
 
-    public void setStateID(int stateID) {
+    public void setStateID(String stateID) {
         this.stateID = stateID;
     }
 
@@ -19,6 +20,14 @@ public class State {
 
     public void setStateName(String stateName) {
         this.stateName = stateName;
+    }
+
+    public String getStateType() {
+        return stateType;
+    }
+
+    public void setStateType(String stateType) {
+        this.stateType = stateType;
     }
 
     public String getStateInfo() {

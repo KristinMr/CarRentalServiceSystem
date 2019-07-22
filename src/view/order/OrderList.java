@@ -90,8 +90,10 @@ public class OrderList extends JPanel {
 
         Vector<Vector<String>> orderDataVector = new Vector<Vector<String>>();
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         Connection collection = DButil.getConnection();
-        String sql = "select order.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, order.order_time, order.order_stime, order.order_etime, state.state_name, order.order_info from order, admin, user, car, model, brand, state where order.order_admin = admin.admin_id and order.order_user = user.user_id and order.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and order.order_state = state.state_id and order.order_recycle_bin = 0";
+        String sql = "select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_etime, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -157,7 +159,7 @@ public class OrderList extends JPanel {
                     int m = JOptionPane.showConfirmDialog(null, "确认","将所选订单移入回收站？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql1 = "update order set order_recycle_bin = 1 where order_id = ?";
+                        String sql1 = "update oorder set order_recycle_bin = 1 where order_id = ?";
                         try{
                             PreparedStatement ps = connection1.prepareStatement(sql1);
                             ps.setObject(1, orderID);

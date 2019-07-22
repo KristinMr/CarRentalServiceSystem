@@ -33,14 +33,14 @@ public class Login extends JFrame {
         setLayout(null);
 
 
-        adminIDLabel.setBounds(40, 30, 100, 30);
-        adminIDField.setBounds(150, 30, 200, 30);
+        adminIDLabel.setBounds(40, 50, 100, 30);
+        adminIDField.setBounds(150, 50, 200, 30);
 
-        passwordLabel.setBounds(40, 100, 100, 30);
-        passwordField.setBounds(150, 100, 200, 30);
+        passwordLabel.setBounds(40, 120, 100, 30);
+        passwordField.setBounds(150, 120, 200, 30);
 
-        clearButton.setBounds(100, 170, 60, 30);
-        loginButton.setBounds(250, 170, 60, 30);
+        clearButton.setBounds(120, 210, 80, 30);
+        loginButton.setBounds(270, 210, 80, 30);
 
         add(adminIDLabel);
         add(adminIDField);

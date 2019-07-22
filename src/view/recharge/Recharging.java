@@ -124,6 +124,7 @@ public class Recharging extends JDialog {
                         ps1.setObject(2, user.getUserID());
                         int n1 = ps1.executeUpdate();
                         if (n1 > 0) {
+                            Recharging.this.dispose();
                             JOptionPane.showMessageDialog(null, "用户充值成功");
                         } else {
                             JOptionPane.showMessageDialog(null, "用户充值失败");

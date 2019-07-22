@@ -67,14 +67,13 @@ public class AddState extends JPanel {
                     String stateInfo = stateInfoArea.getText();
 
                     Connection connection = DButil.getConnection();
-                    String sql = "insert into state(state_name, state_type, state_info, state_recycle_bin) values(?, ?, ?, ?)";
+                    String sql = "insert into state(state_name, state_type, state_info, state_recycle_bin) values(?, ?, ?, 0)";
                     String sql1 = "select * from state where state_recycle_bin = 0";
                     try {
                         PreparedStatement ps = connection.prepareStatement(sql);
                         ps.setObject(1, stateName);
                         ps.setObject(2, stateType);
-                        ps.setObject(2, stateInfo);
-                        ps.setObject(3, 0);
+                        ps.setObject(3, stateInfo);
 
                         int n = ps.executeUpdate();
 

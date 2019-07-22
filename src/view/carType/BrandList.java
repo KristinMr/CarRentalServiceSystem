@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class BrandList extends JFrame {
+public class BrandList extends JDialog {
     private JTextField searchBrandID = new JTextField("编号关键字");
     private JTextField searchBrandName = new JTextField("名称关键字");
     private JTextField searchBrandInfo = new JTextField("介绍关键字");

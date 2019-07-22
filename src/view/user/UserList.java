@@ -90,6 +90,8 @@ public class UserList extends JPanel {
 
         Vector<Vector<String>> userDataVector = new Vector<Vector<String>>();
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         Connection collection = DButil.getConnection();
         String sql = "select * from user where user_recycle_bin = 0";
 

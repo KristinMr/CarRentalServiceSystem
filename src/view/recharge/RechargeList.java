@@ -87,6 +87,8 @@ public class RechargeList extends JPanel {
 
         Vector<Vector<String>> locationDataVector = new Vector<Vector<String>>();
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         Connection collection = DButil.getConnection();
         String sql = "select recharge.recharge_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, recharge.recharge_num, recharge.recharge_date,recharge.recharge_info from recharge, admin, user where recharge.recharge_admin = admin.admin_id and recharge.recharge_user = user.user_id and recharge.recharge_recycle_bin = 0";
 

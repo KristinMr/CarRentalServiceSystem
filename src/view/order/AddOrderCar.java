@@ -39,10 +39,11 @@ public class AddOrderCar extends JDialog {
 
 
     public AddOrderCar(Admin admin, User user) {
-        setTitle("选中车辆给" + user.getUserName());
+        setTitle("选中车辆给" + user.getUserName() + "下单");
         setSize(1400,800);
         setLocationRelativeTo(null);
         setLayout(null);
+        setModal(true);
 
         searchCarID.setForeground(Color.gray);
         searchCarName.setForeground(Color.gray);
@@ -56,7 +57,7 @@ public class AddOrderCar extends JDialog {
         
         addOrderCarButton.setBounds(1170,40,150,40);
 
-        jScrollPane.setBounds(15,100,1310,700);
+        jScrollPane.setBounds(15,100,1310,600);
 
 
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
@@ -82,17 +83,20 @@ public class AddOrderCar extends JDialog {
         carTHVector.add("型号");
         carTHVector.add("颜色");
         carTHVector.add("租金/（每天）");
-        carTHVector.add("图片");
+//        carTHVector.add("图片");
         carTHVector.add("状态");
         carTHVector.add("备注");
 
         Vector<Vector<String>> carDataVector = new Vector<Vector<String>>();
 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         Connection collection = DButil.getConnection();
-        String sql = "select car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_color, model.model_rent, car.car_picture, state.state_name, car.car_info from car, model, brand, state where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id  and car.car_recycle_bin = 0";
+        String sql = "select car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_color, model.model_rent, state.state_name, car.car_info from car, model, brand, state where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id  and car.car_recycle_bin = 0 and state.state_name = ?";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
+            ps.setObject(1, "空闲");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -105,7 +109,7 @@ public class AddOrderCar extends JDialog {
                 vector.add(rs.getString(6));
                 vector.add(rs.getString(7));
                 vector.add(rs.getString(8));
-                vector.add(rs.getString(9));
+//                vector.add(rs.getString(9));
 
                 carDataVector.add(vector);
             }

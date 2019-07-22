@@ -15,7 +15,7 @@ public class UpdateCar extends JDialog {
     private JLabel carNumberLabel = new JLabel("车牌号");
     private JTextField carNumberField = new JTextField();
 
-    private JLabel carModelLabel = new JLabel("车辆型号");
+    private JLabel carTypeLabel = new JLabel("车辆类型");
     private JComboBox<Brand> carBrandBox = new JComboBox<Brand>();
     private JComboBox<Model> carModelBox = new JComboBox<Model>();
 
@@ -32,8 +32,8 @@ public class UpdateCar extends JDialog {
     private JLabel carRentLabel = new JLabel("车辆租金");
     private JTextField carRentField = new JTextField();
 
-    private JLabel carPictureLabel = new JLabel("车辆图片");
-    private JTextField carPictureField = new JTextField();
+//    private JLabel carPictureLabel = new JLabel("车辆图片");
+//    private JTextField carPictureField = new JTextField();
 
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();
@@ -51,7 +51,8 @@ public class UpdateCar extends JDialog {
 
         carNumberLabel.setBounds(50,20,100,30);
         carNumberField.setBounds(170,20,320,30);
-        carModelLabel.setBounds(50, 70, 100, 30);
+        
+        carTypeLabel.setBounds(50, 70, 100, 30);
         carBrandBox.setBounds(170, 70, 150, 30);
         carModelBox.setBounds(340, 70, 150, 30);
 
@@ -69,14 +70,14 @@ public class UpdateCar extends JDialog {
         carRentLabel.setBounds(50, 230, 100, 30);
         carRentField.setBounds(170, 230, 320, 30);
 
-        carPictureLabel.setBounds(50, 280, 100, 30);
-        carPictureField.setBounds(170, 280, 320, 30);
+//        carPictureLabel.setBounds(50, 280, 100, 30);
+//        carPictureField.setBounds(170, 280, 320, 30);
 
-        carInfoLabel.setBounds(250, 340, 100, 30);
-        carInfoArea.setBounds(100, 390, 400, 200);
+        carInfoLabel.setBounds(250, 290, 100, 30);
+        carInfoArea.setBounds(100, 340, 400, 200);
 
-        resetButton.setBounds(260, 630, 80, 40);
-        confirmButton.setBounds(380, 630, 120, 40);
+        resetButton.setBounds(260, 580, 80, 40);
+        confirmButton.setBounds(380, 580, 120, 40);
 
         carColorField.setEditable(false);
         carRentField.setEditable(false);
@@ -84,7 +85,7 @@ public class UpdateCar extends JDialog {
         add(carNumberLabel);
         add(carNumberField);
         add(carBrandBox);
-        add(carModelLabel);
+        add(carTypeLabel);
         add(carModelBox);
         add(carStateLabel);
         add(carStateBox);
@@ -95,8 +96,8 @@ public class UpdateCar extends JDialog {
         add(carColorField);
         add(carRentLabel);
         add(carRentField);
-        add(carPictureLabel);
-        add(carPictureField);
+//        add(carPictureLabel);
+//        add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
         add(resetButton);
@@ -107,7 +108,7 @@ public class UpdateCar extends JDialog {
         String sql1 = "select * from brand where brand_recycle_bin = 0";
         String sql2 = "select * from model where model_brand = ?";
 
-        String sql3 = "select * from state";
+        String sql3 = "select * from state where state_type = 1 and state_recycle_bin = 0";
 //        String sql4 = "select * from province";
 //        String sql5 = "select * from city where city_province = ?";
 
@@ -125,10 +126,10 @@ public class UpdateCar extends JDialog {
                 car.setCarModel(rs.getString(3));
                 car.setCarState(rs.getString(4));
 //                car.setCarCity(rs.getInt(4));
-                car.setCarPicture(rs.getString(5));
-                car.setCarInfo(rs.getString(6));
-                car.setCarRecycleBin(rs.getInt(7));
-                car.setCarBrand(rs.getString(8));
+//                car.setCarPicture(rs.getString(5));
+                car.setCarInfo(rs.getString(5));
+                car.setCarRecycleBin(rs.getInt(6));
+                car.setCarBrand(rs.getString(7));
 //                car.setCarProvince(rs.getInt(9));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
@@ -193,7 +194,7 @@ public class UpdateCar extends JDialog {
 
             while (rs3.next()) {
                 State state = new State();
-                state.setStateID(rs3.getInt(1));
+                state.setStateID(rs3.getString(1));
                 state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
@@ -316,24 +317,26 @@ public class UpdateCar extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                String car_number = carNumberField.getText();
                 Model model = (Model) carModelBox.getSelectedItem();
                 State state = (State) carStateBox.getSelectedItem();
 //                City city = (City) carCityBox.getSelectedItem();
 
                 String carModelID = model.getModelID();
-                int carStateID = state.getStateID();
+                String carStateID = state.getStateID();
 //                int carCityID = city.getCityID();
                 String carInfo = carInfoArea.getText();
 
                 Connection connection1 = DButil.getConnection();
-                String sql = "update car set car_model = ?, car_state = ?, car_info = ? where car_id = ?";
+                String sql = "update car set car_number = ?, car_model = ?, car_state = ?, car_info = ? where car_id = ?";
                 try {
                     PreparedStatement ps = connection1.prepareStatement(sql);
-                    ps.setObject(1, carModelID);
-                    ps.setObject(2, carStateID);
+                    ps.setObject(1, car_number);
+                    ps.setObject(2, carModelID);
+                    ps.setObject(3, carStateID);
 //                    ps.setObject(3, carCityID);
-                    ps.setObject(3, carInfo);
-                    ps.setObject(4, carID);
+                    ps.setObject(4, carInfo);
+                    ps.setObject(5, carID);
                     int n = ps.executeUpdate();
                     if (n > 0) {
                         JOptionPane.showMessageDialog(null, "修改成功！");
