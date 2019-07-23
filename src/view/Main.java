@@ -990,7 +990,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new AdminRecycleBinList());
+                main.add(new AdminRecycleBinList(admin));
             }
         });
 
