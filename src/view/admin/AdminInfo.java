@@ -1,4 +1,4 @@
-package view.user;
+package view.admin;
 
 import util.Admin;
 

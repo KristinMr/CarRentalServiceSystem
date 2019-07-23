@@ -1,6 +1,7 @@
-package view.recharge;
+package view.recycleBin;
 
 import util.DButil;
+import view.recharge.UpdateRecharge;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -12,19 +13,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
-public class RechargeList extends JPanel {
+public class RechargeRecycleBinList extends JPanel {
     private JTextField searchLocationID = new JTextField("编号关键字");
     private JTextField searchLocationName = new JTextField("名称关键字");
     private JTextField searchLocationInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
     private JButton searchLocationButton = new JButton("查询");
 
-    private JButton editButton = new JButton("修改所选充值记录");
-    private JButton deleteButton = new JButton("删除所选充值记录");
+    private JButton editButton = new JButton("移出回收站");
+    private JButton deleteButton = new JButton("彻底删除所选充值记录");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -36,7 +35,7 @@ public class RechargeList extends JPanel {
     };
 
 
-    public RechargeList() {
+    public RechargeRecycleBinList() {
 //        setTitle("充值记录列表");
         setSize(1350,800);
 //        setLocationRelativeTo(null);
@@ -90,7 +89,7 @@ public class RechargeList extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         Connection collection = DButil.getConnection();
-        String sql = "select recharge.recharge_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, recharge.recharge_num, recharge.recharge_date,recharge.recharge_info from recharge, admin, user where recharge.recharge_admin = admin.admin_id and recharge.recharge_user = user.user_id and recharge.recharge_recycle_bin = 0";
+        String sql = "select recharge.recharge_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, recharge.recharge_num, recharge.recharge_date,recharge.recharge_info from recharge, admin, user where recharge.recharge_admin = admin.admin_id and recharge.recharge_user = user.user_id and recharge.recharge_recycle_bin = 1";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -132,11 +131,25 @@ public class RechargeList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的充值记录");
+                    JOptionPane.showMessageDialog(null, "请先选中要移出回收站的充值记录");
                     return;
                 } else {
                     String rechargeID = (String)table.getValueAt(row,0);
-                    new UpdateRecharge();
+                    Connection connection1 = DButil.getConnection();
+                    String sql1 = "update recharge set recharge_recycle_bin = 0 where recharge_id = ?";
+                    try{
+                        PreparedStatement ps = connection1.prepareStatement(sql1);
+                        ps.setObject(1, rechargeID);
+                        int n = ps.executeUpdate();
+                        if (n>0){
+                            ((DefaultTableModel)table.getModel()).removeRow(row);
+                            JOptionPane.showMessageDialog(null, "充值记录还原成功");
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    } finally {
+                        DButil.releaseConnection(connection1);
+                    }
                 }
             }
         });
@@ -146,21 +159,21 @@ public class RechargeList extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
                 if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要删除的充值记录");
+                    JOptionPane.showMessageDialog(null, "请先选中要彻底删除的充值记录");
                     return;
                 } else {
                     String rechargeID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选充值记录移入回收站？",JOptionPane.YES_NO_OPTION);
+                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选充值记录彻底删除？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql1 = "update recharge set recharge_recycle_bin = 1 where recharge_id = ?";
+                        String sql1 = "delete from recharge where recharge_recycle_bin = 1 and recharge_id = ?";
                         try{
                             PreparedStatement ps = connection1.prepareStatement(sql1);
                             ps.setObject(1, rechargeID);
                             int n = ps.executeUpdate();
                             if (n>0){
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
-                                JOptionPane.showMessageDialog(null, "充值记录删除成功");
+                                JOptionPane.showMessageDialog(null, "充值记录彻底删除成功");
                             }
                         } catch (Exception e1) {
                             e1.printStackTrace();

@@ -179,7 +179,7 @@ public class AddUser extends JPanel {
                         PreparedStatement ps = connection.prepareStatement(sql);
                         ps.setObject(1, userName);
                         ps.setObject(2, userPassword);
-                        ps.setObject(3, 1);
+                        ps.setObject(3, 3);
                         ps.setObject(4, gender);
                         ps.setObject(5, userIDN);
                         ps.setObject(6, userTel);

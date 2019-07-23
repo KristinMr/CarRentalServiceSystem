@@ -2,6 +2,7 @@ package view.user;
 
 import util.Admin;
 import util.DButil;
+import util.User;
 import view.Main;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,14 +49,21 @@ public class UpdateUser extends JDialog {
     private JTextArea userInfoArea = new JTextArea();
 
     private JButton resetButton = new JButton("重置");
-    private JButton addButton = new JButton("添加");
+    private JButton confirmButton = new JButton("确认修改用户信息");
 
     public UpdateUser(Admin admin, String userID) {
         setTitle("管理员：" + admin.getAdminName() + " 正在更新用户信息");
-        setSize(1350, 750);
+        setSize(1050, 750);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
+
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(-100, -100, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
 
         userNameLabel.setBounds(80, 50, 80, 30);
         userNameField.setBounds(180, 50, 250, 30);
@@ -85,7 +94,7 @@ public class UpdateUser extends JDialog {
         userInfoArea.setBounds(180, 330, 720, 200);
 
         resetButton.setBounds(100, 600, 120, 30);
-        addButton.setBounds(750, 600, 150, 40);
+        confirmButton.setBounds(750, 600, 200, 40);
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(maleButton);
@@ -120,8 +129,51 @@ public class UpdateUser extends JDialog {
         add(userInfoArea);
 
         add(resetButton);
-        add(addButton);
+        add(confirmButton);
 
+        add(bgLabel);
+
+
+        Connection connection = DButil.getConnection();
+        String sql = "select user_name, user_sex, user_tel, user_email, user_idn, user_address, user_dln, user_dage, user_info from user where user_id = ?";
+
+        User user = new User();
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setObject(1,userID);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                user.setUserName(rs.getString(1));
+                user.setUserSex(rs.getString(2));
+                user.setUserTel(rs.getString(3));
+                user.setUserEmail(rs.getString(4));
+                user.setUserIDN(rs.getString(5));
+                user.setUserAddress(rs.getString(6));
+                user.setUserDLN(rs.getString(7));
+                user.setUserDAge(rs.getString(8));
+                user.setUserInfo(rs.getString(9));
+
+                userNameField.setText(user.getUserName());
+                if (user.getUserSex().equals("男")) {
+                    maleButton.setSelected(true);
+                } else {
+                    femaleButton.setSelected(true);
+                }
+                userTelField.setText(user.getUserTel());
+                userEmailField.setText(user.getUserEmail());
+                userIDNField.setText(user.getUserIDN());
+                userAddressField.setText(user.getUserAddress());
+                userDrivingLicenseField.setText(user.getUserDLN());
+                userDriveAgeField.setText(user.getUserDAge());
+                userInfoArea.setText(user.getUserInfo());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DButil.releaseConnection(connection);
+        }
         userIDNField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -138,19 +190,23 @@ public class UpdateUser extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                userNameField.setText("");
-                maleButton.setSelected(true);
-                userTelField.setText("");
-                userEmailField.setText("");
-                userIDNField.setText("");
-                userAddressField.setText("");
-                userDrivingLicenseField.setText("");
-                userDriveAgeField.setText("");
-                userInfoArea.setText("");
+                userNameField.setText(user.getUserName());
+                if (user.getUserSex().equals("男")) {
+                    maleButton.setSelected(true);
+                } else {
+                    femaleButton.setSelected(true);
+                }
+                userTelField.setText(user.getUserTel());
+                userEmailField.setText(user.getUserEmail());
+                userIDNField.setText(user.getUserIDN());
+                userAddressField.setText(user.getUserAddress());
+                userDrivingLicenseField.setText(user.getUserDLN());
+                userDriveAgeField.setText(user.getUserDAge());
+                userInfoArea.setText(user.getUserInfo());
             }
         });
 
-        addButton.addActionListener(new ActionListener() {
+        confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -170,32 +226,33 @@ public class UpdateUser extends JDialog {
                 String userInfo = userInfoArea.getText();
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String userDate = dateFormat.format(new Date());
+                String userDateUpdate = dateFormat.format(new Date());
                 if (userName.equals("")) {
                     JOptionPane.showMessageDialog(null, "用户姓名不能为空！请重新输入。");
                 } else {
-                    Connection connection = DButil.getConnection();
-                    String sql = "update user set user_name = ?, user_sex = ?, user_idn = ?, user_tel = ?, user_email = ?, user_dln = ?, user_dage = ?, user_age = ?, user_address = ?, user_info = ?, user_admin = ?, user_date_update = ? where user_id = ?";
+                    Connection connection1 = DButil.getConnection();
+                    String sql1 = "update user set user_name = ?, user_sex = ?, user_tel = ?, user_email = ?, user_idn = ?, user_address = ?, user_dln = ?, user_dage = ?, user_info = ?, user_admin_update = ?, user_date_update = ? where user_id = ?";
                     try {
-                        PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, userName);
-                        ps.setObject(2, gender);
-                        ps.setObject(3, userIDN);
-                        ps.setObject(4, userTel);
-                        ps.setObject(5, userEmail);
-                        ps.setObject(6, userDrivingLicense);
-                        ps.setObject(7, userDriveAge);
-                        ps.setObject(8, userAge);
-                        ps.setObject(9, userAddress);
-                        ps.setObject(10, userInfo);
-                        ps.setObject(11, admin.getAdminID());
-                        ps.setObject(12, userDate);
-                        ps.setObject(13, 0);
+                        PreparedStatement ps1 = connection1.prepareStatement(sql1);
+                        ps1.setObject(1, userName);
+                        ps1.setObject(2, gender);
+                        ps1.setObject(3, userTel);
+                        ps1.setObject(4, userEmail);
+                        ps1.setObject(5, userIDN);
+                        ps1.setObject(6, userAddress);
+                        ps1.setObject(7, userDrivingLicense);
+                        ps1.setObject(8, userDriveAge);
+                        ps1.setObject(9, userInfo);
+                        ps1.setObject(10, admin.getAdminID());
+                        ps1.setObject(11, userDateUpdate);
+                        ps1.setObject(12,userID);
 
-                        int n = ps.executeUpdate();
+                        int n = ps1.executeUpdate();
 
                         if (n > 0) {
                             JOptionPane.showMessageDialog(null, "用户信息更新成功！");
+                            UpdateUser.this.dispose();
+
                             view.Main.main.removeAll();
                             view.Main.main.repaint();
                             view.Main.main.updateUI();
@@ -207,10 +264,9 @@ public class UpdateUser extends JDialog {
                     } catch (Exception e1) {
                         e1.printStackTrace();
                     } finally {
-                        DButil.releaseConnection(connection);
+                        DButil.releaseConnection(connection1);
                     }
                 }
-
             }
         });
 

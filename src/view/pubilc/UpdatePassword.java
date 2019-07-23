@@ -33,28 +33,28 @@ public class UpdatePassword extends JDialog {
 
     public UpdatePassword(Admin admin) {
         setTitle("更新用户密码");
-        setSize(400, 400);
+        setSize(500, 400);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
 
-        adminIDLabel.setBounds(50, 30, 80, 30);
-        adminIDField.setBounds(140, 30, 150, 30);
+        adminIDLabel.setBounds(50, 30, 120, 30);
+        adminIDField.setBounds(180, 30, 200, 30);
         String adminID = admin.getAdminID();
         adminIDField.setText(adminID);
         adminIDField.setEditable(false);
 
-        passwordLabel.setBounds(50, 80, 80, 30);
-        passwordField.setBounds(140, 80, 150, 30);
+        passwordLabel.setBounds(50, 80, 120, 30);
+        passwordField.setBounds(180, 80, 200, 30);
 
-        newPasswordLabel.setBounds(50, 130, 80, 30);
-        newPasswordField.setBounds(140, 130, 150, 30);
+        newPasswordLabel.setBounds(50, 130, 120, 30);
+        newPasswordField.setBounds(180, 130, 200, 30);
 
-        reNewPasswordLabel.setBounds(50, 180, 80, 30);
-        reNewPasswordField.setBounds(140, 180, 150, 30);
+        reNewPasswordLabel.setBounds(50, 180, 120, 30);
+        reNewPasswordField.setBounds(180, 180, 200, 30);
 
         clearButton.setBounds(50, 250, 80, 30);
-        confirmButton.setBounds(170, 250, 120, 30);
+        confirmButton.setBounds(230, 250, 150, 40);
 
 
         add(adminIDLabel);

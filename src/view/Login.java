@@ -35,7 +35,7 @@ public class Login extends JFrame {
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
         JLabel bgLabel = new JLabel(imageIcon);
         this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        bgLabel.setBounds(-450, -370, imageIcon.getIconWidth(), imageIcon.getIconHeight());
         this.getContentPane().add(new JLabel());
         ((JPanel) getContentPane()).setOpaque(false);
 

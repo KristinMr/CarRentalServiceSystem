@@ -3,9 +3,13 @@ package view.recharge;
 import util.Admin;
 import util.DButil;
 import util.User;
+import view.Mai;
+import view.Main;
+import view.order.OrderList;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -34,43 +38,50 @@ public class Recharging extends JDialog {
 
     public Recharging(Admin admin, User user) {
         setTitle("用户充值");
-        setSize(400, 600);
+        setSize(540, 600);
         setLocationRelativeTo(null);
         setLayout(null);
 
-        adminIDLabel.setBounds(50, 30, 80, 30);
-        adminIDField.setBounds(140, 30, 150, 30);
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(-450, -370, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
+
+        adminIDLabel.setBounds(50, 30, 120, 30);
+        adminIDField.setBounds(200, 30, 200, 30);
         adminIDField.setText(admin.getAdminID());
         adminIDField.setEditable(false);
 
-        adminNameLabel.setBounds(50, 80, 80, 30);
-        adminNameField.setBounds(140, 80, 150, 30);
+        adminNameLabel.setBounds(50, 80, 120, 30);
+        adminNameField.setBounds(200, 80, 200, 30);
         adminNameField.setText(admin.getAdminName());
         adminNameField.setEditable(false);
 
 
-        userIDLabel.setBounds(50, 130, 80, 30);
-        userIDField.setBounds(140, 130, 150, 30);
+        userIDLabel.setBounds(50, 130, 120, 30);
+        userIDField.setBounds(200, 130, 200, 30);
         userIDField.setText(user.getUserID());
         userIDField.setEditable(false);
 
-        userNameLabel.setBounds(50, 180, 80, 30);
-        userNameField.setBounds(140, 180, 150, 30);
+        userNameLabel.setBounds(50, 180, 120, 30);
+        userNameField.setBounds(200, 180, 200, 30);
         userNameField.setText(user.getUserName());
         userNameField.setEditable(false);
 
-        userMoneyLabel.setBounds(50, 230, 80, 30);
-        userMoneyField.setBounds(140, 230, 150, 30);
+        userMoneyLabel.setBounds(50, 230, 120, 30);
+        userMoneyField.setBounds(200, 230, 200, 30);
         userMoneyField.setText(user.getUserMoney());
         userMoneyField.setEditable(false);
 
-        rechargeMoneyLabel.setBounds(50, 280, 80, 30);
-        rechargeMoneyField.setBounds(140, 280, 150, 30);
+        rechargeMoneyLabel.setBounds(50, 280, 120, 30);
+        rechargeMoneyField.setBounds(200, 280, 200, 30);
 
-        rechargeInfoLabel.setBounds(50, 330, 80, 30);
-        rechargeInfoArea.setBounds(140, 330, 150, 80);
+        rechargeInfoLabel.setBounds(50, 330, 120, 30);
+        rechargeInfoArea.setBounds(200, 330, 200, 80);
         clearButton.setBounds(50, 450, 80, 30);
-        rechargeButton.setBounds(170, 450, 120, 30);
+        rechargeButton.setBounds(250, 450, 160, 40);
 
         add(adminIDLabel);
         add(adminIDField);
@@ -88,6 +99,8 @@ public class Recharging extends JDialog {
         add(rechargeInfoArea);
         add(clearButton);
         add(rechargeButton);
+
+        add(bgLabel);
 
         clearButton.addActionListener(new ActionListener() {
             @Override
@@ -126,6 +139,12 @@ public class Recharging extends JDialog {
                         if (n1 > 0) {
                             Recharging.this.dispose();
                             JOptionPane.showMessageDialog(null, "用户充值成功");
+
+                            Main.main.removeAll();
+                            Main.main.repaint();
+                            Main.main.updateUI();
+
+                            Main.main.add(new RechargeList());
                         } else {
                             JOptionPane.showMessageDialog(null, "用户充值失败");
                         }
