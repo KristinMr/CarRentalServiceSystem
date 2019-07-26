@@ -136,7 +136,7 @@ public class UpdateAdmin extends JDialog {
                 admin1.setAdminAddress(rs.getString(6));
                 admin1.setAdminInfo(rs.getString(7));
 
-                adminNameField.setText(admin.getAdminName());
+                adminNameField.setText(admin1.getAdminName());
                 if (admin1.getAdminSex().equals("男")) {
                     maleButton.setSelected(true);
                 } else {

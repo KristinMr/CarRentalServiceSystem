@@ -206,6 +206,13 @@ public class StateList extends JPanel {
         add(editButton);
         add(deleteButton);
 
+        refreshSearchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         searchStateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -380,9 +387,9 @@ public class StateList extends JPanel {
                     try {
                         PreparedStatement ps = connection1.prepareStatement(sql);
                         ps.setObject(1, stateName);
-                        ps.setObject(1, stateType);
-                        ps.setObject(2, stateInfo);
-                        ps.setObject(3,stateID);
+                        ps.setObject(2, stateType);
+                        ps.setObject(3, stateInfo);
+                        ps.setObject(4,stateID);
                         int n = ps.executeUpdate();
 
                         if (n > 0) {

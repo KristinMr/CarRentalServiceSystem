@@ -47,7 +47,7 @@ public class Login extends JFrame {
         passwordField.setBounds(150, 120, 200, 30);
 
         clearButton.setBounds(120, 210, 80, 30);
-        loginButton.setBounds(270, 210, 80, 30);
+        loginButton.setBounds(270, 210, 120, 50);
 
         add(adminIDLabel);
         add(adminIDField);
@@ -143,7 +143,7 @@ public class Login extends JFrame {
             BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
 //            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
             org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-            InitGlobalFont(new Font("楷体", 1, 16));
+            InitGlobalFont(new Font("楷体", 1, 15));
         } catch (Exception e) {
 
         }

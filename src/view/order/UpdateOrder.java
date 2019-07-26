@@ -1,6 +1,7 @@
 package view.order;
 
 import util.*;
+import util.Order;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -61,21 +62,28 @@ public class UpdateOrder extends JDialog {
     private JButton resetButton = new JButton("重置");
     private JButton confirmButton = new JButton("确认新增订单");
 
-    public UpdateOrder(String orderID) {
-        setTitle("确认用户订单");
+    public UpdateOrder(Admin admin, String orderID) {
+        setTitle("修改用户订单");
         setSize(850, 660);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
 
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(-450, -370, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
+
         adminIDLabel.setBounds(50, 30, 120, 30);
         adminIDField.setBounds(180, 30, 180, 30);
-//        adminIDField.setText(admin.getAdminID());
+        adminIDField.setText(admin.getAdminID());
         adminIDField.setEditable(false);
 
         adminNameLabel.setBounds(430, 30, 120, 30);
         adminNameField.setBounds(550, 30, 180, 30);
-//        adminNameField.setText(admin.getAdminName());
+        adminNameField.setText(admin.getAdminName());
         adminNameField.setEditable(false);
 
         userIDLabel.setBounds(50, 80, 120, 30);
@@ -111,7 +119,7 @@ public class UpdateOrder extends JDialog {
         carRentLabel.setBounds(30, 230, 180, 30);
         carRentField.setBounds(180, 230, 180, 30);
 //        carRentField.setText(car.getCarRent());
-        carModelField.setEditable(false);
+        carRentField.setEditable(false);
 
         userMoneyLabel.setBounds(430, 230, 80, 30);
         userMoneyField.setBounds(550, 230, 180, 30);
@@ -172,16 +180,27 @@ public class UpdateOrder extends JDialog {
         add(orderInfoArea);
         add(resetButton);
         add(confirmButton);
+        add(bgLabel);
 
         Connection connection = DButil.getConnection();
-        String sql = "select * from oorder where order_id = ?";
+        String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, oorder.order_info, car.car_state, oorder.order_state from oorder, user, car, model, brand where order_id = ? and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and oorder_state = state.state_id";
         String sql1 = "select * from state where state_recycle_bin = 0";
+        Order order = new Order();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, orderID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
+                order.setOrderUserID(rs.getString(1));
+                order.setOrderUserName(rs.getString(2));
+                order.setOrderCarID(rs.getString(3));
+                order.setOrderCarNumber(rs.getString(4));
+                order.setOrderCarBrand(rs.getString(5));
+                order.setOrderCarModel(rs.getString(6));
+                order.setOrderCarRent(rs.getString(7));
+                order.setOrderInfo(rs.getString(8));
+                order.setOrderCarState(rs.getString(9));
+                order.setOrderState(rs.getString(10));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             ResultSet rs1 = ps1.executeQuery();
@@ -230,18 +249,18 @@ public class UpdateOrder extends JDialog {
                 }
                 String orderInfo = orderInfoArea.getText();
                 Connection connection1 = DButil.getConnection();
-                String sql = "";
-                String sql1 = "update car set car_state = ? where car_id = ?";
+                String sql2 = "";
+                String sql3 = "update car set car_state = ? where car_id = ?";
                 try {
-                    PreparedStatement preparedStatement = connection1.prepareStatement(sql);
+                    PreparedStatement preparedStatement2 = connection1.prepareStatement(sql2);
 
-                    int n = preparedStatement.executeUpdate();
+                    int n = preparedStatement2.executeUpdate();
                     if (n > 0) {
-                        PreparedStatement preparedStatement1 = connection1.prepareStatement(sql1);
-                        preparedStatement1.setObject(1, carStateID);
+                        PreparedStatement preparedStatement3 = connection1.prepareStatement(sql3);
+                        preparedStatement3.setObject(1, carStateID);
 //                        preparedStatement1.setObject(2, car.getCarID());
 
-                        int n1 = preparedStatement1.executeUpdate();
+                        int n1 = preparedStatement3.executeUpdate();
                         if (n > 0) {
                             UpdateOrder.this.dispose();
 //                            JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + user.getUserName() + "的租车订单新增成功！");

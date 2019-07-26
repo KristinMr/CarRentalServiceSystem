@@ -3,6 +3,7 @@ package view.pubilc;
 import util.Admin;
 import view.Main;
 import view.order.AddOrderUser;
+import view.order.OrderList;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,6 +43,18 @@ public class Index extends JPanel {
                 Main.main.add(new AddOrderUser(admin));
             }
         });
+        returnCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.main.removeAll();
+                Main.main.repaint();
+                Main.main.updateUI();
+
+                Main.main.add(new OrderList(admin));
+
+            }
+        });
+
         setVisible(true);
     }
 }

@@ -113,7 +113,7 @@ public class Recharging extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                Float userMoney = Float.parseFloat(userMoneyField.getText()) + Float.parseFloat(rechargeMoneyField.getText());
+                Double userMoney = Double.parseDouble(userMoneyField.getText()) + Double.parseDouble(rechargeMoneyField.getText());
                 String rechargeMoney = rechargeMoneyField.getText();
 
                 Date date = new Date();

@@ -229,7 +229,6 @@ public class RankList extends JPanel {
 
                     for (int i = 0; i < list.size(); i++) {
                         ps.setObject(i + 1, list.get(i));
-                        System.out.println(123456);
                         System.out.println(stringBuffer);
 
                     }

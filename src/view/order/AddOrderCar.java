@@ -142,7 +142,7 @@ public class AddOrderCar extends JDialog {
                     int m = JOptionPane.showConfirmDialog(null, "确认","将所选车辆加入订单？",JOptionPane.YES_NO_OPTION);
                     if (m == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql1 = "select car.car_number, car.car_state, brand.brand_name, model.model_name, model.model_rent from car, brand, model where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_id = ?";
+                        String sql1 = "select car.car_number, state.state_name, brand.brand_name, model.model_name, model.model_rent from car, brand, model, state where car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and car.car_id = ?";
                         try{
                             Car car = new Car();
                             PreparedStatement ps = connection1.prepareStatement(sql1);
