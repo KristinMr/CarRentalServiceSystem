@@ -183,7 +183,7 @@ public class UpdateOrder extends JDialog {
         add(bgLabel);
 
         Connection connection = DButil.getConnection();
-        String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, oorder.order_info, car.car_state, oorder.order_state from oorder, user, car, model, brand where order_id = ? and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and oorder_state = state.state_id";
+        String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, oorder.order_info, car.car_state, oorder.order_state from oorder, user, car, model, brand, state where order_id = ? and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and oorder.order_state = state.state_id";
         String sql1 = "select * from state where state_recycle_bin = 0";
         Order order = new Order();
         try {
@@ -201,6 +201,8 @@ public class UpdateOrder extends JDialog {
                 order.setOrderInfo(rs.getString(8));
                 order.setOrderCarState(rs.getString(9));
                 order.setOrderState(rs.getString(10));
+
+
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             ResultSet rs1 = ps1.executeQuery();

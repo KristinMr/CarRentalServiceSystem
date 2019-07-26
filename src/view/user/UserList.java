@@ -10,17 +10,21 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class UserList extends JPanel {
-    private JTextField searchUserID = new JTextField("编号关键字");
-    private JTextField searchUserName = new JTextField("名称关键字");
-    private JTextField searchUserInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchButton = new JButton("刷新");
+    private JTextField searchUserName = new JTextField("用户名称关键字");
+    private JTextField searchUserTel = new JTextField("联系电话关键字");
+    private JTextField searchUserInfo = new JTextField("用户备注关键字");
+    private JButton cleanSearchButton = new JButton("清空");
     private JButton searchUserButton = new JButton("查询");
 
     private JButton editButton = new JButton("修改所选用户");
@@ -42,14 +46,14 @@ public class UserList extends JPanel {
 //        setLocationRelativeTo(null);
         setLayout(null);
 
-        searchUserID.setForeground(Color.gray);
         searchUserName.setForeground(Color.gray);
+        searchUserTel.setForeground(Color.gray);
         searchUserInfo.setForeground(Color.gray);
 
-        searchUserID.setBounds(15,40,150,30);
-        searchUserName.setBounds(185,40,150,30);
+        searchUserName.setBounds(15,40,150,30);
+        searchUserTel.setBounds(185,40,150,30);
         searchUserInfo.setBounds(355,40,150,30);
-        refreshSearchButton.setBounds(720,40,80,30);
+        cleanSearchButton.setBounds(720,40,80,30);
         searchUserButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
@@ -65,10 +69,10 @@ public class UserList extends JPanel {
 //        this.getContentPane().add(new JLabel());
 //        ((JPanel) getContentPane()).setOpaque(false);
 
-        add(searchUserID);
         add(searchUserName);
+        add(searchUserTel);
         add(searchUserInfo);
-        add(refreshSearchButton);
+        add(cleanSearchButton);
         add(searchUserButton);
         add(editButton);
         add(deleteButton);
@@ -133,6 +137,131 @@ public class UserList extends JPanel {
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
+
+
+
+        searchUserName.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchUserName.getText().equals("用户名称关键字") == true) {
+                    searchUserName.setText("");
+                    searchUserName.setForeground(Color.magenta);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchUserName.getText();
+                if (temp.equals("")) {
+                    searchUserName.setText("用户名称关键字");
+                    searchUserName.setForeground(Color.gray);
+                }
+            }
+        });
+
+        searchUserTel.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchUserTel.getText().equals("联系电话关键字") == true) {
+                    searchUserTel.setText("");
+                    searchUserTel.setForeground(Color.magenta);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchUserTel.getText();
+                if (temp.equals("")) {
+                    searchUserTel.setText("联系电话关键字");
+                    searchUserTel.setForeground(Color.gray);
+                }
+            }
+        });
+
+        searchUserInfo.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchUserInfo.getText().equals("用户备注关键字") == true) {
+                    searchUserInfo.setText("");
+                    searchUserInfo.setForeground(Color.magenta);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchUserInfo.getText();
+                if (temp.equals("")) {
+                    searchUserInfo.setText("用户备注关键字");
+                    searchUserInfo.setForeground(Color.gray);
+                }
+            }
+        });
+
+        searchUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String userName = searchUserName.getText();
+                String userTel = searchUserTel.getText();
+                String userInfo = searchUserInfo.getText();
+
+                Connection connection1 = DButil.getConnection();
+                StringBuffer stringBuffer = new StringBuffer("select * from user where user_recycle_bin = 0 ");
+
+                List list = new ArrayList();
+
+                if (userName.trim().length() > 0 && userName.equals("用户名称关键字") == false) {
+                    stringBuffer.append("and user_name like ? ");
+                    list.add("%" + userName + "%");
+                }
+
+                if (userTel.trim().length() > 0 && userTel.equals("联系电话关键字") == false) {
+                    stringBuffer.append("and user_tel like ? ");
+                    list.add("%" + userTel + "%");
+                }
+
+                if (userInfo.trim().length() > 0 && userInfo.equals("用户备注关键字") == false) {
+                    stringBuffer.append("and user_info like ? ");
+                    list.add("%" + userInfo + "%");
+                }
+
+                try {
+                    PreparedStatement ps = connection1.prepareStatement(stringBuffer.toString());
+
+                    for (int i = 0; i < list.size(); i++) {
+                        ps.setObject(i + 1, list.get(i));
+                        System.out.println(stringBuffer);
+                    }
+
+                    ResultSet rs = ps.executeQuery();
+                    defaultTableModel.getDataVector().clear();
+                    defaultTableModel.fireTableDataChanged();
+
+                    System.out.println(stringBuffer);
+                    while (rs.next()) {
+                        Vector<String> vector = new Vector<String>();
+                        vector.add(rs.getString(1));
+                        vector.add(rs.getString(2));
+                        vector.add(rs.getString(5));
+                        vector.add(rs.getString(6));
+                        vector.add(rs.getString(7));
+                        vector.add(rs.getString(8));
+                        vector.add(rs.getString(9));
+                        vector.add(rs.getString(10));
+                        vector.add(rs.getString(11));
+                        vector.add(rs.getString(12));
+                        vector.add(rs.getString(13));
+                        vector.add(rs.getString(14));
+
+                        userDataVector.add(vector);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection1);
+                }
+            }
+        });
+        
 
         editButton.addActionListener(new ActionListener() {
             @Override

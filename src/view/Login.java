@@ -47,7 +47,7 @@ public class Login extends JFrame {
         passwordField.setBounds(150, 120, 200, 30);
 
         clearButton.setBounds(120, 210, 80, 30);
-        loginButton.setBounds(270, 210, 120, 50);
+        loginButton.setBounds(270, 210, 80, 30);
 
         add(adminIDLabel);
         add(adminIDField);

@@ -13,6 +13,7 @@ import view.order.AddOrderUser;
 import view.order.OrderList;
 import view.pubilc.Footer;
 import view.pubilc.Index;
+import view.pubilc.Statistics;
 import view.pubilc.UpdatePassword;
 import view.rank.AddRank;
 import view.rank.RankList;
@@ -110,6 +111,8 @@ public class Main extends JFrame {
     private JMenuItem rankRecycleBinList = new JMenuItem("权限");
     private JMenuItem adminRecycleBinList = new JMenuItem("管理员");
 
+    private JMenuItem statisticsItem = new JMenuItem("统计");
+
 
 
 
@@ -158,9 +161,9 @@ public class Main extends JFrame {
 
 //        ***************************顶栏***************************
 
-        index.setBounds(200,6,180, 60);
-        index.setFont(new java.awt.Font("楷体",1,24));
-        index.setForeground(Color.white);
+        index.setBounds(10,5,300, 60);
+        index.setFont(new java.awt.Font("隶书",1,40));
+        index.setForeground(Color.green);
         dateTimeLabel.setBounds(1320,0,200,30);
 //        indexButton.setForeground(Color.white);
 //        indexButton.setBackground(Color.black);
@@ -204,30 +207,30 @@ public class Main extends JFrame {
 //        ---------------用户管理------------------
         userItem.setBounds(10,10,150,40);
         userItem.setFont(new java.awt.Font("楷体",1,20));
-        userItem.setForeground(Color.white);
+        userItem.setForeground(Color.pink);
 
         userPanel.setBackground(Color.gray);
         userPanel.setBounds(20,50,140,60);
         addUser.setBounds(0 ,0,140,30);
         addUser.setFont(new java.awt.Font("楷体",2,18));
-        addUser.setForeground(Color.green);
+        addUser.setForeground(Color.yellow);
         userList.setBounds(0,30,140,30);
         userList.setFont(new java.awt.Font("楷体",2,18));
-        userList.setForeground(Color.green);
+        userList.setForeground(Color.red);
 
 //        ---------------订单管理------------------
         orderItem.setBounds(10,60,150,40);
         orderItem.setFont(new java.awt.Font("楷体",1,20));
-        orderItem.setForeground(Color.white);
+        orderItem.setForeground(Color.cyan);
 
         orderPanel.setBackground(Color.gray);
         orderPanel.setBounds(20,100,140,60);
         addOrder.setBounds(0 ,0,140,30);
         addOrder.setFont(new java.awt.Font("楷体",2,18));
-        addOrder.setForeground(Color.green);
+        addOrder.setForeground(Color.red);
         orderList.setBounds(0,30,140,30);
         orderList.setFont(new java.awt.Font("楷体",2,18));
-        orderList.setForeground(Color.green);
+        orderList.setForeground(Color.yellow);
 
 //        addOrderPanel = new AddOrderUser(admin);
 
@@ -240,66 +243,66 @@ public class Main extends JFrame {
         carPanel.setBounds(20,150,140,60);
         addCar.setBounds(0 ,0,140,30);
         addCar.setFont(new java.awt.Font("楷体",2,18));
-        addCar.setForeground(Color.green);
+        addCar.setForeground(Color.pink);
         carList.setBounds(0,30,140,30);
         carList.setFont(new java.awt.Font("楷体",2,18));
-        carList.setForeground(Color.green);
+        carList.setForeground(Color.magenta);
 
 //        ---------------充值管理------------------
 
         rechargeItem.setBounds(10,160,150,40);
         rechargeItem.setFont(new java.awt.Font("楷体",1,20));
-        rechargeItem.setForeground(Color.white);
+        rechargeItem.setForeground(Color.green);
 
         rechargePanel.setBackground(Color.gray);
         rechargePanel.setBounds(20,200,140,60);
         addRecharge.setBounds(0 ,0,140,30);
         addRecharge.setFont(new java.awt.Font("楷体",2,18));
-        addRecharge.setForeground(Color.green);
+        addRecharge.setForeground(Color.white);
         rechargeList.setBounds(0,30,140,30);
         rechargeList.setFont(new java.awt.Font("楷体",2,18));
-        rechargeList.setForeground(Color.green);
+        rechargeList.setForeground(Color.red);
 
 //        ---------------车型管理------------------
         carTypeItem.setBounds(10,210,150,40);
         carTypeItem.setFont(new java.awt.Font("楷体",1,20));
-        carTypeItem.setForeground(Color.white);
+        carTypeItem.setForeground(Color.yellow);
 
         carTypePanel.setBackground(Color.gray);
         carTypePanel.setBounds(20,250,140,60);
         addCarType.setBounds(0 ,0,140,30);
         addCarType.setFont(new java.awt.Font("楷体",2,18));
-        addCarType.setForeground(Color.green);
+        addCarType.setForeground(Color.white);
         carTypeList.setBounds(0,30,140,30);
         carTypeList.setFont(new java.awt.Font("楷体",2,18));
-        carTypeList.setForeground(Color.green);
+        carTypeList.setForeground(Color.red);
 
 //        ---------------状态管理------------------
 
         stateItem.setBounds(10,260,150,40);
         stateItem.setFont(new java.awt.Font("楷体",1,20));
-        stateItem.setForeground(Color.white);
+        stateItem.setForeground(Color.black);
 
         statePanel.setBackground(Color.gray);
         statePanel.setBounds(20,300,140,60);
         addState.setBounds(0 ,0,140,30);
         addState.setFont(new java.awt.Font("楷体",2,18));
-        addState.setForeground(Color.green);
+        addState.setForeground(Color.red);
         stateList.setBounds(0,30,140,30);
         stateList.setFont(new java.awt.Font("楷体",2,18));
-        stateList.setForeground(Color.green);
+        stateList.setForeground(Color.white);
 
 //        ---------------权限管理------------------
 
         rankItem.setBounds(10,310,150,40);
         rankItem.setFont(new java.awt.Font("楷体",1,20));
-        rankItem.setForeground(Color.white);
+        rankItem.setForeground(Color.pink);
 
         rankPanel.setBackground(Color.gray);
         rankPanel.setBounds(20,350,140,60);
         addRank.setBounds(0 ,0,140,30);
         addRank.setFont(new java.awt.Font("楷体",2,18));
-        addRank.setForeground(Color.green);
+        addRank.setForeground(Color.white);
         rankList.setBounds(0,30,140,30);
         rankList.setFont(new java.awt.Font("楷体",2,18));
         rankList.setForeground(Color.green);
@@ -308,53 +311,61 @@ public class Main extends JFrame {
 
         adminItem.setBounds(10,360,150,40);
         adminItem.setFont(new java.awt.Font("楷体",1,20));
-        adminItem.setForeground(Color.white);
+        adminItem.setForeground(Color.cyan);
 
         adminPanel.setBackground(Color.gray);
         adminPanel.setBounds(20,400,140,60);
         addAdmin.setBounds(0 ,0,140,30);
         addAdmin.setFont(new java.awt.Font("楷体",2,18));
-        addAdmin.setForeground(Color.green);
+        addAdmin.setForeground(Color.black);
         adminList.setBounds(0,30,140,30);
         adminList.setFont(new java.awt.Font("楷体",2,18));
         adminList.setForeground(Color.green);
 
+
+//        ---------------统计------------------
+
+        statisticsItem.setBounds(10,410,150,40);
+        statisticsItem.setFont(new java.awt.Font("楷体",1,25));
+        statisticsItem.setForeground(Color.red);
+
+
 //        ---------------回收站管理------------------
 
-        recycleBinItem.setBounds(10,410,150,40);
+        recycleBinItem.setBounds(10,460,150,40);
         recycleBinItem.setFont(new java.awt.Font("楷体",1,20));
-        recycleBinItem.setForeground(Color.white);
+        recycleBinItem.setForeground(Color.magenta);
 
         recycleBinPanel.setBackground(Color.gray);
-        recycleBinPanel.setBounds(20,450,140,270);
+        recycleBinPanel.setBounds(20,500,140,270);
 
         userRecycleBinList.setBounds(0 ,0,140,30);
         userRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        userRecycleBinList.setForeground(Color.green);
+        userRecycleBinList.setForeground(Color.pink);
 
         orderRecycleBinList.setBounds(0,30,140,30);
         orderRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        orderRecycleBinList.setForeground(Color.green);
+        orderRecycleBinList.setForeground(Color.cyan);
 
         carRecycleBinList.setBounds(0,60,140,30);
         carRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        carRecycleBinList.setForeground(Color.green);
+        carRecycleBinList.setForeground(Color.magenta);
 
         carBrandRecycleBinList.setBounds(0 ,90,140,30);
         carBrandRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        carBrandRecycleBinList.setForeground(Color.green);
+        carBrandRecycleBinList.setForeground(Color.yellow);
 
         carModelRecycleBinList.setBounds(0 ,120,140,30);
         carModelRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        carModelRecycleBinList.setForeground(Color.green);
+        carModelRecycleBinList.setForeground(Color.black);
 
         rechargeRecycleBinList.setBounds(0,150,140,30);
         rechargeRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        rechargeRecycleBinList.setForeground(Color.green);
+        rechargeRecycleBinList.setForeground(Color.red);
 
         stateRecycleBinList.setBounds(0 ,180,140,30);
         stateRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        stateRecycleBinList.setForeground(Color.green);
+        stateRecycleBinList.setForeground(Color.pink);
 
         rankRecycleBinList.setBounds(0,210,140,30);
         rankRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
@@ -362,7 +373,7 @@ public class Main extends JFrame {
 
         adminRecycleBinList.setBounds(0 ,240,140,30);
         adminRecycleBinList.setFont(new java.awt.Font("楷体",2,18));
-        adminRecycleBinList.setForeground(Color.green);
+        adminRecycleBinList.setForeground(Color.white);
 
 
 
@@ -441,6 +452,8 @@ public class Main extends JFrame {
         adminPanel.add(addAdmin);
         adminPanel.add(adminList);
         sidebar.add(adminPanel);
+
+        sidebar.add(statisticsItem);
 
         sidebar.add(recycleBinItem);
         recycleBinPanel.add(userRecycleBinList);
@@ -551,7 +564,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,320,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 userPanel.setVisible(true);
             }
         });
@@ -595,7 +609,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,320,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 orderPanel.setVisible(true);
             }
         });
@@ -641,7 +656,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,320,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 carPanel.setVisible(true);
             }
         });
@@ -686,7 +702,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,320,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 rechargePanel.setVisible(true);
             }
         });
@@ -731,7 +748,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,320,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 carTypePanel.setVisible(true);
             }
         });
@@ -776,7 +794,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,260,150,40);
                 rankItem.setBounds(10,370,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 statePanel.setVisible(true);
             }
         });
@@ -821,7 +840,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,260,150,40);
                 rankItem.setBounds(10,310,150,40);
                 adminItem.setBounds(10,420,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 rankPanel.setVisible(true);
             }
         });
@@ -866,7 +886,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,260,150,40);
                 rankItem.setBounds(10,310,150,40);
                 adminItem.setBounds(10,360,150,40);
-                recycleBinItem.setBounds(10,470,150,40);
+                statisticsItem.setBounds(10,470,150,40);
+                recycleBinItem.setBounds(10,520,150,40);
                 adminPanel.setVisible(true);
             }
         });
@@ -892,6 +913,37 @@ public class Main extends JFrame {
             }
         });
 
+//        ---------------统计------------------
+        statisticsItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                userPanel.setVisible(false);
+                orderPanel.setVisible(false);
+                carPanel.setVisible(false);
+                rechargePanel.setVisible(false);
+                carTypePanel.setVisible(false);
+                statePanel.setVisible(false);
+                rankPanel.setVisible(false);
+                adminPanel.setVisible(false);
+                recycleBinPanel.setVisible(false);
+                orderItem.setBounds(10,60,150,40);
+                carItem.setBounds(10,110,150,40);
+                rechargeItem.setBounds(10,160,150,40);
+                carTypeItem.setBounds(10,210,150,40);
+                stateItem.setBounds(10,260,150,40);
+                rankItem.setBounds(10,310,150,40);
+                adminItem.setBounds(10,360,150,40);
+                statisticsItem.setBounds(10,410,150,40);
+                recycleBinItem.setBounds(10,460,150,40);
+
+                main.removeAll();
+                main.repaint();
+                main.updateUI();
+
+                main.add(new Statistics());
+            }
+        });
+
 //        ---------------回收站管理------------------
         recycleBinItem.addActionListener(new ActionListener() {
             @Override
@@ -911,7 +963,8 @@ public class Main extends JFrame {
                 stateItem.setBounds(10,260,150,40);
                 rankItem.setBounds(10,310,150,40);
                 adminItem.setBounds(10,360,150,40);
-                recycleBinItem.setBounds(10,410,150,40);
+                statisticsItem.setBounds(10,410,150,40);
+                recycleBinItem.setBounds(10,460,150,40);
                 recycleBinPanel.setVisible(true);
             }
         });

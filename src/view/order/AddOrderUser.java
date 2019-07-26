@@ -6,6 +6,7 @@ import util.DButil;
 import util.User;
 import view.Main;
 import view.recharge.AddRecharge;
+import view.user.UpdateUser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -142,37 +143,45 @@ public class AddOrderUser extends JPanel {
                     JOptionPane.showMessageDialog(null, "请先选中要下单的用户");
                     return;
                 } else {
-                    String userMoney = (String) table.getValueAt(row, 11);
-                    Double lowMoney = 3000.00;
-                    if (Double.parseDouble(userMoney) < lowMoney) {
-                        int m = JOptionPane.showConfirmDialog(null, "押金3000元，至少还需充值" + (lowMoney - Double.parseDouble(userMoney)) + "元人们币，前往到用户界面进行充值？","押金不足",JOptionPane.YES_NO_OPTION);
+                    String userID = (String) table.getValueAt(row, 0);
+                    String userDLN = (String) table.getValueAt(row,6);
+                    if (userDLN == null) {
+                        int m = JOptionPane.showConfirmDialog(null, "用户信息不完善，没有驾照编号，前往到用户信息编辑界面进行添加？","驾照信息不完善",JOptionPane.YES_NO_OPTION);
                         if (m == 0) {
                             Main.main.removeAll();
                             Main.main.repaint();
                             Main.main.updateUI();
 
-                            Main.main.add(new AddRecharge(admin));
+                            Main.main.add(new UpdateUser(admin, userID));
                         }
                     } else {
-                        String userID = (String) table.getValueAt(row, 0);
-                        User user = new User();
-
-                        Connection connection1 = DButil.getConnection();
-                        String sql1 = "select user_id, user_name, user_money from user where user_id = ?";
-                        try {
-                            PreparedStatement ps = connection1.prepareStatement(sql1);
-                            ps.setObject(1, userID);
-                            ResultSet rs = ps.executeQuery();
-                            while (rs.next()) {
-                                user.setUserID(rs.getString(1));
-                                user.setUserName(rs.getString(2));
-                                user.setUserMoney(rs.getString(3));
-                                new AddOrderCar(admin, user);
+                        String userMoney = (String) table.getValueAt(row, 10);
+                        Double lowMoney = 3000.00;
+                        if (Double.parseDouble(userMoney) < lowMoney) {
+                            int m = JOptionPane.showConfirmDialog(null, "押金3000元，至少还需充值" + (lowMoney - Double.parseDouble(userMoney)) + "元人们币，前往到用户界面进行充值？","押金不足",JOptionPane.YES_NO_OPTION);
+                            if (m == 0) {
+                                Main.main.add(new AddRecharge(admin));
                             }
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        } finally {
-                            DButil.releaseConnection(connection1);
+                        } else {
+                            User user = new User();
+
+                            Connection connection1 = DButil.getConnection();
+                            String sql1 = "select user_id, user_name, user_money from user where user_id = ?";
+                            try {
+                                PreparedStatement ps = connection1.prepareStatement(sql1);
+                                ps.setObject(1, userID);
+                                ResultSet rs = ps.executeQuery();
+                                while (rs.next()) {
+                                    user.setUserID(rs.getString(1));
+                                    user.setUserName(rs.getString(2));
+                                    user.setUserMoney(rs.getString(3));
+                                    new AddOrderCar(admin, user);
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection1);
+                            }
                         }
                     }
                 }
