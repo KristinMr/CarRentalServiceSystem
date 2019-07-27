@@ -6,12 +6,14 @@ import view.order.AddOrderUser;
 import view.order.OrderList;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Index extends JPanel {
-    private JButton borrowCarButton = new JButton("租车");
-    private JButton returnCarButton = new JButton("还车");
+    private JMenuItem borrowCar = new JMenuItem("租");
+
+    private JMenuItem returnCar = new JMenuItem("还");
 
     public Index(Admin admin){
 
@@ -23,17 +25,19 @@ public class Index extends JPanel {
 //        JLabel bgLabel = new JLabel(imageIcon);
 
 
-        borrowCarButton.setBounds(200,350,200,50);
-        borrowCarButton.setFont(new java.awt.Font("楷体",1,20));
-        returnCarButton.setBounds(600,350,200,50);
-        returnCarButton.setFont(new java.awt.Font("楷体",1,20));
-        add(borrowCarButton);
-        add(returnCarButton);
+        borrowCar.setBounds(300,250,250,250);
+        borrowCar.setFont(new java.awt.Font("楷体",1,200));
+        borrowCar.setForeground(Color.pink);
+        returnCar.setBounds(700,250,250,250);
+        returnCar.setFont(new java.awt.Font("楷体",1,200));
+        returnCar.setForeground(Color.cyan);
+        add(borrowCar);
+        add(returnCar);
 
 //        add(bgLabel);
 
 
-        borrowCarButton.addActionListener(new ActionListener() {
+        borrowCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.main.removeAll();
@@ -43,7 +47,7 @@ public class Index extends JPanel {
                 Main.main.add(new AddOrderUser(admin));
             }
         });
-        returnCarButton.addActionListener(new ActionListener() {
+        returnCar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Main.main.removeAll();

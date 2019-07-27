@@ -43,7 +43,6 @@ public class Main extends JFrame {
 //        ------------------------顶栏------------------------------------
     private JPanel menuBar = new JPanel();
 
-    private ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\Index.png");
     private JMenuItem index = new JMenuItem("租车管理系统");
     private JLabel dateTimeLabel = new JLabel();
 
@@ -121,8 +120,8 @@ public class Main extends JFrame {
 
     public static JPanel main = new JPanel();
     private JPanel mainPanel = new JPanel();
-    private JButton borrowCarButton = new JButton("租车");
-    private JButton returnCarButton = new JButton("还车");
+    private JMenuItem borrowCar = new JMenuItem("租车");
+    private JMenuItem returnCar = new JMenuItem("还车");
 
 
     private JPanel footer = new JPanel();

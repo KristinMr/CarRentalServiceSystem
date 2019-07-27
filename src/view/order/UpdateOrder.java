@@ -45,7 +45,7 @@ public class UpdateOrder extends JDialog {
     private JTextField userMoneyField = new JTextField();
 
     private JLabel carStateLabel = new JLabel("车辆状态");
-    private JComboBox<State> carStateBox = new JComboBox<State>();
+    private JTextField carStateField = new JTextField();
 
     private JLabel orderStateLabel = new JLabel("订单类型");
     private JComboBox<State> orderStateBox = new JComboBox<State>();
@@ -59,7 +59,7 @@ public class UpdateOrder extends JDialog {
     private JLabel orderInfoLabel = new JLabel("订单备注");
     private JTextArea orderInfoArea = new JTextArea();
 
-    private JButton resetButton = new JButton("重置");
+//    private JButton resetButton = new JButton("重置");
     private JButton confirmButton = new JButton("确认新增订单");
 
     public UpdateOrder(Admin admin, String orderID) {
@@ -72,7 +72,7 @@ public class UpdateOrder extends JDialog {
         ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
         JLabel bgLabel = new JLabel(imageIcon);
         this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-        bgLabel.setBounds(-450, -370, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        bgLabel.setBounds(-200, -200, imageIcon.getIconWidth(), imageIcon.getIconHeight());
         this.getContentPane().add(new JLabel());
         ((JPanel) getContentPane()).setOpaque(false);
 
@@ -127,7 +127,8 @@ public class UpdateOrder extends JDialog {
         userMoneyField.setEditable(false);
 
         carStateLabel.setBounds(30, 280, 180, 30);
-        carStateBox.setBounds(180, 280, 180, 30);
+        carStateField.setBounds(180, 280, 180, 30);
+        carStateField.setEditable(false);
 
         orderStateLabel.setBounds(430, 280, 80, 30);
         orderStateBox.setBounds(550, 280, 180, 30);
@@ -135,7 +136,7 @@ public class UpdateOrder extends JDialog {
         startDateLabel.setBounds(50, 330, 120, 30);
         startDateField.setBounds(180, 330, 180, 30);
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         startDateField.setText(dateFormat.format(date));
 
         endDateLabel.setBounds(430, 330, 120, 30);
@@ -144,7 +145,7 @@ public class UpdateOrder extends JDialog {
         orderInfoLabel.setBounds(50, 380, 120, 30);
         orderInfoArea.setBounds(180, 380, 550, 60);
 
-        resetButton.setBounds(50, 495, 80, 30);
+//        resetButton.setBounds(50, 495, 80, 30);
         confirmButton.setBounds(560, 490, 180, 40);
 
 
@@ -169,7 +170,7 @@ public class UpdateOrder extends JDialog {
         add(userMoneyLabel);
         add(userMoneyField);
         add(carStateLabel);
-        add(carStateBox);
+        add(carStateField);
         add(orderStateLabel);
         add(orderStateBox);
         add(startDateLabel);
@@ -178,66 +179,79 @@ public class UpdateOrder extends JDialog {
         add(endDateField);
         add(orderInfoLabel);
         add(orderInfoArea);
-        add(resetButton);
+//        add(resetButton);
         add(confirmButton);
         add(bgLabel);
 
         Connection connection = DButil.getConnection();
-        String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, oorder.order_info, car.car_state, oorder.order_state from oorder, user, car, model, brand, state where order_id = ? and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id and oorder.order_state = state.state_id";
+        String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, user.user_money, state.state_name, oorder.order_state, oorder.order_info from oorder, user, car, model, brand, state where oorder.order_id = ? and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id";
         String sql1 = "select * from state where state_recycle_bin = 0";
-        Order order = new Order();
+        String orderStateID = null;
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, orderID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                order.setOrderUserID(rs.getString(1));
-                order.setOrderUserName(rs.getString(2));
-                order.setOrderCarID(rs.getString(3));
-                order.setOrderCarNumber(rs.getString(4));
-                order.setOrderCarBrand(rs.getString(5));
-                order.setOrderCarModel(rs.getString(6));
-                order.setOrderCarRent(rs.getString(7));
-                order.setOrderInfo(rs.getString(8));
-                order.setOrderCarState(rs.getString(9));
-                order.setOrderState(rs.getString(10));
+//                order.setOrderUserID(rs.getString(1));
+//                order.setOrderUserName(rs.getString(2));
+//                order.setOrderCarID(rs.getString(3));
+//                order.setOrderCarNumber(rs.getString(4));
+//                order.setOrderCarBrand(rs.getString(5));
+//                order.setOrderCarModel(rs.getString(6));
+//                order.setOrderCarRent(rs.getString(7));
+//                order.setOrderInfo(rs.getString(8));
+//                order.setOrderCarState(rs.getString(9));
+//                order.setOrderState(rs.getString(10));
 
-
+                userIDField.setText(rs.getString(1));
+                userNameField.setText(rs.getString(2));
+                carIDField.setText(rs.getString(3));
+                carNumberField.setText(rs.getString(4));
+                carBrandField.setText(rs.getString(5));
+                carModelField.setText(rs.getString(6));
+                carRentField.setText(rs.getString(7));
+                userMoneyField.setText(rs.getString(8));
+                carStateField.setText(rs.getString(9));
+                orderStateID = rs.getString(10);
+                orderInfoArea.setText(rs.getString(11));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             ResultSet rs1 = ps1.executeQuery();
             while (rs1.next()) {
-                State state = new State();
-                if (rs1.getInt(3) == 1) {
-                    state.setStateID(rs1.getString(1));
-                    state.setStateName(rs1.getString(2));
-                    carStateBox.addItem(state);
-                } else {
+                if ((rs1.getInt(3) == 2) && (!rs1.getString(2).equals("已结算"))) {
+//                    state.setStateID(rs.getString(1));
+//                    state.setStateName(rs.getString(2));
+//                    carStateBox.addItem(state);
+                    State state = new State();
                     state.setStateID(rs1.getString(1));
                     state.setStateName(rs1.getString(2));
                     orderStateBox.addItem(state);
                 }
-
+                for (int k = 0; k < orderStateBox.getItemCount(); k++) {
+                    State state;
+                    state = orderStateBox.getItemAt(k);
+                    if (state.getStateID() == orderStateID) {
+                        orderStateBox.setSelectedItem(state);
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             DButil.releaseConnection(connection);
         }
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                startDateField.setText("");
-                endDateField.setText("");
-            }
-        });
+//        resetButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                startDateField.setText("");
+//                endDateField.setText("");
+//            }
+//        });
 
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                State carState = (State) carStateBox.getSelectedItem();
-                String carStateID = carState.getStateID();
+                String carStateID = carStateField.getText();
                 State orderState = (State) orderStateBox.getSelectedItem();
                 String orderStateID = orderState.getStateID();
 
