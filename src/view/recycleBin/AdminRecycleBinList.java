@@ -3,6 +3,7 @@ package view.recycleBin;
 import util.Admin;
 import util.DButil;
 import view.admin.UpdateAdmin;
+import view.pubilc.ShowInfo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -37,9 +40,7 @@ public class AdminRecycleBinList extends JPanel {
 
 
     public AdminRecycleBinList(Admin admin) {
-//        setTitle("管理员列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
         searchAdminID.setForeground(Color.gray);
@@ -62,13 +63,6 @@ public class AdminRecycleBinList extends JPanel {
         jScrollPane.setBounds(15,100,1310,700);
 
 
-        ImageIcon imageIcon = new ImageIcon("C:\\Admins\\mrcap\\IdeaProjects\\AdminRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
-
         add(searchAdminID);
         add(searchAdminName);
         add(searchAdminInfo);
@@ -77,7 +71,6 @@ public class AdminRecycleBinList extends JPanel {
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
-        add(bgLabel);
 
         Vector<String> adminTHVector = new Vector<String>();
         adminTHVector.add("编号");
@@ -134,6 +127,16 @@ public class AdminRecycleBinList extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 9);
+                    new ShowInfo(info);
+                };
+            }
+        });
+
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -142,21 +145,24 @@ public class AdminRecycleBinList extends JPanel {
                     JOptionPane.showMessageDialog(null, "请先选中要移出回收站的管理员");
                     return;
                 } else {
-                    String adminID = (String)table.getValueAt(row,0);
-                    Connection connection1 = DButil.getConnection();
-                    String sql1 = "update admin set admin_recycle_bin = 1 where admin_id = ?";
-                    try{
-                        PreparedStatement ps = connection1.prepareStatement(sql1);
-                        ps.setObject(1, adminID);
-                        int n = ps.executeUpdate();
-                        if (n>0){
-                            ((DefaultTableModel)table.getModel()).removeRow(row);
-                            JOptionPane.showMessageDialog(null, "管理员还原成功");
+                    int m = JOptionPane.showConfirmDialog(null, "确认","确认要还原所选管理员？",JOptionPane.YES_NO_OPTION);
+                    if (m == 0) {
+                        String adminID = (String)table.getValueAt(row,0);
+                        Connection connection1 = DButil.getConnection();
+                        String sql1 = "update admin set admin_recycle_bin = 1 where admin_id = ?";
+                        try{
+                            PreparedStatement ps = connection1.prepareStatement(sql1);
+                            ps.setObject(1, adminID);
+                            int n = ps.executeUpdate();
+                            if (n>0){
+                                ((DefaultTableModel)table.getModel()).removeRow(row);
+                                JOptionPane.showMessageDialog(null, "管理员还原成功");
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        } finally {
+                            DButil.releaseConnection(connection1);
                         }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection1);
                     }
                 }
             }

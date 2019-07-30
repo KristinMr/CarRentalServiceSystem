@@ -1,6 +1,7 @@
 package view.rank;
 
 import util.DButil;
+import view.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -61,6 +62,11 @@ public class AddRank extends JPanel {
 
                         if (n>0) {
                             JOptionPane.showMessageDialog(null, "新增成功！");
+                            Main.main.removeAll();
+                            Main.main.repaint();
+                            Main.main.updateUI();
+
+                            Main.main.add(new RankList());
                         } else {
                             JOptionPane.showMessageDialog(null, "新增失败！");
                         }

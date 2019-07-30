@@ -1,6 +1,7 @@
 package view.carType;
 
 import util.DButil;
+import view.pubilc.ShowInfo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -17,9 +18,9 @@ import java.util.Vector;
 public class BrandList extends JDialog {
     private JTextField searchBrandID = new JTextField("编号关键字");
     private JTextField searchBrandName = new JTextField("名称关键字");
-    private JTextField searchBrandInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchBrandButton = new JButton("查询");
+    private JTextField searchBrandInfo = new JTextField("备注关键字");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -50,9 +51,10 @@ public class BrandList extends JDialog {
 
     public BrandList() {
         setTitle("品牌列表");
-        setSize(950,800);
+        setSize(1000,800);
         setLocationRelativeTo(null);
         setLayout(null);
+        setModal(true);
 
 
         searchBrandID.setForeground(Color.gray);
@@ -62,8 +64,8 @@ public class BrandList extends JDialog {
         searchBrandID.setBounds(50,30,150,30);
         searchBrandName.setBounds(220,30,150,30);
         searchBrandInfo.setBounds(390,30,150,30);
-        refreshSearchButton.setBounds(720,30,80,30);
-        searchBrandButton.setBounds(820,30,80,30);
+        refreshButton.setBounds(720,30,80,30);
+        searchButton.setBounds(820,30,80,30);
         pane.setBounds(50,100,850,300);
 
         brandIDLabel.setBounds(80,430,80,30);
@@ -78,6 +80,33 @@ public class BrandList extends JDialog {
         editButton.setBounds(590,640,120,30);
         deleteButton.setBounds(730,640,120,30);
 
+
+        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
+        JLabel bgLabel = new JLabel(imageIcon);
+        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
+        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
+        this.getContentPane().add(new JLabel());
+        ((JPanel) getContentPane()).setOpaque(false);
+
+        add(searchBrandID);
+        add(searchBrandName);
+        add(searchBrandInfo);
+        add(refreshButton);
+        add(searchButton);
+        add(pane);
+        add(brandIDLabel);
+        add(brandIDField);
+        add(brandNameLabel);
+        add(brandNameField);
+        add(brandInfoLabel);
+        add(brandInfoArea);
+        add(clearButton);
+        add(resetButton);
+        add(addBrandButton);
+        add(editButton);
+        add(deleteButton);
+        add(bgLabel);
+
         Vector<String> thVector = new Vector<String>();
         thVector.add("编号");
         thVector.add("名称");
@@ -85,6 +114,16 @@ public class BrandList extends JDialog {
         Vector<Vector<String>> dataVector = new Vector<Vector<String>>();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 2);
+                    new ShowInfo(info);
+                };
+            }
+        });
 
         searchBrandID.addFocusListener(new FocusListener() {
             @Override
@@ -125,7 +164,7 @@ public class BrandList extends JDialog {
         searchBrandInfo.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (searchBrandInfo.getText().equals("介绍关键字") == true) {
+                if (searchBrandInfo.getText().equals("备注关键字") == true) {
                     searchBrandInfo.setText("");
                 }
             }
@@ -134,7 +173,7 @@ public class BrandList extends JDialog {
             public void focusLost(FocusEvent e) {
                 String temp = searchBrandInfo.getText();
                 if (temp.equals("")) {
-                    searchBrandInfo.setText("介绍关键字");
+                    searchBrandInfo.setText("备注关键字");
                     searchBrandInfo.setForeground(Color.gray);
                 }
             }
@@ -176,25 +215,47 @@ public class BrandList extends JDialog {
 
         brandIDField.setEditable(false);
 
-        add(searchBrandID);
-        add(searchBrandName);
-        add(searchBrandInfo);
-        add(refreshSearchButton);
-        add(searchBrandButton);
-        add(pane);
-        add(brandIDLabel);
-        add(brandIDField);
-        add(brandNameLabel);
-        add(brandNameField);
-        add(brandInfoLabel);
-        add(brandInfoArea);
-        add(clearButton);
-        add(resetButton);
-        add(addBrandButton);
-        add(editButton);
-        add(deleteButton);
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                searchBrandID.setText("编号关键字");
+                searchBrandName.setText("名称关键字");
+                searchBrandInfo.setText("备注关键字");
+                searchBrandID.setForeground(Color.gray);
+                searchBrandName.setForeground(Color.gray);
+                searchBrandInfo.setForeground(Color.gray);
 
-        searchBrandButton.addActionListener(new ActionListener() {
+                defaultTableModel.getDataVector().clear();
+                defaultTableModel.fireTableDataChanged();
+
+                Connection connection = DButil.getConnection();
+
+                String sql = "select * from brand where brand_recycle_bin = 0";
+
+                try {
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()){
+                        Vector<String> vector = new Vector<String>();
+                        vector.add(rs.getString(1));
+                        vector.add(rs.getString(2));
+                        vector.add(rs.getString(3));
+
+                        dataVector.add(vector);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection);
+                }
+
+                brandIDField.setText("");
+                brandNameField.setText("");
+                brandInfoArea.setText("");
+            }
+        });
+
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String brandID = searchBrandID.getText();
@@ -216,7 +277,7 @@ public class BrandList extends JDialog {
                     list.add("%" + brandName + "%");
                 }
 
-                if (brandInfo.trim().length() > 0 && brandInfo.equals("介绍关键字") == false) {
+                if (brandInfo.trim().length() > 0 && brandInfo.equals("备注关键字") == false) {
                     stringBuffer.append("and brand_info like ? ");
                     list.add("%" + brandInfo + "%");
                 }
@@ -284,46 +345,46 @@ public class BrandList extends JDialog {
         addBrandButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新品牌？",JOptionPane.YES_NO_OPTION);
-                if (m == 0) {
-                    String brandName = brandNameField.getText();
-                    String brandInfo = brandInfoArea.getText();
-
-                    Connection connection = DButil.getConnection();
-                    String sql = "insert into brand(brand_name, brand_info, brand_recycle_bin) values(?, ?, ?)";
-                    String sql1 = "select * from brand where brand_recycle_bin = 0";
-                    try {
-                        PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, brandName);
-                        ps.setObject(2, brandInfo);
-                        ps.setObject(3, 0);
-
-                        int n = ps.executeUpdate();
-
-                        if (n>0) {
-                            JOptionPane.showMessageDialog(null, "新增成功！");
-
-                            PreparedStatement ps1 = connection.prepareStatement(sql1);
-                            ResultSet rs = ps.executeQuery();
-                            defaultTableModel.getDataVector().clear();
-                            defaultTableModel.fireTableDataChanged();
-                            while (rs.next()){
-                                Vector<String> vector = new Vector<String>();
-                                vector.add(rs.getString(1));
-                                vector.add(rs.getString(2));
-                                vector.add(rs.getString(3));
-                                dataVector.add(vector);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "新增失败！");
-                        }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection);
-                    }
-                }
-
+                new AddBrand();
+//                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新品牌？",JOptionPane.YES_NO_OPTION);
+//                if (m == 0) {
+//                    String brandName = brandNameField.getText();
+//                    String brandInfo = brandInfoArea.getText();
+//
+//                    Connection connection = DButil.getConnection();
+//                    String sql = "insert into brand(brand_name, brand_info, brand_recycle_bin) values(?, ?, ?)";
+//                    String sql1 = "select * from brand where brand_recycle_bin = 0";
+//                    try {
+//                        PreparedStatement ps = connection.prepareStatement(sql);
+//                        ps.setObject(1, brandName);
+//                        ps.setObject(2, brandInfo);
+//                        ps.setObject(3, 0);
+//
+//                        int n = ps.executeUpdate();
+//
+//                        if (n>0) {
+//                            JOptionPane.showMessageDialog(null, "新增成功！");
+//
+//                            PreparedStatement ps1 = connection.prepareStatement(sql1);
+//                            ResultSet rs = ps.executeQuery();
+//                            defaultTableModel.getDataVector().clear();
+//                            defaultTableModel.fireTableDataChanged();
+//                            while (rs.next()){
+//                                Vector<String> vector = new Vector<String>();
+//                                vector.add(rs.getString(1));
+//                                vector.add(rs.getString(2));
+//                                vector.add(rs.getString(3));
+//                                dataVector.add(vector);
+//                            }
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "新增失败！");
+//                        }
+//                    } catch (Exception e1) {
+//                        e1.printStackTrace();
+//                    } finally {
+//                        DButil.releaseConnection(connection);
+//                    }
+//                }
             }
         });
 

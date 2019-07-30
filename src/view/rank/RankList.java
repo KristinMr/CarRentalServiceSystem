@@ -368,17 +368,4 @@ public class RankList extends JPanel {
 
         setVisible(true);
     }
-
-    public static void main(String[] args) {
-        try {
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.osLookAndFeelDecorated;
-            UIManager.put("RootPane.setupButtonVisible", false);
-            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-        } catch (Exception e) {
-
-        }
-        new RankList();
-    }
 }

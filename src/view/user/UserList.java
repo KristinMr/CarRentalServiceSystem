@@ -42,9 +42,7 @@ public class UserList extends JPanel {
 
 
     public UserList(Admin admin) {
-//        setTitle("用户列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
         searchUserName.setForeground(Color.gray);
@@ -62,14 +60,6 @@ public class UserList extends JPanel {
 
         jScrollPane.setBounds(15,100,1310,700);
 
-
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\UserRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
-
         add(searchUserName);
         add(searchUserTel);
         add(searchUserInfo);
@@ -78,7 +68,6 @@ public class UserList extends JPanel {
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
-        add(bgLabel);
 
         Vector<String> userTHVector = new Vector<String>();
         userTHVector.add("编号");
@@ -248,7 +237,6 @@ public class UserList extends JPanel {
                     defaultTableModel.getDataVector().clear();
                     defaultTableModel.fireTableDataChanged();
 
-                    System.out.println(stringBuffer);
                     while (rs.next()) {
                         Vector<String> vector = new Vector<String>();
                         vector.add(rs.getString(1));

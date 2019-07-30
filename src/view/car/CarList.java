@@ -4,15 +4,13 @@ import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import util.Admin;
 import util.DButil;
 import view.Main;
+import view.pubilc.ShowInfo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,9 +41,7 @@ public class CarList extends JPanel {
 
 
     public CarList(Admin admin) {
-//        setTitle("车辆列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
         searchCarNumber.setForeground(Color.gray);
@@ -64,13 +60,6 @@ public class CarList extends JPanel {
 
         jScrollPane.setBounds(15,100,1310,700);
 
-
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
         
         add(searchCarNumber);
         add(searchCarColor);
@@ -80,7 +69,6 @@ public class CarList extends JPanel {
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
-        add(bgLabel);
 
         Vector<String> carTHVector = new Vector<String>();
         carTHVector.add("编号");
@@ -133,6 +121,15 @@ public class CarList extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 7);
+                    new ShowInfo(info);
+                };
+            }
+        });
 
         searchCarNumber.addFocusListener(new FocusListener() {
             @Override

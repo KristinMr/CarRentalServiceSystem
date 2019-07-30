@@ -51,35 +51,28 @@ public class AddCar extends JPanel {
 
 //        setBackground(Color.LIGHT_GRAY);
 
-        carNumberLabel.setBounds(50,50,100,30);
-        carNumberField.setBounds(170,50,320,30);
+        carNumberLabel.setBounds(80,50,120,30);
+        carNumberField.setBounds(230,50,570,30);
 
         carTypeLabel.setFont(new java.awt.Font("楷体", 1, 15));
-        carTypeLabel.setBounds(50,100,100,30);
-        carBrandBox.setBounds(170,100,150,30);
-        carModelBox.setBounds(340,100,150,30);
+        carTypeLabel.setBounds(80,100,120,30);
+        carBrandBox.setBounds(230,100,275,30);
+        carModelBox.setBounds(525,100,275,30);
 
-        carStateLabel.setBounds(50,150,100,30);
-        carStateBox.setBounds(170,150,320,30);
+        carStateLabel.setBounds(80,150,120,30);
+        carStateBox.setBounds(230,150,570,30);
 
-//        carLocationLabel.setBounds(50,120,100,30);
-//        carProvinceBox.setBounds(170,120,150,30);
-//        carCityBox.setBounds(340,120,150,30);
+        carColorLabel.setBounds(80,200,120,30);
+        carColorField.setBounds(230,200,570,30);
 
-        carColorLabel.setBounds(50,200,100,30);
-        carColorField.setBounds(170,200,320,30);
+        carRentLabel.setBounds(80,250,120,30);
+        carRentField.setBounds(230,250,570,30);
 
-        carRentLabel.setBounds(50,250,100,30);
-        carRentField.setBounds(170,250,320,30);
+        carInfoLabel.setBounds(80,310,120,30);
+        carInfoArea.setBounds(230,310,570,200);
 
-//        carPictureLabel.setBounds(50,230,100,30);
-//        carPictureField.setBounds(170,230,320,30);
-
-        carInfoLabel.setBounds(250,310,100,30);
-        carInfoArea.setBounds(80,370,420,200);
-
-        resetButton.setBounds(260,600,80,40);
-        addButton.setBounds(400,600,80,40);
+        resetButton.setBounds(80,540,80,30);
+        addButton.setBounds(680,540,120,40);
 
 
         carColorField.setEditable(false);
@@ -186,10 +179,15 @@ public class AddCar extends JPanel {
         } finally {
             DButil.releaseConnection(connection);
         }
+
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Main.main.removeAll();
+                Main.main.repaint();
+                Main.main.updateUI();
 
+                Main.main.add(new AddCar(admin));
             }
         });
 
@@ -266,6 +264,17 @@ public class AddCar extends JPanel {
 //                }
 //            }
 //        });
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.main.removeAll();
+                Main.main.repaint();
+                Main.main.updateUI();
+
+                Main.main.add(new AddCar(admin));
+            }
+        });
 
         addButton.addActionListener(new ActionListener() {
             @Override

@@ -4,29 +4,32 @@
     <list default="true" id="d5482d27-7106-4d0f-a7fa-a81905df902c" name="Default Changelist" comment="租车">
       <change afterPath="$PROJECT_DIR$/out/production/CarRentalServiceSystem/META-INF/CarRentalServiceSystem.kotlin_module" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/CarRentalServiceSystem/source/Index.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/view/pubilc/ShowInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GridBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GridBag.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/admin/AddAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/admin/AddAdmin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/admin/AdminList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/admin/AdminList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/car/AddCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/car/AddCar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/car/CarList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/car/CarList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/car/UpdateCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/car/UpdateCar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/carType/AddBrand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/carType/AddBrand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/carType/AddCarType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/carType/AddCarType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/carType/BrandList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/carType/BrandList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/carType/CarTypeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/carType/CarTypeList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/order/AddOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/AddOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/order/AddOrderCar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/AddOrderCar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/order/AddOrderUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/AddOrderUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/carType/ModelList.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/order/OrderList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/OrderList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/order/SettleOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/SettleOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/order/UpdateOrder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/order/UpdateOrder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/pubilc/Index.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/pubilc/Index.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/rank/AddRank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/rank/AddRank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/rank/RankList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/rank/RankList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recharge/RechargeList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recharge/RechargeList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/recharge/Recharging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recharge/Recharging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/recharge/UpdateRecharge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recharge/UpdateRecharge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/recharge/ddd.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/state/StateList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/state/StateList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/user/AddUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/user/AddUser.java" afterDir="false" />
@@ -101,31 +104,121 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.49019608">
+    <splitter split-orientation="horizontal" split-proportion="0.60299623">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/recharge/RechargeList.java">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2264">
-                  <caret line="191" column="11" lean-forward="true" selection-start-line="125" selection-start-column="8" selection-end-line="191" selection-end-column="11" />
+                <state relative-caret-position="323">
+                  <caret line="122" column="84" selection-start-line="122" selection-start-column="84" selection-end-line="122" selection-end-column="84" />
                   <folding>
-                    <element signature="e#1271#1406#0" expanded="true" />
-                    <element signature="e#1405#1406#0" expanded="true" />
-                    <element signature="e#2326#2334#0" expanded="true" />
-                    <element signature="e#2707#2723#0" expanded="true" />
-                    <element signature="e#3407#3415#0" expanded="true" />
-                    <element signature="e#9071#9079#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#4237#4549#0" expanded="true" />
+                    <element signature="e#4548#4549#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/user/AddUser.java">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="964">
-                  <caret line="217" column="17" selection-start-line="217" selection-start-column="17" selection-end-line="217" selection-end-column="17" />
+                <state relative-caret-position="482">
+                  <caret line="129" column="84" selection-start-line="129" selection-start-column="84" selection-end-line="129" selection-end-column="84" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#4425#4737#0" expanded="true" />
+                    <element signature="e#4736#4737#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="614">
+                  <caret line="141" column="11" selection-start-line="141" selection-start-column="11" selection-end-line="141" selection-end-column="11" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#5132#5444#0" expanded="true" />
+                    <element signature="e#5443#5444#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="560">
+                  <caret line="117" column="84" selection-start-line="117" selection-start-column="84" selection-end-line="117" selection-end-column="84" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#1019#1153#0" expanded="true" />
+                    <element signature="e#1152#1153#0" expanded="true" />
+                    <element signature="e#2227#2235#0" expanded="true" />
+                    <element signature="e#2377#2393#0" expanded="true" />
+                    <element signature="e#2806#2814#0" expanded="true" />
+                    <element signature="e#3907#4219#0" expanded="true" />
+                    <element signature="e#4218#4219#0" expanded="true" />
+                    <element signature="e#7903#7911#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="547">
+                  <caret line="129" column="84" selection-start-line="129" selection-start-column="84" selection-end-line="129" selection-end-column="84" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#2486#2494#0" expanded="true" />
+                    <element signature="e#2873#2889#0" expanded="true" />
+                    <element signature="e#3642#3650#0" expanded="true" />
+                    <element signature="e#4645#4957#0" expanded="true" />
+                    <element signature="e#4956#4957#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="468">
+                  <caret line="119" column="84" selection-start-line="119" selection-start-column="84" selection-end-line="119" selection-end-column="84" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#3923#4235#0" expanded="true" />
+                    <element signature="e#4234#4235#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="219">
+                  <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="e#4521#4833#0" expanded="true" />
+                    <element signature="e#4832#4833#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/view/pubilc/ShowInfo.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="416">
+                  <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -134,92 +227,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/carType/AddBrand.java">
+            <entry file="file://$PROJECT_DIR$/src/view/Login.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="104">
-                  <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/carType/BrandList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-208">
-                  <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/carType/CarTypeList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="162">
-                  <caret line="230" column="49" selection-start-line="230" selection-start-column="49" selection-end-line="230" selection-end-column="49" />
-                  <folding>
-                    <element signature="e#1216#1351#0" expanded="true" />
-                    <element signature="e#1350#1351#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/state/AddState.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1180">
-                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/order/OrderList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="219" column="25" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="219" selection-end-column="25" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="442">
+                  <caret line="109" column="40" lean-forward="true" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/view/admin/AdminList.java">
+            <entry file="file://$PROJECT_DIR$/src/view/Main.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1253">
-                  <caret line="63" column="2" selection-start-line="63" selection-start-column="2" selection-end-line="63" selection-end-column="2" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1085#1220#0" expanded="true" />
-                    <element signature="e#1219#1220#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1330">
-                  <caret line="77" selection-start-line="77" selection-end-line="77" />
-                  <folding>
-                    <element signature="e#966#1100#0" expanded="true" />
-                    <element signature="e#1099#1100#0" expanded="true" />
-                    <element signature="e#3112#3120#0" expanded="true" />
-                    <element signature="e#3262#3278#0" expanded="true" />
-                    <element signature="e#5527#5535#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/order/AddOrder.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="455">
-                  <caret line="267" column="115" selection-start-line="267" selection-start-column="33" selection-end-line="267" selection-end-column="115" />
+                <state relative-caret-position="368">
+                  <caret line="535" column="35" selection-start-line="535" selection-start-column="35" selection-end-line="535" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -231,33 +251,14 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/state/AddState.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-740">
-                  <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/view/car/CarList.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="250">
-                  <caret line="199" column="25" lean-forward="true" selection-start-line="196" selection-start-column="16" selection-end-line="199" selection-end-column="25" />
-                </state>
-              </provider>
-            </entry>
-          </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/view/state/StateList.java">
+            <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="874">
-                  <caret line="211" column="11" selection-start-line="211" selection-start-column="11" selection-end-line="211" selection-end-column="11" />
+                <state relative-caret-position="-178">
+                  <caret line="261" column="31" selection-start-line="261" selection-start-column="31" selection-end-line="261" selection-end-column="31" />
                   <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#15895#15896#0" expanded="true" />
-                    <element signature="e#15926#15927#0" expanded="true" />
+                    <element signature="e#9324#9841#0" expanded="true" />
+                    <element signature="e#9840#9841#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -276,24 +277,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>车牌号关键字</find>
-      <find>searchOrderUserName</find>
-      <find>orderInfo</find>
-      <find>联系方式关键字</find>
-      <find>returnCarButton</find>
-      <find>settleButton</find>
-      <find>searchUserID</find>
-      <find>searchUserButton</find>
-      <find>clearSearchButton</find>
-      <find>searchCarButton</find>
-      <find>refreshSearchButton</find>
       <find>searchCarID</find>
       <find>介绍关键字</find>
       <find>searchUserName</find>
-      <find>searchOrderButton</find>
       <find>userName</find>
       <find>userTel</find>
-      <find>userInfo</find>
       <find>user_tel</find>
       <find>Sys</find>
       <find>System</find>
@@ -306,16 +294,21 @@
       <find>searchStateInfo</find>
       <find>stateInfo</find>
       <find>searchRankButton</find>
+      <find>名称关键字</find>
+      <find>联系电话关键字</find>
+      <find>userInfo</find>
+      <find>编号关键字</find>
+      <find>searchOrderButton</find>
+      <find>searchCarButton</find>
+      <find>Location</find>
+      <find>移出回收站</find>
+      <find>还原</find>
+      <find>carType</find>
+      <find>type</find>
+      <find>state</find>
+      <find>searchBrandButton</find>
     </findStrings>
     <replaceStrings>
-      <replace>用户</replace>
-      <replace>50,</replace>
-      <replace>30);</replace>
-      <replace>200</replace>
-      <replace>admin</replace>
-      <replace>Admin</replace>
-      <replace>管理员</replace>
-      <replace>ps2</replace>
       <replace>searchOrderCarNumber</replace>
       <replace>searchOrderUserName</replace>
       <replace>联系方式关键字</replace>
@@ -331,12 +324,20 @@
       <replace>searchCarNumber</replace>
       <replace>carInfo</replace>
       <replace>searchRechargeInfo</replace>
-      <replace>用户名称关键字</replace>
       <replace>RechargeInfo</replace>
       <replace>stateDataVector</replace>
       <replace>备注关键字</replace>
       <replace>searchCarTypeInfo</replace>
       <replace>carTypeInfo</replace>
+      <replace>名称关键字</replace>
+      <replace>管理员名称关键字</replace>
+      <replace>adminInfo</replace>
+      <replace>用户名称关键字</replace>
+      <replace>rechargeTHVector</replace>
+      <replace>还原</replace>
+      <replace>移出回收站</replace>
+      <replace>car</replace>
+      <replace>model</replace>
       <replace>searchButton</replace>
     </replaceStrings>
     <dirStrings>
@@ -350,21 +351,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/view/user/Main.java" />
-        <option value="$PROJECT_DIR$/src/view/user/AdminInfo.java" />
-        <option value="$PROJECT_DIR$/src/view/pubilc/Sidebar.java" />
-        <option value="$PROJECT_DIR$/src/view/BackUpMain.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/adminRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/stateRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/rankRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/rechargeRecycleBinList.java" />
         <option value="$PROJECT_DIR$/src/view/recycleBin/carTypeRecycleBinList.java" />
         <option value="$PROJECT_DIR$/src/view/recycleBin/carRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java" />
         <option value="$PROJECT_DIR$/src/util/ColorTheme.java" />
         <option value="$PROJECT_DIR$/src/view/pubilc/UpdatePassword.java" />
         <option value="$PROJECT_DIR$/src/view/user/UpdateUser.java" />
-        <option value="$PROJECT_DIR$/src/view/admin/AddAdmin.java" />
         <option value="$PROJECT_DIR$/src/view/admin/UpdateAdmin.java" />
         <option value="$PROJECT_DIR$/src/util/Calendar.java" />
         <option value="$PROJECT_DIR$/src/util/CalendarPanel.java" />
@@ -374,41 +365,51 @@
         <option value="$PROJECT_DIR$/src/view/Login.java" />
         <option value="$PROJECT_DIR$/src/view/pubilc/Statistics.java" />
         <option value="$PROJECT_DIR$/src/view/admin/AdminInfo.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java" />
-        <option value="$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java" />
         <option value="$PROJECT_DIR$/src/util/Chooser.java" />
         <option value="$PROJECT_DIR$/src/view/order/UpdateOrder.java" />
         <option value="$PROJECT_DIR$/src/view/order/SettleOrder.java" />
         <option value="$PROJECT_DIR$/src/view/pubilc/Index.java" />
         <option value="$PROJECT_DIR$/src/view/order/AddOrder.java" />
         <option value="$PROJECT_DIR$/src/view/recharge/Recharging.java" />
-        <option value="$PROJECT_DIR$/src/view/user/UserList.java" />
-        <option value="$PROJECT_DIR$/src/view/car/UpdateCar.java" />
-        <option value="$PROJECT_DIR$/src/view/Main.java" />
-        <option value="$PROJECT_DIR$/src/view/car/AddCar.java" />
         <option value="$PROJECT_DIR$/src/GridBag.java" />
-        <option value="$PROJECT_DIR$/src/view/order/OrderList.java" />
         <option value="$PROJECT_DIR$/src/view/order/AddOrderCar.java" />
         <option value="$PROJECT_DIR$/src/view/order/AddOrderUser.java" />
-        <option value="$PROJECT_DIR$/src/view/recharge/RechargeList.java" />
-        <option value="$PROJECT_DIR$/src/view/car/CarList.java" />
         <option value="$PROJECT_DIR$/src/view/recharge/UpdateRecharge.java" />
         <option value="$PROJECT_DIR$/src/view/user/AddUser.java" />
-        <option value="$PROJECT_DIR$/src/view/carType/CarTypeList.java" />
-        <option value="$PROJECT_DIR$/src/view/rank/RankList.java" />
+        <option value="$PROJECT_DIR$/src/view/admin/AddAdmin.java" />
+        <option value="$PROJECT_DIR$/src/view/user/UserList.java" />
         <option value="$PROJECT_DIR$/src/view/state/StateList.java" />
+        <option value="$PROJECT_DIR$/src/view/rank/RankList.java" />
+        <option value="$PROJECT_DIR$/src/view/carType/AddCarType.java" />
+        <option value="$PROJECT_DIR$/src/view/car/AddCar.java" />
+        <option value="$PROJECT_DIR$/src/view/car/UpdateCar.java" />
+        <option value="$PROJECT_DIR$/src/view/rank/AddRank.java" />
+        <option value="$PROJECT_DIR$/src/view/carType/AddBrand.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java" />
         <option value="$PROJECT_DIR$/src/view/admin/AdminList.java" />
+        <option value="$PROJECT_DIR$/src/view/car/CarList.java" />
+        <option value="$PROJECT_DIR$/src/view/carType/BrandList.java" />
+        <option value="$PROJECT_DIR$/src/view/order/OrderList.java" />
+        <option value="$PROJECT_DIR$/src/view/recharge/RechargeList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/carType/CarTypeList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java" />
+        <option value="$PROJECT_DIR$/src/view/pubilc/ShowInfo.java" />
+        <option value="$PROJECT_DIR$/src/view/Main.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="162" />
-    <option name="y" value="229" />
+    <option name="x" value="76" />
+    <option name="y" value="164" />
     <option name="width" value="1919" />
-    <option name="height" value="876" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -481,6 +482,20 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
               <item name="rank" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarRentalServiceSystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarRentalServiceSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="recharge" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CarRentalServiceSystem" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CarRentalServiceSystem" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="recycleBin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CarRentalServiceSystem" type="b2602c69:ProjectViewProjectNode" />
@@ -690,7 +705,8 @@
       <workItem from="1564194863197" duration="8690000" />
       <workItem from="1564208028427" duration="11129000" />
       <workItem from="1564411665214" duration="8002000" />
-      <workItem from="1564451885029" duration="11756000" />
+      <workItem from="1564451885029" duration="25135000" />
+      <workItem from="1564482531304" duration="4880000" />
     </task>
     <task id="LOCAL-00001" summary="租车">
       <created>1562693251367</created>
@@ -895,11 +911,18 @@
       <option name="project" value="LOCAL" />
       <updated>1564202461618</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="租车">
+      <created>1564463793940</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1564463793940</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="422440000" />
+    <option name="totallyTimeSpent" value="440699000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -911,9 +934,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="162" y="229" width="1919" height="876" extended-state="0" />
+    <frame x="76" y="164" width="1919" height="900" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16083916" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15330823" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -942,7 +965,7 @@
       <window_info anchor="right" id="Maven" order="6" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Run" order="9" sideWeight="0.5079957" visible="true" weight="0.016137708" />
+      <window_info active="true" anchor="right" id="Run" order="9" sideWeight="0.5079957" visible="true" weight="0.016137708" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -993,211 +1016,11 @@
     <option name="LAST_COMMIT_MESSAGE" value="租车" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/util/DateSelector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5408">
-          <caret line="244" column="27" selection-start-line="244" selection-start-column="20" selection-end-line="244" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/CalendarPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12324">
-          <caret line="508" column="51" selection-start-line="508" selection-start-column="51" selection-end-line="508" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/order/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="6" column="57" lean-forward="true" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/Order.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-          <folding>
-            <element signature="e#558#559#0" expanded="true" />
-            <element signature="e#604#605#0" expanded="true" />
-            <element signature="e#642#643#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
-            <element signature="e#714#715#0" expanded="true" />
-            <element signature="e#768#769#0" expanded="true" />
-            <element signature="e#814#815#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#890#891#0" expanded="true" />
-            <element signature="e#948#949#0" expanded="true" />
-            <element signature="e#998#999#0" expanded="true" />
-            <element signature="e#1035#1036#0" expanded="true" />
-            <element signature="e#1068#1069#0" expanded="true" />
-            <element signature="e#1120#1121#0" expanded="true" />
-            <element signature="e#1164#1165#0" expanded="true" />
-            <element signature="e#1205#1206#0" expanded="true" />
-            <element signature="e#1242#1243#0" expanded="true" />
-            <element signature="e#1302#1303#0" expanded="true" />
-            <element signature="e#1354#1355#0" expanded="true" />
-            <element signature="e#1394#1395#0" expanded="true" />
-            <element signature="e#1430#1431#0" expanded="true" />
-            <element signature="e#1488#1489#0" expanded="true" />
-            <element signature="e#1538#1539#0" expanded="true" />
-            <element signature="e#1578#1579#0" expanded="true" />
-            <element signature="e#1614#1615#0" expanded="true" />
-            <element signature="e#1672#1673#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-            <element signature="e#1761#1762#0" expanded="true" />
-            <element signature="e#1796#1797#0" expanded="true" />
-            <element signature="e#1852#1853#0" expanded="true" />
-            <element signature="e#1900#1901#0" expanded="true" />
-            <element signature="e#1941#1942#0" expanded="true" />
-            <element signature="e#1978#1979#0" expanded="true" />
-            <element signature="e#2038#2039#0" expanded="true" />
-            <element signature="e#2090#2091#0" expanded="true" />
-            <element signature="e#2130#2131#0" expanded="true" />
-            <element signature="e#2166#2167#0" expanded="true" />
-            <element signature="e#2224#2225#0" expanded="true" />
-            <element signature="e#2274#2275#0" expanded="true" />
-            <element signature="e#2311#2312#0" expanded="true" />
-            <element signature="e#2344#2345#0" expanded="true" />
-            <element signature="e#2396#2397#0" expanded="true" />
-            <element signature="e#2440#2441#0" expanded="true" />
-            <element signature="e#2481#2482#0" expanded="true" />
-            <element signature="e#2518#2519#0" expanded="true" />
-            <element signature="e#2578#2579#0" expanded="true" />
-            <element signature="e#2630#2631#0" expanded="true" />
-            <element signature="e#2669#2670#0" expanded="true" />
-            <element signature="e#2704#2705#0" expanded="true" />
-            <element signature="e#2760#2761#0" expanded="true" />
-            <element signature="e#2808#2809#0" expanded="true" />
-            <element signature="e#2844#2845#0" expanded="true" />
-            <element signature="e#2876#2877#0" expanded="true" />
-            <element signature="e#2926#2927#0" expanded="true" />
-            <element signature="e#2968#2969#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/pubilc/Statistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="754">
-          <caret line="32" column="50" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Login.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3172">
-          <caret line="136" column="5" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Ma.java" />
     <entry file="file://$PROJECT_DIR$/src/view/Mai.java" />
-    <entry file="file://$PROJECT_DIR$/src/view/admin/AddAdmin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3510">
-          <caret line="180" column="49" selection-start-line="180" selection-start-column="49" selection-end-line="180" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="962">
-          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="50" selection-start-line="4" selection-start-column="50" selection-end-line="4" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="52" selection-start-line="4" selection-start-column="52" selection-end-line="4" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="988">
-          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1534">
-          <caret line="74" column="32" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-38">
-          <caret line="142" column="56" lean-forward="true" selection-start-line="142" selection-start-column="56" selection-end-line="142" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_211/src.zip!/java/awt/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
           <caret line="1670" column="12" selection-start-line="1670" selection-start-column="12" selection-end-line="1670" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-154">
-          <caret line="100" column="567" selection-start-line="100" selection-start-column="567" selection-end-line="100" selection-end-column="567" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1273,61 +1096,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/car/UpdateCar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="44" column="34" selection-start-line="44" selection-start-column="34" selection-end-line="44" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/order/AddOrderCar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4550">
-          <caret line="198" column="47" selection-start-line="198" selection-start-column="47" selection-end-line="198" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/car/AddCar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8242">
-          <caret line="326" column="7" selection-start-line="326" selection-start-column="7" selection-end-line="326" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1564419147560" expanded="true" signature="3259:3291" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GridBag.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/user/UserList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2616">
-          <caret line="275" column="8" lean-forward="true" selection-start-line="275" selection-start-column="8" selection-end-line="275" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3811">
-          <caret line="664" lean-forward="true" selection-start-line="664" selection-end-line="664" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1374,33 +1146,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recharge/UpdateRecharge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1978">
-          <caret line="143" column="62" lean-forward="true" selection-start-line="143" selection-start-column="62" selection-end-line="143" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/user/AddUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="964">
-          <caret line="217" column="17" selection-start-line="217" selection-start-column="17" selection-end-line="217" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/state/AddState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1180">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/order/AddOrder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
@@ -1411,97 +1156,368 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/order/OrderList.java">
+    <entry file="file://$PROJECT_DIR$/src/view/user/AddUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="219" column="25" lean-forward="true" selection-start-line="215" selection-start-column="16" selection-end-line="219" selection-end-column="25" />
+        <state relative-caret-position="3004">
+          <caret line="176" column="28" lean-forward="true" selection-start-line="174" selection-start-column="20" selection-end-line="176" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/carType/AddBrand.java">
+    <entry file="file://$PROJECT_DIR$/src/view/state/AddState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        <state relative-caret-position="-740">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/carType/BrandList.java">
+    <entry file="file://$PROJECT_DIR$/src/view/user/UserList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-208">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/recharge/RechargeList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2264">
-          <caret line="191" column="11" lean-forward="true" selection-start-line="125" selection-start-column="8" selection-end-line="191" selection-end-column="11" />
-          <folding>
-            <element signature="e#1271#1406#0" expanded="true" />
-            <element signature="e#1405#1406#0" expanded="true" />
-            <element signature="e#2326#2334#0" expanded="true" />
-            <element signature="e#2707#2723#0" expanded="true" />
-            <element signature="e#3407#3415#0" expanded="true" />
-            <element signature="e#9071#9079#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/carType/CarTypeList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="230" column="49" selection-start-line="230" selection-start-column="49" selection-end-line="230" selection-end-column="49" />
-          <folding>
-            <element signature="e#1216#1351#0" expanded="true" />
-            <element signature="e#1350#1351#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/car/CarList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="199" column="25" lean-forward="true" selection-start-line="196" selection-start-column="16" selection-end-line="199" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1330">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-          <folding>
-            <element signature="e#966#1100#0" expanded="true" />
-            <element signature="e#1099#1100#0" expanded="true" />
-            <element signature="e#3112#3120#0" expanded="true" />
-            <element signature="e#3262#3278#0" expanded="true" />
-            <element signature="e#5527#5535#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/admin/AdminList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1253">
-          <caret line="63" column="2" selection-start-line="63" selection-start-column="2" selection-end-line="63" selection-end-column="2" />
+        <state relative-caret-position="650">
+          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="264" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1085#1220#0" expanded="true" />
-            <element signature="e#1219#1220#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/state/StateList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="211" column="11" selection-start-line="211" selection-start-column="11" selection-end-line="211" selection-end-column="11" />
+        <state relative-caret-position="652">
+          <caret line="407" lean-forward="true" selection-start-line="407" selection-end-line="407" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15895#15896#0" expanded="true" />
-            <element signature="e#15926#15927#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/UpdateCarType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/ModelList.java" />
+    <entry file="file://$PROJECT_DIR$/src/view/car/UpdateCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="44" selection-start-line="44" selection-end-line="50" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/car/AddCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="875">
+          <caret line="68" column="47" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1564474898760" expanded="true" signature="2999:3031" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/rank/AddRank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="910">
+          <caret line="68" column="58" selection-start-line="68" selection-start-column="58" selection-end-line="68" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/AddCarType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#401#408#0" expanded="true" />
+            <element signature="e#2941#2942#0" expanded="true" />
+            <element signature="e#2987#2988#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/AddBrand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/AddOrderCar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1066">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recharge/UpdateRecharge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="44" column="23" selection-start-line="40" selection-start-column="8" selection-end-line="44" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recharge/ddd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1534">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/admin/AddAdmin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1701">
+          <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/admin/AdminList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="130" column="84" selection-start-line="130" selection-start-column="84" selection-end-line="130" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1228#1363#0" expanded="true" />
+            <element signature="e#1362#1363#0" expanded="true" />
+            <element signature="e#2273#2281#0" expanded="true" />
+            <element signature="e#2689#2705#0" expanded="true" />
+            <element signature="e#3336#3344#0" expanded="true" />
+            <element signature="e#4406#4718#0" expanded="true" />
+            <element signature="e#4717#4718#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/car/CarList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="127" column="84" selection-start-line="127" selection-start-column="84" selection-end-line="127" selection-end-column="84" />
+          <folding>
+            <element signature="e#4310#4622#0" expanded="true" />
+            <element signature="e#4621#4622#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/BrandList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="121" column="84" selection-start-line="121" selection-start-column="84" selection-end-line="121" selection-end-column="84" />
+          <folding>
+            <element signature="e#881#1015#0" expanded="true" />
+            <element signature="e#1014#1015#0" expanded="true" />
+            <element signature="e#4037#4349#0" expanded="true" />
+            <element signature="e#4348#4349#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/order/OrderList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="139" column="8" selection-start-line="139" selection-start-column="8" selection-end-line="139" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5384#5589#0" expanded="true" />
+            <element signature="e#5588#5589#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/rank/RankList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-178">
+          <caret line="261" column="31" selection-start-line="261" selection-start-column="31" selection-end-line="261" selection-end-column="31" />
+          <folding>
+            <element signature="e#9324#9841#0" expanded="true" />
+            <element signature="e#9840#9841#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recharge/RechargeList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="127" column="84" selection-start-line="127" selection-start-column="84" selection-end-line="127" selection-end-column="84" />
+          <folding>
+            <element signature="e#1271#1406#0" expanded="true" />
+            <element signature="e#1405#1406#0" expanded="true" />
+            <element signature="e#2326#2334#0" expanded="true" />
+            <element signature="e#2707#2723#0" expanded="true" />
+            <element signature="e#3407#3415#0" expanded="true" />
+            <element signature="e#4411#4723#0" expanded="true" />
+            <element signature="e#4722#4723#0" expanded="true" />
+            <element signature="e#9071#9079#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/AdminRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="133" column="84" selection-start-line="133" selection-start-column="84" selection-end-line="133" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4705#5017#0" expanded="true" />
+            <element signature="e#5016#5017#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarBrandRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/carType/CarTypeList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="119" column="84" selection-start-line="119" selection-start-column="84" selection-end-line="119" selection-end-column="84" />
+          <folding>
+            <element signature="e#1216#1351#0" expanded="true" />
+            <element signature="e#1350#1351#0" expanded="true" />
+            <element signature="e#4064#4376#0" expanded="true" />
+            <element signature="e#4375#4376#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarModelRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="122" column="84" selection-start-line="122" selection-start-column="84" selection-end-line="122" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4237#4549#0" expanded="true" />
+            <element signature="e#4548#4549#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/CarRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="129" column="84" selection-start-line="129" selection-start-column="84" selection-end-line="129" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4425#4737#0" expanded="true" />
+            <element signature="e#4736#4737#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/OrderRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="614">
+          <caret line="141" column="11" selection-start-line="141" selection-start-column="11" selection-end-line="141" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5132#5444#0" expanded="true" />
+            <element signature="e#5443#5444#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RankRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="117" column="84" selection-start-line="117" selection-start-column="84" selection-end-line="117" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1019#1153#0" expanded="true" />
+            <element signature="e#1152#1153#0" expanded="true" />
+            <element signature="e#2227#2235#0" expanded="true" />
+            <element signature="e#2377#2393#0" expanded="true" />
+            <element signature="e#2806#2814#0" expanded="true" />
+            <element signature="e#3907#4219#0" expanded="true" />
+            <element signature="e#4218#4219#0" expanded="true" />
+            <element signature="e#7903#7911#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/RechargeRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="129" column="84" selection-start-line="129" selection-start-column="84" selection-end-line="129" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2486#2494#0" expanded="true" />
+            <element signature="e#2873#2889#0" expanded="true" />
+            <element signature="e#3642#3650#0" expanded="true" />
+            <element signature="e#4645#4957#0" expanded="true" />
+            <element signature="e#4956#4957#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/StateRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="119" column="84" selection-start-line="119" selection-start-column="84" selection-end-line="119" selection-end-column="84" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3923#4235#0" expanded="true" />
+            <element signature="e#4234#4235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/recycleBin/UserRecycleBinList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="86" column="33" lean-forward="true" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4521#4833#0" expanded="true" />
+            <element signature="e#4832#4833#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/pubilc/ShowInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="20" column="35" lean-forward="true" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="109" column="40" lean-forward="true" selection-start-line="109" selection-start-column="40" selection-end-line="109" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="535" column="35" selection-start-line="535" selection-start-column="35" selection-end-line="535" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

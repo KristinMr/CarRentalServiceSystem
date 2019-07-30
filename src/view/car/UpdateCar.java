@@ -23,18 +23,11 @@ public class UpdateCar extends JDialog {
     private JLabel carStateLabel = new JLabel("车辆状态");
     private JComboBox<State> carStateBox = new JComboBox<State>();
 
-//    private JLabel carLocationLabel = new JLabel("车辆地点");
-//    private JComboBox<Province> carProvinceBox = new JComboBox<Province>();
-//    private JComboBox<City> carCityBox = new JComboBox<City>();
-
     private JLabel carColorLabel = new JLabel("车辆颜色");
     private JTextField carColorField = new JTextField();
 
     private JLabel carRentLabel = new JLabel("车辆租金");
     private JTextField carRentField = new JTextField();
-
-//    private JLabel carPictureLabel = new JLabel("车辆图片");
-//    private JTextField carPictureField = new JTextField();
 
     private JLabel carInfoLabel = new JLabel("车辆备注");
     private JTextArea carInfoArea = new JTextArea();

@@ -533,9 +533,7 @@ public class Main extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int n = JOptionPane.showConfirmDialog(null, "退出", "真的要退出吗？", JOptionPane.YES_NO_OPTION);
                 if (n == 0) {
-//                    System.exit(0);
-                    Main.this.dispose();
-                    new Login();
+                    System.exit(0);
                 }
             }
         });

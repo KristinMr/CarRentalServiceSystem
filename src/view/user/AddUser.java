@@ -164,7 +164,6 @@ public class AddUser extends JPanel {
                 String userAddress = userAddressField.getText();
                 String userDrivingLicense = userDrivingLicenseField.getText();
                 String userDriveAge = userDriveAgeField.getText();
-//                String userAge = String.valueOf(Integer.parseInt(LocalDate.now().toString().substring(0, 3)) - Integer.parseInt(userIDNField.getText().substring(6, 9)));
                 long userAge = Period.between(LocalDate.parse(userIDNField.getText().substring(6, 10) + "-" + userIDNField.getText().substring(10, 12) + "-" + userIDNField.getText().substring(12, 14)), LocalDate.now()).getYears();
                 String userInfo = userInfoArea.getText();
 

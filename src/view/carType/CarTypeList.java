@@ -3,15 +3,13 @@ package view.carType;
 import util.DButil;
 import view.Main;
 import view.carType.UpdateCarType;
+import view.pubilc.ShowInfo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,6 +76,8 @@ public class CarTypeList extends JPanel {
         carTypeTHVector.add("备注");
 
         Vector<Vector<String>> carTypeDataVector = new Vector<Vector<String>>();
+
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
         Connection collection = DButil.getConnection();
         String sql = "select model.model_id, brand.brand_name, model.model_name, model.model_color, model.model_rent, model.model_Info from model, brand where model.model_brand = brand.brand_id and model.model_recycle_bin = 0";
@@ -113,7 +113,15 @@ public class CarTypeList extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 5);
+                    new ShowInfo(info);
+                };
+            }
+        });
 
         searchCarTypeBrand.addFocusListener(new FocusListener() {
             @Override
@@ -286,15 +294,4 @@ public class CarTypeList extends JPanel {
 
         setVisible(true);
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-////            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//        } catch (Exception e) {
-//
-//        }
-//        new CarTypeList();
-//    }
 }

@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class AddAdmin extends JPanel {
@@ -144,7 +146,7 @@ public class AddAdmin extends JPanel {
                 String adminEmail = adminEmailField.getText();
                 String adminIDN = adminIDNField.getText();
                 String adminAddress = adminAddressField.getText();
-                String adminAge = "18";
+                long adminAge = Period.between(LocalDate.parse(adminIDNField.getText().substring(6, 10) + "-" + adminIDNField.getText().substring(10, 12) + "-" + adminIDNField.getText().substring(12, 14)), LocalDate.now()).getYears();
                 String adminInfo = adminInfoArea.getText();
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -152,43 +154,46 @@ public class AddAdmin extends JPanel {
                 if (adminName.equals("")) {
                     JOptionPane.showMessageDialog(null, "管理员姓名不能为空！请重新输入。");
                 } else {
-                    Connection connection = DButil.getConnection();
-                    String sql = "insert into admin(admin_name, admin_password, admin_rank, admin_sex, admin_idn, admin_tel, admin_email, admin_age, admin_address, admin_info, admin_recycle_bin, admin_admin, admin_date) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                    try {
-                        PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, adminName);
-                        ps.setObject(2, adminPassword);
-                        ps.setObject(3, 2);
-                        ps.setObject(4, gender);
-                        ps.setObject(5, adminIDN);
-                        ps.setObject(6, adminTel);
-                        ps.setObject(7, adminEmail);
-                        ps.setObject(8, adminAge);
-                        ps.setObject(9, adminAddress);
-                        ps.setObject(10, adminInfo);
-                        ps.setObject(11, 0);
-                        ps.setObject(12, admin.getAdminID());
-                        ps.setObject(13, adminDate);
+                    if (adminIDN.equals("")) {
+                        JOptionPane.showMessageDialog(null, "管理员身份证号不能为空！请重新输入。");
+                    } else {
+                        Connection connection = DButil.getConnection();
+                        String sql = "insert into admin(admin_name, admin_password, admin_rank, admin_sex, admin_idn, admin_tel, admin_email, admin_age, admin_address, admin_info, admin_recycle_bin, admin_admin, admin_date) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        try {
+                            PreparedStatement ps = connection.prepareStatement(sql);
+                            ps.setObject(1, adminName);
+                            ps.setObject(2, adminPassword);
+                            ps.setObject(3, 2);
+                            ps.setObject(4, gender);
+                            ps.setObject(5, adminIDN);
+                            ps.setObject(6, adminTel);
+                            ps.setObject(7, adminEmail);
+                            ps.setObject(8, adminAge);
+                            ps.setObject(9, adminAddress);
+                            ps.setObject(10, adminInfo);
+                            ps.setObject(11, 0);
+                            ps.setObject(12, admin.getAdminID());
+                            ps.setObject(13, adminDate);
 
-                        int n = ps.executeUpdate();
+                            int n = ps.executeUpdate();
 
-                        if (n > 0) {
-                            JOptionPane.showMessageDialog(null, "管理员新增成功！");
-                            Main.main.removeAll();
-                            Main.main.repaint();
-                            Main.main.updateUI();
+                            if (n > 0) {
+                                JOptionPane.showMessageDialog(null, "管理员新增成功！");
+                                Main.main.removeAll();
+                                Main.main.repaint();
+                                Main.main.updateUI();
 
-                            Main.main.add(new AdminList(admin));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "添加失败！");
+                                Main.main.add(new AdminList(admin));
+                            } else {
+                                JOptionPane.showMessageDialog(null, "添加失败！");
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        } finally {
+                            DButil.releaseConnection(connection);
                         }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection);
                     }
                 }
-
             }
         });
 
