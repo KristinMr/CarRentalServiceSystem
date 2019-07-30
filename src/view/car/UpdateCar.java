@@ -42,7 +42,7 @@ public class UpdateCar extends JDialog {
     private JButton resetButton = new JButton("重置");
     private JButton confirmButton = new JButton("确认修改");
 
-    public UpdateCar(String carID) {
+    public UpdateCar(Admin admin, String carID) {
 
         setTitle("更新车辆");
         setSize(600, 800);
@@ -355,7 +355,7 @@ public class UpdateCar extends JDialog {
                         Main.main.repaint();
                         Main.main.updateUI();
 
-                        Main.main.add(new CarList());
+                        Main.main.add(new CarList(admin));
                     } else {
                         JOptionPane.showMessageDialog(null, "修改失败！");
                     }

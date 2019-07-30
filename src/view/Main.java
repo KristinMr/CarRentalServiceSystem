@@ -113,15 +113,8 @@ public class Main extends JFrame {
     private JMenuItem statisticsItem = new JMenuItem("统计");
 
 
-
-
-
-
-
     public static JPanel main = new JPanel();
     private JPanel mainPanel = new JPanel();
-    private JMenuItem borrowCar = new JMenuItem("租车");
-    private JMenuItem returnCar = new JMenuItem("还车");
 
 
     private JPanel footer = new JPanel();
@@ -381,12 +374,14 @@ public class Main extends JFrame {
         stateItem.setVisible(false);
         rankItem.setVisible(false);
         adminItem.setVisible(false);
+        statisticsItem.setVisible(false);
         recycleBinItem.setVisible(false);
         if (admin.getAdminRank() == 1) {
             carTypeItem.setVisible(true);
             stateItem.setVisible(true);
             rankItem.setVisible(true);
             adminItem.setVisible(true);
+            statisticsItem.setVisible(true);
             recycleBinItem.setVisible(true);
         }
 
@@ -668,7 +663,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new AddCar());
+                main.add(new AddCar(admin));
             }
         });
         carList.addActionListener(new ActionListener() {
@@ -678,7 +673,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new CarList());
+                main.add(new CarList(admin));
             }
         });
 
@@ -724,7 +719,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new RechargeList());
+                main.add(new RechargeList(admin));
             }
         });
 

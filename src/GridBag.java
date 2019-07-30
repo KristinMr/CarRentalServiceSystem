@@ -16,7 +16,7 @@ public class GridBag extends JFrame {
     private JLabel jLabel = new JLabel();
     private JButton loginButton = new JButton("登录");
 
-    private JPanel carList = new CarList();
+    private JPanel carList = new JPanel();
     private JPanel rankList = new RankList();
 
     private JPanel main = new JPanel();

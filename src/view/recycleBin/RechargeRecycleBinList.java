@@ -20,10 +20,10 @@ public class RechargeRecycleBinList extends JPanel {
     private JTextField searchLocationName = new JTextField("名称关键字");
     private JTextField searchLocationInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchLocationButton = new JButton("查询");
+    private JButton searchRechargeButton = new JButton("查询");
 
     private JButton editButton = new JButton("移出回收站");
-    private JButton deleteButton = new JButton("彻底删除所选充值记录");
+    private JButton deleteButton = new JButton("彻底删除");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -49,10 +49,14 @@ public class RechargeRecycleBinList extends JPanel {
         searchLocationName.setBounds(185,40,150,30);
         searchLocationInfo.setBounds(355,40,150,30);
         refreshSearchButton.setBounds(720,40,80,30);
-        searchLocationButton.setBounds(820,40,80,30);
+        searchRechargeButton.setBounds(820,40,80,30);
+        searchRechargeButton.setForeground(Color.blue);
 
         editButton.setBounds(1000,40,150,40);
-        deleteButton.setBounds(1170,40,150,40);
+        editButton.setForeground(Color.green);
+        deleteButton.setBounds(1170,40,150,50);
+        deleteButton.setFont(new java.awt.Font("楷体",1,18));
+        deleteButton.setForeground(Color.red);
 
         jScrollPane.setBounds(15,100,1310,700);
 
@@ -68,7 +72,7 @@ public class RechargeRecycleBinList extends JPanel {
         add(searchLocationName);
         add(searchLocationInfo);
         add(refreshSearchButton);
-        add(searchLocationButton);
+        add(searchRechargeButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);

@@ -3,6 +3,7 @@ package view.rank;
 import jdk.nashorn.internal.scripts.JO;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 import util.DButil;
+import view.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -21,8 +22,8 @@ public class RankList extends JPanel {
     private JTextField searchRankID = new JTextField("编号关键字");
     private JTextField searchRankName = new JTextField("名称关键字");
     private JTextField searchRankInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchRankButton = new JButton("查询");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -45,16 +46,13 @@ public class RankList extends JPanel {
     private JButton clearButton = new JButton("清空");
     private JButton resetButton = new JButton("重置");
 
-//    private JButton addRankButton = new JButton("新增权限");
 
     private JButton editButton = new JButton("修改权限信息");
 
     private JButton deleteButton = new JButton("删除所选权限");
 
     public RankList() {
-//        setTitle("权限列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
 
@@ -65,8 +63,8 @@ public class RankList extends JPanel {
         searchRankID.setBounds(80,40,150,30);
         searchRankName.setBounds(250,40,200,30);
         searchRankInfo.setBounds(470,40,300,30);
-        refreshSearchButton.setBounds(1130,40,80,30);
-        searchRankButton.setBounds(1230,40,80,30);
+        refreshButton.setBounds(1130,40,80,30);
+        searchButton.setBounds(1230,40,80,30);
         pane.setBounds(80,100,1230,400);
 
         rankIDLabel.setBounds(80,550,80,30);
@@ -77,15 +75,14 @@ public class RankList extends JPanel {
         rankInfoArea.setBounds(180,610,1130,100);
         clearButton.setBounds(80,760,80,30);
         resetButton.setBounds(180,760,80,30);
-//        addRankButton.setBounds(965,640,120,30);
         editButton.setBounds(1005,760,120,30);
         deleteButton.setBounds(1145,760,120,30);
 
         add(searchRankID);
         add(searchRankName);
         add(searchRankInfo);
-        add(refreshSearchButton);
-        add(searchRankButton);
+        add(refreshButton);
+        add(searchButton);
         add(pane);
         add(rankIDLabel);
         add(rankIDField);
@@ -95,7 +92,6 @@ public class RankList extends JPanel {
         add(rankInfoArea);
         add(clearButton);
         add(resetButton);
-//        add(addRankButton);
         add(editButton);
         add(deleteButton);
 
@@ -106,6 +102,42 @@ public class RankList extends JPanel {
         Vector<Vector<String>> dataVector = new Vector<Vector<String>>();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        Connection connection = DButil.getConnection();
+
+        String sql = "select * from rank where rank_recycle_bin = 0";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Vector<String> vector = new Vector<String>();
+                vector.add(rs.getString(1));
+                vector.add(rs.getString(2));
+                vector.add(rs.getString(3));
+                dataVector.add(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DButil.releaseConnection(connection);
+        }
+
+        DefaultTableModel defaultTableModel = new DefaultTableModel(dataVector, thVector);
+        table.setModel(defaultTableModel);
+        pane.getViewport().add(table);
+
+        table.getTableHeader().setReorderingAllowed(false);
+
+        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
+        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(250);
+        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(450);
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, cellRenderer);
+
+        rankIDField.setEditable(false);
 
         searchRankID.addFocusListener(new FocusListener() {
             @Override
@@ -161,43 +193,17 @@ public class RankList extends JPanel {
             }
         });
 
-        Connection connection = DButil.getConnection();
-
-        String sql = "select * from rank where rank_recycle_bin = 0";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                Vector<String> vector = new Vector<String>();
-                vector.add(rs.getString(1));
-                vector.add(rs.getString(2));
-                vector.add(rs.getString(3));
-                dataVector.add(vector);
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.Main.main.removeAll();
+                view.Main.main.repaint();
+                view.Main.main.updateUI();
+                Main.main.add(new RankList());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DButil.releaseConnection(connection);
-        }
+        });
 
-        DefaultTableModel defaultTableModel = new DefaultTableModel(dataVector, thVector);
-        table.setModel(defaultTableModel);
-        pane.getViewport().add(table);
-
-        table.getTableHeader().setReorderingAllowed(false);
-
-        table.getTableHeader().getColumnModel().getColumn(0).setPreferredWidth(150);
-        table.getTableHeader().getColumnModel().getColumn(1).setPreferredWidth(250);
-        table.getTableHeader().getColumnModel().getColumn(2).setPreferredWidth(450);
-
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        table.setDefaultRenderer(Object.class, cellRenderer);
-
-        rankIDField.setEditable(false);
-
-        searchRankButton.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String rankID = searchRankID.getText();
@@ -282,53 +288,7 @@ public class RankList extends JPanel {
                 rankInfoArea.setText((String)table.getValueAt(table.getSelectedRow(), 2));
             }
         });
-
-//        addRankButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新权限（权限编号自动加1）？",JOptionPane.YES_NO_OPTION);
-//                if (m == 0) {
-//                    String rankName = rankNameField.getText();
-//                    String rankInfo = rankInfoArea.getText();
-//
-//                    Connection connection = DButil.getConnection();
-//                    String sql = "insert into rank(rank_name, rank_info, rank_recycle_bin) values(?, ?, ?)";
-//                    String sql1 = "select * from rank where rank_recycle_bin = 0";
-//                    try {
-//                        PreparedStatement ps = connection.prepareStatement(sql);
-//                        ps.setObject(1, rankName);
-//                        ps.setObject(2, rankInfo);
-//                        ps.setObject(3, 0);
-//
-//                        int n = ps.executeUpdate();
-//
-//                        if (n>0) {
-//                            JOptionPane.showMessageDialog(null, "新增成功！");
-//
-//                            PreparedStatement ps1 = connection.prepareStatement(sql1);
-//                            ResultSet rs = ps.executeQuery();
-//                            defaultTableModel.getDataVector().clear();
-//                            defaultTableModel.fireTableDataChanged();
-//                            while (rs.next()){
-//                                Vector<String> vector = new Vector<String>();
-//                                vector.add(rs.getString(1));
-//                                vector.add(rs.getString(2));
-//                                vector.add(rs.getString(3));
-//                                dataVector.add(vector);
-//                            }
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "新增失败！");
-//                        }
-//                    } catch (Exception e1) {
-//                        e1.printStackTrace();
-//                    } finally {
-//                        DButil.releaseConnection(connection);
-//                    }
-//                }
-//
-//            }
-//        });
+        
 
         editButton.addActionListener(new ActionListener() {
             @Override

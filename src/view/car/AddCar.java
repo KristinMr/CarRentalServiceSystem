@@ -42,7 +42,7 @@ public class AddCar extends JPanel {
     private JButton resetButton = new JButton("重置");
     private JButton addButton = new JButton("添加");
 
-    public AddCar() {
+    public AddCar(Admin admin) {
 //        setTitle("新增车辆");
         setSize(1350,750);
 //        setLocationRelativeTo(null);
@@ -305,7 +305,7 @@ public class AddCar extends JPanel {
                             Main.main.repaint();
                             Main.main.updateUI();
 
-                            Main.main.add(new CarList());
+                            Main.main.add(new CarList(admin));
                         } else {
                             JOptionPane.showMessageDialog(null, "添加失败！");
                         }
@@ -322,8 +322,8 @@ public class AddCar extends JPanel {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
-        new AddCar();
-    }
+//    public static void main(String[] args) {
+//        new AddCar();
+//    }
 
 }

@@ -24,7 +24,7 @@ public class OrderRecycleBinList extends JPanel {
     private JButton searchOrderButton = new JButton("查询");
 
     private JButton editButton = new JButton("移出回收站");
-    private JButton deleteButton = new JButton("彻底删除所选订单");
+    private JButton deleteButton = new JButton("彻底删除");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -51,9 +51,13 @@ public class OrderRecycleBinList extends JPanel {
         searchOrderInfo.setBounds(355, 40, 150, 30);
         refreshSearchButton.setBounds(720, 40, 80, 30);
         searchOrderButton.setBounds(820, 40, 80, 30);
+        searchOrderButton.setForeground(Color.blue);
 
         editButton.setBounds(1000, 40, 150, 40);
-        deleteButton.setBounds(1170, 40, 150, 40);
+        editButton.setForeground(Color.green);
+        deleteButton.setBounds(1170,40,150,50);
+        deleteButton.setFont(new java.awt.Font("楷体",1,18));
+        deleteButton.setForeground(Color.red);
 
         jScrollPane.setBounds(15, 100, 1310, 700);
 
@@ -94,7 +98,7 @@ public class OrderRecycleBinList extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         Connection collection = DButil.getConnection();
-        String sql = "select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_etime, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0";
+        String sql = "select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_etime, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 1";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);

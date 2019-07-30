@@ -1,6 +1,7 @@
 package view.state;
 
 import util.DButil;
+import view.Main;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -18,8 +19,8 @@ public class StateList extends JPanel {
     private JTextField searchStateID = new JTextField("编号关键字");
     private JTextField searchStateName = new JTextField("名称关键字");
     private JTextField searchStateInfo = new JTextField("介绍关键字");
-    private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchStateButton = new JButton("查询");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -66,8 +67,8 @@ public class StateList extends JPanel {
         searchStateID.setBounds(80,40,150,30);
         searchStateName.setBounds(250,40,200,30);
         searchStateInfo.setBounds(470,40,300,30);
-        refreshSearchButton.setBounds(1130,40,80,30);
-        searchStateButton.setBounds(1230,40,80,30);
+        refreshButton.setBounds(1130,40,80,30);
+        searchButton.setBounds(1230,40,80,30);
         pane.setBounds(80,100,1230,400);
 
         stateIDLabel.setBounds(80,550,80,30);
@@ -94,9 +95,67 @@ public class StateList extends JPanel {
         thVector.add("名称");
         thVector.add("类型");
         thVector.add("介绍");
-        Vector<Vector<String>> dataVector = new Vector<Vector<String>>();
+        Vector<Vector<String>> stateDataVector = new Vector<Vector<String>>();
 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        Connection connection = DButil.getConnection();
+
+        String sql = "select state_id, state_name, state_type, state_info from state where state_recycle_bin = 0";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Vector<String> vector = new Vector<String>();
+                vector.add(rs.getString(1));
+                vector.add(rs.getString(2));
+                if (rs.getString(3).equals("1")) {
+                    vector.add("车辆");
+                } else {
+                    vector.add("订单");
+                }
+                vector.add(rs.getString(4));
+                stateDataVector.add(vector);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            DButil.releaseConnection(connection);
+        }
+
+        DefaultTableModel defaultTableModel = new DefaultTableModel(stateDataVector, thVector);
+        table.setModel(defaultTableModel);
+        pane.getViewport().add(table);
+
+        table.getTableHeader().setReorderingAllowed(false);
+
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, cellRenderer);
+
+        stateIDField.setEditable(false);
+
+        add(searchStateID);
+        add(searchStateName);
+        add(searchStateInfo);
+        add(refreshButton);
+        add(searchButton);
+        add(pane);
+        add(stateIDLabel);
+        add(stateIDField);
+        add(stateNameLabel);
+        add(stateNameField);
+        add(stateTypeLabel);
+        add(stateCarButton);
+        add(stateOrderButton);
+        add(stateInfoLabel);
+        add(stateInfoArea);
+        add(clearButton);
+        add(resetButton);
+        add(addStateButton);
+        add(editButton);
+        add(deleteButton);
 
         searchStateID.addFocusListener(new FocusListener() {
             @Override
@@ -152,68 +211,18 @@ public class StateList extends JPanel {
             }
         });
 
-        Connection connection = DButil.getConnection();
-
-        String sql = "select * from state where state_recycle_bin = 0";
-
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                Vector<String> vector = new Vector<String>();
-                vector.add(rs.getString(1));
-                vector.add(rs.getString(2));
-                vector.add(rs.getString(3));
-                vector.add(rs.getString(4));
-                dataVector.add(vector);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            DButil.releaseConnection(connection);
-        }
-
-        DefaultTableModel defaultTableModel = new DefaultTableModel(dataVector, thVector);
-        table.setModel(defaultTableModel);
-        pane.getViewport().add(table);
-
-        table.getTableHeader().setReorderingAllowed(false);
-
-        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
-        table.setDefaultRenderer(Object.class, cellRenderer);
-
-        stateIDField.setEditable(false);
-
-        add(searchStateID);
-        add(searchStateName);
-        add(searchStateInfo);
-        add(refreshSearchButton);
-        add(searchStateButton);
-        add(pane);
-        add(stateIDLabel);
-        add(stateIDField);
-        add(stateNameLabel);
-        add(stateNameField);
-        add(stateTypeLabel);
-        add(stateCarButton);
-        add(stateOrderButton);
-        add(stateInfoLabel);
-        add(stateInfoArea);
-        add(clearButton);
-        add(resetButton);
-        add(addStateButton);
-        add(editButton);
-        add(deleteButton);
-
-        refreshSearchButton.addActionListener(new ActionListener() {
+        refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                view.Main.main.removeAll();
+                view.Main.main.repaint();
+                view.Main.main.updateUI();
 
+                Main.main.add(new StateList());
             }
         });
 
-        searchStateButton.addActionListener(new ActionListener() {
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String stateID = searchStateID.getText();
@@ -260,7 +269,7 @@ public class StateList extends JPanel {
                         vector.add(rs.getString(2));
                         vector.add(rs.getString(3));
                         vector.add(rs.getString(4));
-                        dataVector.add(vector);
+                        stateDataVector.add(vector);
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -280,7 +289,7 @@ public class StateList extends JPanel {
                 String stateInfo = (String) table.getValueAt(row, 3);
                 stateIDField.setText(stateID);
                 stateNameField.setText(stateName);
-                if (stateType == "车辆") {
+                if (stateType.equals("车辆")) {
                     stateCarButton.setSelected(true);
                 } else {
                     stateOrderButton.setSelected(true);
@@ -293,7 +302,7 @@ public class StateList extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stateNameField.setText("");
-                stateCarButton.setSelected(false);
+                stateCarButton.setSelected(true);
                 stateOrderButton.setSelected(false);
                 stateInfoArea.setText("");
             }
@@ -314,55 +323,6 @@ public class StateList extends JPanel {
             }
         });
 
-        addStateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String stateName = stateNameField.getText();
-                int stateType;
-                if (stateCarButton.isSelected()) {
-                    stateType = 1;
-                } else {
-                    stateType = 2;
-                }
-                String stateInfo = stateInfoArea.getText();
-
-                Connection connection = DButil.getConnection();
-                String sql = "insert into state(state_name, state_type, state_info, state_recycle_bin) values(?, ?, ?, ?)";
-                String sql1 = "select * from state where state_recycle_bin = 0";
-                try {
-                    PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setObject(1, stateName);
-                    ps.setObject(2, stateType);
-                    ps.setObject(3, stateInfo);
-                    ps.setObject(4, 0);
-
-                    int n = ps.executeUpdate();
-
-                    if (n>0) {
-                        JOptionPane.showMessageDialog(null, "新增成功！");
-
-                        PreparedStatement ps1 = connection.prepareStatement(sql1);
-                        ResultSet rs = ps1.executeQuery();
-                        defaultTableModel.getDataVector().clear();
-                        defaultTableModel.fireTableDataChanged();
-                            while (rs.next()){
-                                Vector<String> vector = new Vector<String>();
-                                vector.add(rs.getString(1));
-                                vector.add(rs.getString(2));
-                                vector.add(rs.getString(3));
-                                vector.add(rs.getString(4));
-                                dataVector.add(vector);
-                            }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "新增失败！");
-                    }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                } finally {
-                    DButil.releaseConnection(connection);
-                }
-            }
-        });
 
         editButton.addActionListener(new ActionListener() {
             @Override

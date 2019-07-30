@@ -21,7 +21,7 @@ public class AdminList extends JPanel {
     private JTextField searchAdminName = new JTextField("名称关键字");
     private JTextField searchAdminInfo = new JTextField("介绍关键字");
     private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchAdminButton = new JButton("查询");
+    private JButton searchButton = new JButton("查询");
 
     private JButton editButton = new JButton("修改所选管理员");
     private JButton deleteButton = new JButton("删除所选管理员");
@@ -37,9 +37,7 @@ public class AdminList extends JPanel {
 
 
     public AdminList(Admin admin) {
-//        setTitle("管理员列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
         searchAdminID.setForeground(Color.gray);
@@ -50,30 +48,22 @@ public class AdminList extends JPanel {
         searchAdminName.setBounds(185,40,150,30);
         searchAdminInfo.setBounds(355,40,150,30);
         refreshSearchButton.setBounds(720,40,80,30);
-        searchAdminButton.setBounds(820,40,80,30);
+        searchButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
 
         jScrollPane.setBounds(15,100,1310,700);
-
-
-        ImageIcon imageIcon = new ImageIcon("C:\\Admins\\mrcap\\IdeaProjects\\AdminRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
+        
 
         add(searchAdminID);
         add(searchAdminName);
         add(searchAdminInfo);
         add(refreshSearchButton);
-        add(searchAdminButton);
+        add(searchButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
-        add(bgLabel);
 
         Vector<String> adminTHVector = new Vector<String>();
         adminTHVector.add("编号");

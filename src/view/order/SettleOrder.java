@@ -104,32 +104,26 @@ public class SettleOrder extends JDialog {
 
         carIDLabel.setBounds(50, 130, 120, 30);
         carIDField.setBounds(180, 130, 180, 30);
-//        carIDField.setText(car.getCarID());
         carIDField.setEditable(false);
 
         carNumberLabel.setBounds(430, 130, 80, 30);
         carNumberField.setBounds(550, 130, 180, 30);
-//        carNumberField.setText(car.getCarNumber());
         carNumberField.setEditable(false);
 
         carBrandLabel.setBounds(50, 180, 120, 30);
         carBrandField.setBounds(180, 180, 180, 30);
-//        carBrandField.setText(car.getCarBrand());
         carBrandField.setEditable(false);
 
         carModelLabel.setBounds(430, 180, 80, 30);
         carModelField.setBounds(550, 180, 180, 30);
-//        carModelField.setText(car.getCarModel());
         carModelField.setEditable(false);
 
         carRentLabel.setBounds(30, 230, 180, 30);
         carRentField.setBounds(180, 230, 180, 30);
-//        carRentField.setText(car.getCarRent());
         carRentField.setEditable(false);
 
         userMoneyLabel.setBounds(430, 230, 80, 30);
         userMoneyField.setBounds(550, 230, 180, 30);
-//        userMoneyField.setText(user.getUserMoney());
         userMoneyField.setEditable(false);
 
         carStateLabel.setBounds(30, 280, 180, 30);
@@ -143,15 +137,13 @@ public class SettleOrder extends JDialog {
         startDateLabel.setBounds(50, 330, 120, 30);
         startDateField.setBounds(180, 330, 180, 30);
         startDateField.setEditable(false);
-//        Date date = new Date();
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        startDateField.setText(dateFormat.format(date));
 
         endDateLabel.setBounds(430, 330, 120, 30);
         endDateField.setBounds(550, 330, 180, 30);
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         endDateField.setText(dateFormat.format(date));
+        endDateField.setEditable(false);
 
         orderInfoLabel.setBounds(50, 380, 120, 30);
         orderInfoArea.setBounds(180, 380, 550, 60);

@@ -1,6 +1,7 @@
 package view.carType;
 
 import util.DButil;
+import view.Main;
 import view.carType.UpdateCarType;
 
 import javax.swing.*;
@@ -9,18 +10,22 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class CarTypeList extends JPanel {
-    private JTextField searchCarTypeID = new JTextField("编号关键字");
-    private JTextField searchCarTypeName = new JTextField("型号关键字");
-    private JTextField searchCarTypeInfo = new JTextField("颜色关键字");
-    private JButton refreshSearchButton = new JButton("刷新");
-    private JButton searchCarTypeButton = new JButton("查询");
+    private JTextField searchCarTypeBrand = new JTextField("品牌关键字");
+    private JTextField searchCarTypeColor = new JTextField("颜色关键字");
+    private JTextField searchCarTypeInfo = new JTextField("备注关键字");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JButton editButton = new JButton("修改所选车型");
     private JButton deleteButton = new JButton("删除所选车型");
@@ -36,43 +41,33 @@ public class CarTypeList extends JPanel {
 
 
     public CarTypeList() {
-//        setTitle("车型列表");
         setSize(1350,800);
-//        setLocationRelativeTo(null);
         setLayout(null);
 
-        searchCarTypeID.setForeground(Color.gray);
-        searchCarTypeName.setForeground(Color.gray);
+        searchCarTypeBrand.setForeground(Color.gray);
+        searchCarTypeColor.setForeground(Color.gray);
         searchCarTypeInfo.setForeground(Color.gray);
 
-        searchCarTypeID.setBounds(15,40,150,30);
-        searchCarTypeName.setBounds(185,40,150,30);
+        searchCarTypeBrand.setBounds(15,40,150,30);
+        searchCarTypeColor.setBounds(185,40,150,30);
         searchCarTypeInfo.setBounds(355,40,150,30);
-        refreshSearchButton.setBounds(720,40,80,30);
-        searchCarTypeButton.setBounds(820,40,80,30);
+        refreshButton.setBounds(720,40,80,30);
+        searchButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
 
         jScrollPane.setBounds(15,100,1310,700);
+        
 
-
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
-
-        add(searchCarTypeID);
-        add(searchCarTypeName);
+        add(searchCarTypeBrand);
+        add(searchCarTypeColor);
         add(searchCarTypeInfo);
-        add(refreshSearchButton);
-        add(searchCarTypeButton);
+        add(refreshButton);
+        add(searchButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
-        add(bgLabel);
 
         Vector<String> carTypeTHVector = new Vector<String>();
         carTypeTHVector.add("车型编号");
@@ -83,9 +78,9 @@ public class CarTypeList extends JPanel {
         carTypeTHVector.add("备注");
 
         Vector<Vector<String>> carTypeDataVector = new Vector<Vector<String>>();
-
+        
         Connection collection = DButil.getConnection();
-        String sql = "select model.*, brand.brand_name from model, brand where model.model_brand = brand.brand_id and model.model_recycle_bin = 0";
+        String sql = "select model.model_id, brand.brand_name, model.model_name, model.model_color, model.model_rent, model.model_Info from model, brand where model.model_brand = brand.brand_id and model.model_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
@@ -94,7 +89,7 @@ public class CarTypeList extends JPanel {
             while (rs.next()) {
                 Vector<String> vector = new Vector<String>();
                 vector.add(rs.getString(1));
-                vector.add(rs.getString(8));
+                vector.add(rs.getString(2));
                 vector.add(rs.getString(3));
                 vector.add(rs.getString(4));
                 vector.add(rs.getString(5));
@@ -118,6 +113,132 @@ public class CarTypeList extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
+
+
+        searchCarTypeBrand.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchCarTypeBrand.getText().equals("品牌关键字") == true) {
+                    searchCarTypeBrand.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchCarTypeBrand.getText();
+                if (temp.equals("")) {
+                    searchCarTypeBrand.setText("品牌关键字");
+                    searchCarTypeBrand.setForeground(Color.gray);
+                }
+            }
+        });
+
+        searchCarTypeColor.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchCarTypeColor.getText().equals("颜色关键字") == true) {
+                    searchCarTypeColor.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchCarTypeColor.getText();
+                if (temp.equals("")) {
+                    searchCarTypeColor.setText("颜色关键字");
+                    searchCarTypeColor.setForeground(Color.gray);
+                }
+            }
+        });
+
+        searchCarTypeInfo.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (searchCarTypeInfo.getText().equals("备注关键字") == true) {
+                    searchCarTypeInfo.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                String temp = searchCarTypeInfo.getText();
+                if (temp.equals("")) {
+                    searchCarTypeInfo.setText("备注关键字");
+                    searchCarTypeInfo.setForeground(Color.gray);
+                }
+            }
+        });
+        
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.Main.main.removeAll();
+                view.Main.main.repaint();
+                view.Main.main.updateUI();
+
+                Main.main.add(new CarTypeList());
+            }
+        });
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String carTypeBrand = searchCarTypeBrand.getText();
+                String carTypeColor = searchCarTypeColor.getText();
+                String carTypeInfo = searchCarTypeInfo.getText();
+
+                Connection connection1 = DButil.getConnection();
+                StringBuffer stringBuffer = new StringBuffer("select model.model_id, brand.brand_name, model.model_name, model.model_color, model.model_rent, brand.brand_info, model.model_Info from model, brand where model.model_brand = brand.brand_id and model.model_recycle_bin = 0 ");
+
+                List list = new ArrayList();
+
+                if (carTypeBrand.trim().length() > 0 && carTypeBrand.equals("品牌关键字") == false) {
+                    stringBuffer.append("and brand.brand_name like ? ");
+                    list.add("%" + carTypeBrand + "%");
+                }
+
+                if (carTypeColor.trim().length() > 0 && carTypeColor.equals("颜色关键字") == false) {
+                    stringBuffer.append("and model.model_color like ? ");
+                    list.add("%" + carTypeColor + "%");
+                }
+
+                if (carTypeInfo.trim().length() > 0 && carTypeInfo.equals("备注关键字") == false) {
+                    stringBuffer.append("and model.model_info like ? ");
+                    list.add("%" + carTypeInfo + "%");
+                }
+
+                try {
+                    PreparedStatement ps = connection1.prepareStatement(stringBuffer.toString());
+
+                    for (int i = 0; i < list.size(); i++) {
+                        ps.setObject(i + 1, list.get(i));
+                        System.out.println(stringBuffer);
+
+                    }
+
+                    ResultSet rs = ps.executeQuery();
+                    defaultTableModel.getDataVector().clear();
+                    defaultTableModel.fireTableDataChanged();
+
+                    System.out.println(stringBuffer);
+                    while (rs.next()) {
+                        Vector<String> vector = new Vector<String>();
+                        vector.add(rs.getString(1));
+                        vector.add(rs.getString(2));
+                        vector.add(rs.getString(3));
+                        vector.add(rs.getString(4));
+                        vector.add(rs.getString(5));
+                        vector.add(rs.getString(6));
+                        carTypeDataVector.add(vector);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection1);
+                }
+            }
+        });
+        
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

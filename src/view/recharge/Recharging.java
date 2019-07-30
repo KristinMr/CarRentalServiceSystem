@@ -140,7 +140,7 @@ public class Recharging extends JDialog {
                             Main.main.repaint();
                             Main.main.updateUI();
 
-                            Main.main.add(new RechargeList());
+                            Main.main.add(new RechargeList(admin));
                         } else {
                             JOptionPane.showMessageDialog(null, "用户充值失败");
                         }

@@ -2,6 +2,7 @@ package view.user;
 
 import util.Admin;
 import util.DButil;
+import view.Main;
 import view.user.UpdateUser;
 
 import javax.swing.*;
@@ -24,8 +25,8 @@ public class UserList extends JPanel {
     private JTextField searchUserName = new JTextField("用户名称关键字");
     private JTextField searchUserTel = new JTextField("联系电话关键字");
     private JTextField searchUserInfo = new JTextField("用户备注关键字");
-    private JButton cleanSearchButton = new JButton("清空");
-    private JButton searchUserButton = new JButton("查询");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JButton editButton = new JButton("修改所选用户");
     private JButton deleteButton = new JButton("删除所选用户");
@@ -53,8 +54,8 @@ public class UserList extends JPanel {
         searchUserName.setBounds(15,40,150,30);
         searchUserTel.setBounds(185,40,150,30);
         searchUserInfo.setBounds(355,40,150,30);
-        cleanSearchButton.setBounds(720,40,80,30);
-        searchUserButton.setBounds(820,40,80,30);
+        refreshButton.setBounds(720,40,80,30);
+        searchButton.setBounds(820,40,80,30);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
@@ -72,8 +73,8 @@ public class UserList extends JPanel {
         add(searchUserName);
         add(searchUserTel);
         add(searchUserInfo);
-        add(cleanSearchButton);
-        add(searchUserButton);
+        add(refreshButton);
+        add(searchButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
@@ -197,7 +198,18 @@ public class UserList extends JPanel {
             }
         });
 
-        searchUserButton.addActionListener(new ActionListener() {
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.Main.main.removeAll();
+                view.Main.main.repaint();
+                view.Main.main.updateUI();
+
+                Main.main.add(new UserList(admin));
+            }
+        });
+
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userName = searchUserName.getText();

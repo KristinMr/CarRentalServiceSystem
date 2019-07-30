@@ -2,6 +2,7 @@ package view.order;
 
 import util.Admin;
 import util.DButil;
+import view.Main;
 import view.order.UpdateOrder;
 
 import javax.swing.*;
@@ -27,7 +28,8 @@ public class OrderList extends JPanel {
     private JTextField searchOrderUserName = new JTextField("用户名称关键字");
     private JTextField searchOrderCarNumber = new JTextField("车牌号关键字");
     private JTextField searchOrderInfo = new JTextField("订单备注关键字");
-    private JButton searchOrderButton = new JButton("查询");
+    private JButton refreshButton = new JButton("刷新");
+    private JButton searchButton = new JButton("查询");
 
     private JButton editButton = new JButton("修改所选订单");
     private JButton deleteButton = new JButton("删除所选订单");
@@ -56,11 +58,12 @@ public class OrderList extends JPanel {
         searchOrderUserName.setBounds(15,40,150,30);
         searchOrderCarNumber.setBounds(185,40,150,30);
         searchOrderInfo.setBounds(355,40,150,30);
-        searchOrderButton.setBounds(620,40,80,30);
-        searchOrderButton.setForeground(Color.blue);
+        refreshButton.setBounds(580,40,80,30);
+        searchButton.setBounds(680,40,80,30);
+        searchButton.setForeground(Color.blue);
 
-        editButton.setBounds(800,40,150,40);
-        deleteButton.setBounds(970,40,150,40);
+        editButton.setBounds(810,40,150,40);
+        deleteButton.setBounds(980,40,150,40);
         settleButton.setBounds(1170,40,150,50);
         settleButton.setFont(new java.awt.Font("楷体",1,18));
         settleButton.setForeground(Color.red);
@@ -78,7 +81,8 @@ public class OrderList extends JPanel {
         add(searchOrderUserName);
         add(searchOrderCarNumber);
         add(searchOrderInfo);
-        add(searchOrderButton);
+        add(refreshButton);
+        add(searchButton);
         add(editButton);
         add(deleteButton);
         add(settleButton);
@@ -206,7 +210,18 @@ public class OrderList extends JPanel {
             }
         });
 
-        searchOrderButton.addActionListener(new ActionListener() {
+        refreshButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.Main.main.removeAll();
+                view.Main.main.repaint();
+                view.Main.main.updateUI();
+
+                Main.main.add(new OrderList(admin));
+            }
+        });
+
+        searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String userName = searchOrderUserName.getText();
@@ -298,8 +313,12 @@ public class OrderList extends JPanel {
                     JOptionPane.showMessageDialog(null, "请先选中要修改的订单");
                     return;
                 } else {
-                    String orderID = (String)table.getValueAt(row,0);
-                    new UpdateOrder(admin, orderID);
+                    if (table.getValueAt(row, 10).equals("已结算")){
+                        JOptionPane.showMessageDialog(null, "已结算订单不能修改！请重新选择。");
+                    } else {
+                        String orderID = (String)table.getValueAt(row,0);
+                        new UpdateOrder(admin, orderID);
+                    }
                 }
             }
         });
@@ -349,11 +368,16 @@ public class OrderList extends JPanel {
                     if ((table.getValueAt(row, 10)).equals("已结算")) {
                         JOptionPane.showMessageDialog(null, "此订单为已结算订单。");
                     } else {
-                        String orderID = (String)table.getValueAt(row,0);
-                        int m = JOptionPane.showConfirmDialog(null, "确认","结算所选订单？",JOptionPane.YES_NO_OPTION);
-                        if (m == 0) {
-                            new SettleOrder(admin, orderID);
+                        if (table.getValueAt(row, 10).equals("预约")){
+                            JOptionPane.showMessageDialog(null, "预约状态的订单不能结算！请先修改订单状态（租赁）或者重新选择订单。");
+                        } else {
+                            String orderID = (String)table.getValueAt(row,0);
+                            int m = JOptionPane.showConfirmDialog(null, "确认","结算所选订单？",JOptionPane.YES_NO_OPTION);
+                            if (m == 0) {
+                                new SettleOrder(admin, orderID);
+                            }
                         }
+
                     }
                 }
             }

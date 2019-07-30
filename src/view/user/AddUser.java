@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class AddUser extends JPanel {
@@ -46,14 +48,11 @@ public class AddUser extends JPanel {
     private JTextArea userInfoArea = new JTextArea();
 
     private JButton resetButton = new JButton("重置");
-    private JButton addButton = new JButton("添加");
+    private JButton addButton = new JButton("添加用户");
 
     public AddUser(Admin admin) {
-//            setTitle("新增用户");
         setSize(1350, 750);
-//            setLocationRelativeTo(null);
         setLayout(null);
-//            setModal(true);
 
         userNameLabel.setBounds(80, 50, 80, 30);
         userNameField.setBounds(180, 50, 250, 30);
@@ -165,7 +164,8 @@ public class AddUser extends JPanel {
                 String userAddress = userAddressField.getText();
                 String userDrivingLicense = userDrivingLicenseField.getText();
                 String userDriveAge = userDriveAgeField.getText();
-                String userAge = "18";
+//                String userAge = String.valueOf(Integer.parseInt(LocalDate.now().toString().substring(0, 3)) - Integer.parseInt(userIDNField.getText().substring(6, 9)));
+                long userAge = Period.between(LocalDate.parse(userIDNField.getText().substring(6, 10) + "-" + userIDNField.getText().substring(10, 12) + "-" + userIDNField.getText().substring(12, 14)), LocalDate.now()).getYears();
                 String userInfo = userInfoArea.getText();
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -173,46 +173,49 @@ public class AddUser extends JPanel {
                 if (userName.equals("")) {
                     JOptionPane.showMessageDialog(null, "用户姓名不能为空！请重新输入。");
                 } else {
-                    Connection connection = DButil.getConnection();
-                    String sql = "insert into user(user_name, user_password, user_rank, user_sex, user_idn, user_tel, user_email, user_dln, user_dage, user_age, user_address, user_info, user_recycle_bin, user_admin, user_date， user_money) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                    try {
-                        PreparedStatement ps = connection.prepareStatement(sql);
-                        ps.setObject(1, userName);
-                        ps.setObject(2, userPassword);
-                        ps.setObject(3, 3);
-                        ps.setObject(4, gender);
-                        ps.setObject(5, userIDN);
-                        ps.setObject(6, userTel);
-                        ps.setObject(7, userEmail);
-                        ps.setObject(8, userDrivingLicense);
-                        ps.setObject(9, userDriveAge);
-                        ps.setObject(10, userAge);
-                        ps.setObject(11, userAddress);
-                        ps.setObject(12, userInfo);
-                        ps.setObject(13, 0);
-                        ps.setObject(14, admin.getAdminID());
-                        ps.setObject(15, userDate);
-                        ps.setObject(16, 0);
+                    if (userIDN.equals("")) {
+                        JOptionPane.showMessageDialog(null, "用户身份证号不能为空！请重新输入。");
+                    } else {
+                        Connection connection = DButil.getConnection();
+                        String sql = "insert into user(user_name, user_password, user_rank, user_sex, user_idn, user_tel, user_email, user_dln, user_dage, user_age, user_address, user_info, user_recycle_bin, user_admin, user_date, user_money) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        try {
+                            PreparedStatement ps = connection.prepareStatement(sql);
+                            ps.setObject(1, userName);
+                            ps.setObject(2, userPassword);
+                            ps.setObject(3, 3);
+                            ps.setObject(4, gender);
+                            ps.setObject(5, userIDN);
+                            ps.setObject(6, userTel);
+                            ps.setObject(7, userEmail);
+                            ps.setObject(8, userDrivingLicense);
+                            ps.setObject(9, userDriveAge);
+                            ps.setObject(10, userAge);
+                            ps.setObject(11, userAddress);
+                            ps.setObject(12, userInfo);
+                            ps.setObject(13, 0);
+                            ps.setObject(14, admin.getAdminID());
+                            ps.setObject(15, userDate);
+                            ps.setObject(16, 0);
 
-                        int n = ps.executeUpdate();
+                            int n = ps.executeUpdate();
 
-                        if (n > 0) {
-                            JOptionPane.showMessageDialog(null, "用户新增成功！");
-                            Main.main.removeAll();
-                            Main.main.repaint();
-                            Main.main.updateUI();
+                            if (n > 0) {
+                                JOptionPane.showMessageDialog(null, "用户新增成功！");
+                                Main.main.removeAll();
+                                Main.main.repaint();
+                                Main.main.updateUI();
 
-                            Main.main.add(new UserList(admin));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "添加失败！");
+                                Main.main.add(new UserList(admin));
+                            } else {
+                                JOptionPane.showMessageDialog(null, "添加失败！");
+                            }
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        } finally {
+                            DButil.releaseConnection(connection);
                         }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection);
                     }
                 }
-
             }
         });
 

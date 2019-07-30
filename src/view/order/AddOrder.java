@@ -8,11 +8,15 @@ import view.recharge.AddRecharge;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class AddOrder extends JDialog {
@@ -66,7 +70,7 @@ public class AddOrder extends JDialog {
     private JButton resetButton = new JButton("重置");
     private JButton confirmButton = new JButton("确认新增订单");
 
-    public AddOrder(Admin admin, User user, Car car) {
+    public AddOrder(Admin admin, User user, Car car, AddOrderCar addOrderCar) {
         setTitle("确认用户订单");
         setSize(850, 660);
         setLocationRelativeTo(null);
@@ -144,8 +148,13 @@ public class AddOrder extends JDialog {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         startDateField.setText(dateFormat.format(date));
 
+        Chooser chooser = Chooser.getInstance();
+        chooser.register(startDateField);
+
         endDateLabel.setBounds(430, 330, 120, 30);
         endDateField.setBounds(550, 330, 180, 30);
+        Chooser chooser1 = Chooser.getInstance();
+        chooser1.register(endDateField);
 
         orderInfoLabel.setBounds(50, 380, 120, 30);
         orderInfoArea.setBounds(180, 380, 550, 60);
@@ -209,6 +218,37 @@ public class AddOrder extends JDialog {
         } finally {
             DButil.releaseConnection(connection);
         }
+
+        startDateField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                long days = Period.between(LocalDate.parse(startDateField.getText()), LocalDate.now()).getDays();
+                if (days > 0) {
+                    JOptionPane.showMessageDialog(null, "起租日期应在今天或今天之后！请重新输入。");
+                }
+            }
+        });
+
+        endDateField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                long days = Period.between(LocalDate.parse(endDateField.getText()), LocalDate.now()).getDays();
+                if (days > 0) {
+                    JOptionPane.showMessageDialog(null, "还车日期应在今天或今天之后！请重新输入。");
+                }
+            }
+        });
+
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -221,71 +261,94 @@ public class AddOrder extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-//                State carState = (State)carStateBox.getSelectedItem();
-//                String carStateID = carState.getStateID();
-
-                String carStateID = "";
-                String carStateName = "";
-                State orderState = (State) orderStateBox.getSelectedItem();
-                String orderStateID = orderState.getStateID();
-                String orderStateName = orderState.getStateName();
-                if (orderStateName.equals("预约")) {
-                    carStateName = "被预约";
-                } else if (orderStateName.equals("租赁")) {
-                    carStateName = "租赁中";
-                }
-
-                String orderStartDate = startDateField.getText();
-
-                String orderEndDate = endDateField.getText();
-                if (orderEndDate.equals("")) {
-                    orderEndDate = null;
+                long days = Period.between(LocalDate.parse(startDateField.getText()), LocalDate.now()).getDays();
+                if (days > 0) {
+                    JOptionPane.showMessageDialog(null, "起租日期应在今天或今天之后！请重新输入。");
                 } else {
-                    orderEndDate = dateFormat.format(orderEndDate);
-                }
-                String orderInfo = orderInfoArea.getText();
-                Connection connection1 = DButil.getConnection();
-                String sql = "select state_id from state where state_name = ?";
-                String sql1 = "insert into oorder (order_admin, order_user, order_car, order_time, order_stime, order_etime, order_state, order_info, order_recycle_bin) values (?,?,?,?,?,?,?,?,0)";
-                String sql2 = "update car set car_state = ? where car_id = ?";
-                try {
-                    PreparedStatement ps = connection1.prepareStatement(sql);
-                    ps.setObject(1, carStateName);
-
-                    ResultSet rs = ps.executeQuery();
-                    while (rs.next()) {
-                        carStateID = rs.getString(1);
-                        PreparedStatement ps1 = connection1.prepareStatement(sql1);
-                        ps1.setObject(1, admin.getAdminID());
-                        ps1.setObject(2, user.getUserID());
-                        ps1.setObject(3, car.getCarID());
-                        ps1.setObject(4, dateFormat.format(date));
-                        ps1.setObject(5, orderStartDate);
-                        ps1.setObject(6, orderEndDate);
-                        ps1.setObject(7, orderStateID);
-                        ps1.setObject(8, orderInfo);
-
-                        int n1 = ps1.executeUpdate();
-                        if (n1 > 0) {
-                            PreparedStatement ps2 = connection1.prepareStatement(sql2);
-                            ps2.setObject(1, carStateID);
-                            ps2.setObject(2, car.getCarID());
-
-                            int n2 = ps2.executeUpdate();
-                            if (n2 > 0) {
-                                AddOrder.this.dispose();
-                                JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + user.getUserName() + "的租车订单新增成功！");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + user.getUserName() + "的租车订单新增成功！   但车辆状态更新失败！");
-                            }
+                    long days1 = Period.between(LocalDate.parse(endDateField.getText()), LocalDate.now()).getDays();
+                    if (days1 > 0) {
+                        JOptionPane.showMessageDialog(null, "还车日期应在今天或今天之后！请重新输入。");
+                    } else {
+                        long days2 = Period.between(LocalDate.parse(startDateField.getText()), LocalDate.parse(endDateField.getText())).getDays();
+                        if (days2 < 0) {
+                            JOptionPane.showMessageDialog(null, "起租日期应在还车日期之前！请重新输入。");
                         } else {
-                            JOptionPane.showMessageDialog(null, "新增订单失败！请重新操作！");
+                            String carStateID = "";
+                            String carStateName = "";
+                            State orderState = (State) orderStateBox.getSelectedItem();
+                            String orderStateID = orderState.getStateID();
+                            String orderStateName = orderState.getStateName();
+                            if (orderStateName.equals("预约")) {
+                                carStateName = "被预约";
+                            } else if (orderStateName.equals("租赁")) {
+                                carStateName = "租赁中";
+                            }
+
+                            String orderStartDate = startDateField.getText();
+
+                            System.out.println(orderStartDate);
+                            String orderEndDate = endDateField.getText();
+                            if (orderEndDate.equals("")) {
+                                orderEndDate = null;
+                            }
+                            String orderInfo = orderInfoArea.getText();
+                            Connection connection1 = DButil.getConnection();
+                            String sql = "select state_id from state where state_name = ?";
+                            String sql1 = "insert into oorder (order_admin, order_user, order_car, order_time, order_stime, order_state, order_info, order_recycle_bin) values (?,?,?,?,?,?,?,0)";
+                            String sql2 = "update car set car_state = ? where car_id = ?";
+                            try {
+                                PreparedStatement ps = connection1.prepareStatement(sql);
+                                ps.setObject(1, carStateName);
+
+                                ResultSet rs = ps.executeQuery();
+                                while (rs.next()) {
+                                    carStateID = rs.getString(1);
+                                    PreparedStatement ps1 = connection1.prepareStatement(sql1);
+                                    ps1.setObject(1, admin.getAdminID());
+                                    ps1.setObject(2, user.getUserID());
+                                    ps1.setObject(3, car.getCarID());
+                                    DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm;ss");
+                                    ps1.setObject(4, dateFormat1.format(new Date()));
+                                    ps1.setObject(5, orderStartDate);
+                                    ps1.setObject(6, orderStateID);
+                                    if (orderEndDate == null) {
+                                        ps1.setObject(7, orderInfo);
+                                    } else {
+                                        ps1.setObject(7, "预计" + orderEndDate + "还车。" + orderInfo);
+                                    }
+
+                                    int n1 = ps1.executeUpdate();
+                                    if (n1 > 0) {
+                                        PreparedStatement ps2 = connection1.prepareStatement(sql2);
+                                        ps2.setObject(1, carStateID);
+                                        ps2.setObject(2, car.getCarID());
+
+                                        int n2 = ps2.executeUpdate();
+                                        if (n2 > 0) {
+                                            JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + user.getUserName() + "的租车订单新增成功！");
+
+                                            AddOrder.this.dispose();
+                                            addOrderCar.dispose();
+
+                                            Main.main.removeAll();
+                                            Main.main.repaint();
+                                            Main.main.updateUI();
+
+                                            Main.main.add(new OrderList(admin));
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + user.getUserName() + "的租车订单新增成功！   但车辆状态更新失败！");
+                                        }
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "新增订单失败！请重新操作！");
+                                    }
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection1);
+                            }
                         }
                     }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                } finally {
-                    DButil.releaseConnection(connection1);
                 }
             }
         });

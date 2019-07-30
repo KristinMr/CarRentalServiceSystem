@@ -24,7 +24,7 @@ public class AdminRecycleBinList extends JPanel {
     private JButton searchAdminButton = new JButton("查询");
 
     private JButton editButton = new JButton("移出回收站");
-    private JButton deleteButton = new JButton("彻底删除所选管理员");
+    private JButton deleteButton = new JButton("彻底删除");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -51,10 +51,14 @@ public class AdminRecycleBinList extends JPanel {
         searchAdminInfo.setBounds(355,40,150,30);
         refreshSearchButton.setBounds(720,40,80,30);
         searchAdminButton.setBounds(820,40,80,30);
+        searchAdminButton.setForeground(Color.blue);
 
         editButton.setBounds(1000,40,150,40);
-        deleteButton.setBounds(1170,40,150,40);
-
+        editButton.setForeground(Color.green);
+        deleteButton.setBounds(1170,40,150,50);
+        deleteButton.setFont(new java.awt.Font("楷体",1,18));
+        deleteButton.setForeground(Color.red);
+        
         jScrollPane.setBounds(15,100,1310,700);
 
 
