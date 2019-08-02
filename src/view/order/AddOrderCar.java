@@ -6,15 +6,13 @@ import util.DButil;
 import util.User;
 import view.Main;
 import view.car.UpdateCar;
+import view.pubilc.ShowInfo;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -230,6 +228,16 @@ public class AddOrderCar extends JDialog {
                 } finally {
                     DButil.releaseConnection(collection1);
                 }
+            }
+        });
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 7);
+                    new ShowInfo(info);
+                };
             }
         });
 

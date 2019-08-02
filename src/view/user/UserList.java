@@ -3,16 +3,14 @@ package view.user;
 import util.Admin;
 import util.DButil;
 import view.Main;
+import view.pubilc.ShowInfo;
 import view.user.UpdateUser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +25,8 @@ public class UserList extends JPanel {
     private JTextField searchUserInfo = new JTextField("用户备注关键字");
     private JButton refreshButton = new JButton("刷新");
     private JButton searchButton = new JButton("查询");
+
+    private JButton refundButton = new JButton("退款");
 
     private JButton editButton = new JButton("修改所选用户");
     private JButton deleteButton = new JButton("删除所选用户");
@@ -52,8 +52,11 @@ public class UserList extends JPanel {
         searchUserName.setBounds(15,40,150,30);
         searchUserTel.setBounds(185,40,150,30);
         searchUserInfo.setBounds(355,40,150,30);
-        refreshButton.setBounds(720,40,80,30);
-        searchButton.setBounds(820,40,80,30);
+        refreshButton.setBounds(570,40,80,30);
+        searchButton.setBounds(670,40,80,30);
+        searchButton.setForeground(Color.blue);
+        refundButton.setBounds(850,40,80,30);
+        refundButton.setForeground(Color.red);
 
         editButton.setBounds(1000,40,150,40);
         deleteButton.setBounds(1170,40,150,40);
@@ -65,6 +68,7 @@ public class UserList extends JPanel {
         add(searchUserInfo);
         add(refreshButton);
         add(searchButton);
+        add(refundButton);
         add(editButton);
         add(deleteButton);
         add(jScrollPane);
@@ -128,7 +132,15 @@ public class UserList extends JPanel {
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
 
-
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 11);
+                    new ShowInfo(info);
+                };
+            }
+        });
 
         searchUserName.addFocusListener(new FocusListener() {
             @Override
@@ -261,7 +273,20 @@ public class UserList extends JPanel {
                 }
             }
         });
-        
+
+        refundButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int row = table.getSelectedRow();
+                if (row==-1){
+                    JOptionPane.showMessageDialog(null, "请先选中要退款的用户");
+                    return;
+                } else {
+                    String userID = (String)table.getValueAt(row, 0);
+                    new Refund(admin, userID);
+                }
+            }
+        });
 
         editButton.addActionListener(new ActionListener() {
             @Override

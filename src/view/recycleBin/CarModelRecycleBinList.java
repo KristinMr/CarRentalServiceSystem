@@ -300,8 +300,8 @@ public class CarModelRecycleBinList extends JPanel {
                             ps.setObject(1, carTypeID);
                             int n = ps.executeUpdate();
                             if (n>0){
-                                JOptionPane.showMessageDialog(null, "车型彻底删除成功！");
                                 ((DefaultTableModel)table.getModel()).removeRow(row);
+                                JOptionPane.showMessageDialog(null, "车型彻底删除成功！");
                             } else {
                                 JOptionPane.showMessageDialog(null, "车型彻底删除失败！");
                             }

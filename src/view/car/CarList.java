@@ -41,26 +41,26 @@ public class CarList extends JPanel {
 
 
     public CarList(Admin admin) {
-        setSize(1350,800);
+        setSize(1350, 800);
         setLayout(null);
 
         searchCarNumber.setForeground(Color.gray);
         searchCarColor.setForeground(Color.gray);
         searchCarInfo.setForeground(Color.gray);
 
-        searchCarNumber.setBounds(15,40,150,30);
-        searchCarColor.setBounds(185,40,150,30);
-        searchCarInfo.setBounds(355,40,150,30);
-        refreshButton.setBounds(720,40,80,30);
-        searchButton.setBounds(820,40,80,30);
+        searchCarNumber.setBounds(15, 40, 150, 30);
+        searchCarColor.setBounds(185, 40, 150, 30);
+        searchCarInfo.setBounds(355, 40, 150, 30);
+        refreshButton.setBounds(720, 40, 80, 30);
+        searchButton.setBounds(820, 40, 80, 30);
         searchButton.setForeground(Color.blue);
 
-        editButton.setBounds(1000,40,150,40);
-        deleteButton.setBounds(1170,40,150,40);
+        editButton.setBounds(1000, 40, 150, 40);
+        deleteButton.setBounds(1170, 40, 150, 40);
 
-        jScrollPane.setBounds(15,100,1310,700);
+        jScrollPane.setBounds(15, 100, 1310, 700);
 
-        
+
         add(searchCarNumber);
         add(searchCarColor);
         add(searchCarInfo);
@@ -125,9 +125,10 @@ public class CarList extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    String info = (String)table.getValueAt(table.getSelectedRow(), 7);
+                    String info = (String) table.getValueAt(table.getSelectedRow(), 7);
                     new ShowInfo(info);
-                };
+                }
+                ;
             }
         });
 
@@ -256,16 +257,16 @@ public class CarList extends JPanel {
                 }
             }
         });
-        
+
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                if (row==-1){
+                if (row == -1) {
                     JOptionPane.showMessageDialog(null, "请先选中要修改的车辆");
                     return;
                 } else {
-                    String carID = (String)table.getValueAt(row,0);
+                    String carID = (String) table.getValueAt(row, 0);
                     new UpdateCar(admin, carID);
                 }
             }
@@ -275,28 +276,33 @@ public class CarList extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                if (row==-1){
+                if (row == -1) {
                     JOptionPane.showMessageDialog(null, "请先选中要删除的车辆");
                     return;
                 } else {
-                    String carID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选车辆移入回收站？",JOptionPane.YES_NO_OPTION);
-                    if (m == 0) {
-                        Connection connection1 = DButil.getConnection();
-                        String sql1 = "update car set car_recycle_bin = 1 where car_id = ?";
-                        try{
-                            PreparedStatement ps = connection1.prepareStatement(sql1);
-                            ps.setObject(1, carID);
-                            int n = ps.executeUpdate();
-                            if (n>0){
-                                ((DefaultTableModel)table.getModel()).removeRow(row);
-                                JOptionPane.showMessageDialog(null, "车辆删除成功");
+                    String carStateName = (String) table.getValueAt(row, 6);
+                    if (carStateName.equals("空闲")) {
+                        String carID = (String) table.getValueAt(row, 0);
+                        int m = JOptionPane.showConfirmDialog(null, "确认", "将所选车辆移入回收站？", JOptionPane.YES_NO_OPTION);
+                        if (m == 0) {
+                            Connection connection1 = DButil.getConnection();
+                            String sql1 = "update car set car_recycle_bin = 1 where car_id = ?";
+                            try {
+                                PreparedStatement ps = connection1.prepareStatement(sql1);
+                                ps.setObject(1, carID);
+                                int n = ps.executeUpdate();
+                                if (n > 0) {
+                                    ((DefaultTableModel) table.getModel()).removeRow(row);
+                                    JOptionPane.showMessageDialog(null, "车辆删除成功");
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection1);
                             }
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        } finally {
-                            DButil.releaseConnection(connection1);
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "非空闲状态的车辆不能被删除！");
                     }
                 }
             }
@@ -304,15 +310,4 @@ public class CarList extends JPanel {
 
         setVisible(true);
     }
-
-//    public static void main(String[] args) {
-//        try {
-//            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.translucencyAppleLike;
-////            BeautyEyeLNFHelper.frameBorderStyle = BeautyEyeLNFHelper.frameBorderStyle.generalNoTranslucencyShadow;
-//            org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//        } catch (Exception e) {
-//
-//        }
-//        new CarList();
-//    }
 }

@@ -18,7 +18,7 @@ import java.time.Period;
 import java.util.Date;
 
 
-public class SettleOrder extends JDialog {
+public class  SettleOrder extends JDialog {
 
     private JLabel adminIDLabel = new JLabel("管理员编号");
     private JTextField adminIDField = new JTextField();
@@ -62,11 +62,13 @@ public class SettleOrder extends JDialog {
     private JLabel endDateLabel = new JLabel("还车日期");
     private JTextField endDateField = new JTextField();
 
-    private JLabel orderInfoLabel = new JLabel("订单备注");
+    private JLabel orderInfoLabel = new JLabel("新增订单备注");
     private JTextArea orderInfoArea = new JTextArea();
 
     private JButton resetButton = new JButton("重置");
     private JButton confirmButton = new JButton("确认结算此订单");
+
+    String orderInfo;
 
     public SettleOrder(Admin admin, String orderID) {
         setTitle("确认用户订单");
@@ -213,7 +215,7 @@ public class SettleOrder extends JDialog {
                     carStateField.setText(rs1.getString(1));
                     orderStateField.setText(rs.getString(10));
                     startDateField.setText(rs.getString(11));
-                    orderInfoArea.setText(rs.getString(12));
+                    orderInfo = rs.getString(12);
                 }
 
             }
@@ -225,8 +227,7 @@ public class SettleOrder extends JDialog {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startDateField.setText("");
-                endDateField.setText("");
+                orderInfoArea.setText("");
             }
         });
 
@@ -239,6 +240,10 @@ public class SettleOrder extends JDialog {
                 }
                 Double payMoney = Double.parseDouble(carRentField.getText()) * days;
                 Double userMoney = Double.parseDouble(userMoneyField.getText()) - payMoney;
+                String addOrderInfo = orderInfoArea.getText();
+
+                DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String orderInfo1 = String.format("%s结账时间：%s，结账者编号：%s，结账者名称：%s，结账金额：%s，添加备注：%s。      ", orderInfo, dateFormat1.format(new Date()), admin.getAdminID(), admin.getAdminName(), payMoney, addOrderInfo);
 
                 if (Double.parseDouble(userMoneyField.getText()) < payMoney) {
                     int m = JOptionPane.showConfirmDialog(null, "用户要结算此订单至少还需冲值" + (payMoney - Double.parseDouble(userMoneyField.getText())) + "元人民币。确认前往用户充值界面进行充值吗？","用户余额不足",JOptionPane.YES_NO_OPTION);
@@ -254,7 +259,7 @@ public class SettleOrder extends JDialog {
 
                     if (m1 == 0) {
                         Connection connection1 = DButil.getConnection();
-                        String sql2 = "update oorder set order_state = (select state_id from state where state_name = ?), order_etime = ?, order_settle_admin = ? where order_id = ?";
+                        String sql2 = "update oorder set order_state = (select state_id from state where state_name = ?), order_settle_time = ?, order_settle_money = ?, order_settle_admin = ?, order_info = ? where order_id = ?";
                         String sql3 = "update car set car_state = (select state_id from state where state_name = ?) where car_id = ?";
                         String sql4 = "update user set user_money = ? where user_id = ?";
                         try {
@@ -262,8 +267,10 @@ public class SettleOrder extends JDialog {
 
                             ps2.setObject(1, "已结算");
                             ps2.setObject(2, LocalDate.parse(endDateField.getText()));
-                            ps2.setObject(3, admin.getAdminID());
-                            ps2.setObject(4, orderID);
+                            ps2.setObject(3, payMoney);
+                            ps2.setObject(4, admin.getAdminID());
+                            ps2.setObject(5, orderInfo1);
+                            ps2.setObject(6, orderID);
 
                             int n2 = ps2.executeUpdate();
 

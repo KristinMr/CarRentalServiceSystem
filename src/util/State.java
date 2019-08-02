@@ -1,5 +1,10 @@
 package util;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class State {
     private String stateID;
     private String stateName;
@@ -41,5 +46,28 @@ public class State {
     @Override
     public String toString() {
         return stateName;
+    }
+
+    public State searchState(String stateID) {
+        Connection connection = DButil.getConnection();
+        String sql = "select state_id, state_name from state where state_id = ?";
+        State state = new State();
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setObject(1,stateID);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+                state.setStateID(rs.getString(1));
+                state.setStateName(rs.getString(2));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DButil.releaseConnection(connection);
+        }
+
+        return state;
     }
 }

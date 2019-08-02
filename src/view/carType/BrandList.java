@@ -215,6 +215,16 @@ public class BrandList extends JDialog {
 
         brandIDField.setEditable(false);
 
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 2);
+                    new ShowInfo(info);
+                };
+            }
+        });
+
         refreshButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -287,9 +297,6 @@ public class BrandList extends JDialog {
 
                     for (int i = 0; i < list.size(); i++) {
                         ps.setObject(i + 1, list.get(i));
-                        System.out.println(123456);
-                        System.out.println(stringBuffer);
-
                     }
 
                     ResultSet rs = ps.executeQuery();
@@ -346,45 +353,6 @@ public class BrandList extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new AddBrand();
-//                int m = JOptionPane.showConfirmDialog(null, "确认","确认添加新品牌？",JOptionPane.YES_NO_OPTION);
-//                if (m == 0) {
-//                    String brandName = brandNameField.getText();
-//                    String brandInfo = brandInfoArea.getText();
-//
-//                    Connection connection = DButil.getConnection();
-//                    String sql = "insert into brand(brand_name, brand_info, brand_recycle_bin) values(?, ?, ?)";
-//                    String sql1 = "select * from brand where brand_recycle_bin = 0";
-//                    try {
-//                        PreparedStatement ps = connection.prepareStatement(sql);
-//                        ps.setObject(1, brandName);
-//                        ps.setObject(2, brandInfo);
-//                        ps.setObject(3, 0);
-//
-//                        int n = ps.executeUpdate();
-//
-//                        if (n>0) {
-//                            JOptionPane.showMessageDialog(null, "新增成功！");
-//
-//                            PreparedStatement ps1 = connection.prepareStatement(sql1);
-//                            ResultSet rs = ps.executeQuery();
-//                            defaultTableModel.getDataVector().clear();
-//                            defaultTableModel.fireTableDataChanged();
-//                            while (rs.next()){
-//                                Vector<String> vector = new Vector<String>();
-//                                vector.add(rs.getString(1));
-//                                vector.add(rs.getString(2));
-//                                vector.add(rs.getString(3));
-//                                dataVector.add(vector);
-//                            }
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "新增失败！");
-//                        }
-//                    } catch (Exception e1) {
-//                        e1.printStackTrace();
-//                    } finally {
-//                        DButil.releaseConnection(connection);
-//                    }
-//                }
             }
         });
 

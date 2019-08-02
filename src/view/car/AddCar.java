@@ -294,37 +294,40 @@ public class AddCar extends JPanel {
 
                 String carInfo = carInfoArea.getText();
 
-                int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
-                if (m == 0) {
-                    Connection connection3 = DButil.getConnection();
-                    String sql5 = "insert into car (car_number, car_model, car_state, car_info, car_recycle_bin) values(?, ?, ?, ?, 0)";
-                    try{
-                        PreparedStatement ps = connection3.prepareStatement(sql5);
-                        ps.setObject(1, carNumber);
-                        ps.setObject(2,carModelID);
-                        ps.setObject(3,carStateID);
+                if (carNumber.equals("")) {
+                    JOptionPane.showMessageDialog(null, "车牌号不能为空！请输入车牌号。");
+                } else {
+                    int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
+                    if (m == 0) {
+                        Connection connection3 = DButil.getConnection();
+                        String sql5 = "insert into car (car_number, car_model, car_state, car_info, car_recycle_bin) values(?, ?, ?, ?, 0)";
+                        try{
+                            PreparedStatement ps = connection3.prepareStatement(sql5);
+                            ps.setObject(1, carNumber);
+                            ps.setObject(2,carModelID);
+                            ps.setObject(3,carStateID);
 //                        ps.setObject(3,carCityID);
-                        ps.setObject(4,carInfo);
+                            ps.setObject(4,carInfo);
 
-                        int n = ps.executeUpdate();
+                            int n = ps.executeUpdate();
 
-                        if (n>0) {
-                            JOptionPane.showMessageDialog(null, "添加成功！");
-                            Main.main.removeAll();
-                            Main.main.repaint();
-                            Main.main.updateUI();
+                            if (n>0) {
+                                JOptionPane.showMessageDialog(null, "添加成功！");
+                                Main.main.removeAll();
+                                Main.main.repaint();
+                                Main.main.updateUI();
 
-                            Main.main.add(new CarList(admin));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "添加失败！");
+                                Main.main.add(new CarList(admin));
+                            } else {
+                                JOptionPane.showMessageDialog(null, "添加失败！");
+                            }
+                        } catch (Exception e3) {
+                            e3.printStackTrace();
+                        } finally {
+                            DButil.releaseConnection(connection3);
                         }
-                    } catch (Exception e3) {
-                        e3.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection3);
                     }
                 }
-
             }
         });
 

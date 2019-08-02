@@ -61,7 +61,7 @@ public class AddOrder extends JDialog {
     private JLabel startDateLabel = new JLabel("起租日期");
     private JTextField startDateField = new JTextField();
 
-    private JLabel endDateLabel = new JLabel("还车日期");
+    private JLabel endDateLabel = new JLabel("预计还车日期");
     private JTextField endDateField = new JTextField();
 
     private JLabel orderInfoLabel = new JLabel("订单备注");
@@ -244,7 +244,7 @@ public class AddOrder extends JDialog {
             public void focusLost(FocusEvent e) {
                 long days = Period.between(LocalDate.parse(endDateField.getText()), LocalDate.now()).getDays();
                 if (days > 0) {
-                    JOptionPane.showMessageDialog(null, "还车日期应在今天或今天之后！请重新输入。");
+                    JOptionPane.showMessageDialog(null, "预计还车日期应在今天或今天之后！请重新输入。");
                 }
             }
         });
@@ -252,7 +252,7 @@ public class AddOrder extends JDialog {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startDateField.setText("");
+                startDateField.setText(dateFormat.format(date));
                 endDateField.setText("");
             }
         });
@@ -267,11 +267,11 @@ public class AddOrder extends JDialog {
                 } else {
                     long days1 = Period.between(LocalDate.parse(endDateField.getText()), LocalDate.now()).getDays();
                     if (days1 > 0) {
-                        JOptionPane.showMessageDialog(null, "还车日期应在今天或今天之后！请重新输入。");
+                        JOptionPane.showMessageDialog(null, "预计还车日期应在今天或今天之后！请重新输入。");
                     } else {
                         long days2 = Period.between(LocalDate.parse(startDateField.getText()), LocalDate.parse(endDateField.getText())).getDays();
                         if (days2 < 0) {
-                            JOptionPane.showMessageDialog(null, "起租日期应在还车日期之前！请重新输入。");
+                            JOptionPane.showMessageDialog(null, "起租日期应在预计还车日期之前！请重新输入。");
                         } else {
                             String carStateID = "";
                             String carStateName = "";
@@ -294,7 +294,7 @@ public class AddOrder extends JDialog {
                             String orderInfo = orderInfoArea.getText();
                             Connection connection1 = DButil.getConnection();
                             String sql = "select state_id from state where state_name = ?";
-                            String sql1 = "insert into oorder (order_admin, order_user, order_car, order_time, order_stime, order_state, order_info, order_recycle_bin) values (?,?,?,?,?,?,?,0)";
+                            String sql1 = "insert into oorder (order_admin, order_user, order_car, order_time, order_stime, order_etime, order_state, order_info, order_recycle_bin) values (?,?,?,?,?,?,?,?,0)";
                             String sql2 = "update car set car_state = ? where car_id = ?";
                             try {
                                 PreparedStatement ps = connection1.prepareStatement(sql);
@@ -310,12 +310,9 @@ public class AddOrder extends JDialog {
                                     DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm;ss");
                                     ps1.setObject(4, dateFormat1.format(new Date()));
                                     ps1.setObject(5, orderStartDate);
-                                    ps1.setObject(6, orderStateID);
-                                    if (orderEndDate == null) {
-                                        ps1.setObject(7, orderInfo);
-                                    } else {
-                                        ps1.setObject(7, "预计" + orderEndDate + "还车。" + orderInfo);
-                                    }
+                                    ps1.setObject(6, orderEndDate);
+                                    ps1.setObject(7, orderStateID);
+                                    ps1.setObject(8, orderInfo);
 
                                     int n1 = ps1.executeUpdate();
                                     if (n1 > 0) {

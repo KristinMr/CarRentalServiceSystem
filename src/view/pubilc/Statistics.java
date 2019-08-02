@@ -1,9 +1,17 @@
 package view.pubilc;
 
+import util.Admin;
+import util.DButil;
+import view.Main;
+import view.order.rentOrderList;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Statistics extends JPanel {
     private JMenuItem userItem = new JMenuItem("user");
@@ -17,7 +25,7 @@ public class Statistics extends JPanel {
     private JMenuItem orderSettledItem = new JMenuItem("settled order");
 
     private JPanel orderPanel = new JPanel();
-    public Statistics() {
+    public Statistics(Admin admin) {
         setSize(1350, 800);
         setLayout(null);
 
@@ -27,7 +35,7 @@ public class Statistics extends JPanel {
 
         userLabel.setBounds(500, 100,500,40);
         userLabel.setFont(new java.awt.Font("楷体",1,15));
-        userLabel.setForeground(Color.cyan);
+//        userLabel.setForeground(Color.cyan);
 
         carItem.setBounds(800,400,150,50);
         carItem.setFont(new java.awt.Font("宋体",1,70));
@@ -40,7 +48,6 @@ public class Statistics extends JPanel {
         orderItem.setForeground(Color.red);
 
         orderPanel.setBounds(240,240,200,100);
-//        orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,Color.black));
 
         orderReserveItem.setBounds(0,10,200,40);
         orderReserveItem.setFont(new java.awt.Font("隶书",1,20));
@@ -67,7 +74,20 @@ public class Statistics extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 orderPanel.setVisible(false);
                 userLabel.setVisible(true);
-                userLabel.setText("公司从创办以来共计为1000名顾客服务过！再接再励！！！");
+
+                Connection connection = DButil.getConnection();
+                String sql = "select user_id from user order by user_id desc limit 1";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        userLabel.setText("公司从创办以来共计为" + rs.getString(1) + "名顾客服务过！再接再励！！！");
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                } finally {
+                    DButil.releaseConnection(connection);
+                }
             }
         });
         orderItem.addActionListener(new ActionListener() {
@@ -75,6 +95,17 @@ public class Statistics extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 userLabel.setVisible(false);
                 orderPanel.setVisible(true);
+            }
+        });
+
+        orderRentItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Main.main.removeAll();
+                Main.main.repaint();
+                Main.main.updateUI();
+
+                Main.main.add(new rentOrderList(admin));
             }
         });
 

@@ -35,7 +35,7 @@ public class Brand {
 
     public Brand searchBrand(String brandID) {
         Connection connection = DButil.getConnection();
-        String sql = "select * from brand where brand_id = ?";
+        String sql = "select brand_id, brand_name from brand where brand_id = ?";
         Brand brand = new Brand();
         try {
             PreparedStatement ps = connection.prepareStatement(sql);

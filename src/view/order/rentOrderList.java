@@ -3,7 +3,6 @@ package view.order;
 import util.Admin;
 import util.DButil;
 import view.Main;
-import view.order.UpdateOrder;
 import view.pubilc.ShowInfo;
 
 import javax.swing.*;
@@ -22,16 +21,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
-public class OrderList extends JPanel {
+public class rentOrderList extends JPanel {
     private JTextField searchOrderUserName = new JTextField("用户名称关键字");
     private JTextField searchOrderCarNumber = new JTextField("车牌号关键字");
     private JTextField searchOrderInfo = new JTextField("订单备注关键字");
     private JButton refreshButton = new JButton("刷新");
     private JButton searchButton = new JButton("查询");
 
-    private JButton editButton = new JButton("修改所选订单");
     private JButton deleteButton = new JButton("删除所选订单");
-    private JButton settleButton = new JButton("结算");
 
     private JScrollPane jScrollPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -43,7 +40,7 @@ public class OrderList extends JPanel {
     };
 
 
-    public OrderList(Admin admin) {
+    public rentOrderList(Admin admin) {
         setSize(1350,800);
         setLayout(null);
 
@@ -54,16 +51,11 @@ public class OrderList extends JPanel {
         searchOrderUserName.setBounds(15,40,150,30);
         searchOrderCarNumber.setBounds(185,40,150,30);
         searchOrderInfo.setBounds(355,40,150,30);
-        refreshButton.setBounds(580,40,80,30);
-        searchButton.setBounds(680,40,80,30);
+        refreshButton.setBounds(720,40,80,30);
+        searchButton.setBounds(820,40,80,30);
         searchButton.setForeground(Color.blue);
 
-        editButton.setBounds(810,40,150,40);
-        deleteButton.setBounds(980,40,150,40);
-        settleButton.setBounds(1170,40,150,50);
-        settleButton.setFont(new java.awt.Font("楷体",1,18));
-        settleButton.setForeground(Color.red);
-
+        deleteButton.setBounds(1170,40,150,40);
         jScrollPane.setBounds(15,100,1310,700);
 
 
@@ -72,9 +64,7 @@ public class OrderList extends JPanel {
         add(searchOrderInfo);
         add(refreshButton);
         add(searchButton);
-        add(editButton);
         add(deleteButton);
-        add(settleButton);
         add(jScrollPane);
 
         Vector<String> orderTHVector = new Vector<String>();
@@ -87,7 +77,7 @@ public class OrderList extends JPanel {
         orderTHVector.add("车辆型号");
         orderTHVector.add("订单时间");
         orderTHVector.add("起租时间");
-        orderTHVector.add("预计还车时间");
+        orderTHVector.add("还车时间");
         orderTHVector.add("订单状态");
         orderTHVector.add("订单备注");
 
@@ -96,14 +86,14 @@ public class OrderList extends JPanel {
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         Connection collection = DButil.getConnection();
-        String sql = "select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_etime, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0";
+        String sql = "select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_settle_time, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0";
 
         try {
             PreparedStatement ps = collection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                if (!rs.getString(12).equals("已结算")) {
+                if (rs.getString(12).equals("已结算")) {
                     Vector<String> vector = new Vector<String>();
                     vector.add(rs.getString(1));
                     vector.add(rs.getString(2));
@@ -215,7 +205,7 @@ public class OrderList extends JPanel {
                 view.Main.main.repaint();
                 view.Main.main.updateUI();
 
-                Main.main.add(new OrderList(admin));
+                Main.main.add(new rentOrderList(admin));
             }
         });
 
@@ -227,7 +217,7 @@ public class OrderList extends JPanel {
                 String orderInfo = searchOrderInfo.getText();
 
                 Connection connection1 = DButil.getConnection();
-                StringBuffer stringBuffer = new StringBuffer("select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime, oorder.order_etime, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0 ");
+                StringBuffer stringBuffer = new StringBuffer("select oorder.order_id, admin.admin_id, admin.admin_name, user.user_id, user.user_name, car.car_number, brand.brand_name, model.model_name, oorder.order_time, oorder.order_stime,  oorder.order_settle_time, state.state_name, oorder.order_info from oorder, admin, user, car, model, brand, state where oorder.order_admin = admin.admin_id and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and oorder.order_state = state.state_id and oorder.order_recycle_bin = 0 ");
 
                 List list = new ArrayList();
 
@@ -260,8 +250,7 @@ public class OrderList extends JPanel {
 
                     System.out.println(stringBuffer);
                     while (rs.next()) {
-                        if (list.size() == 0) {
-                            if (!rs.getString(12).equals("已结算")) {
+                            if (rs.getString(12).equals("已结算")) {
                                 Vector<String> vector = new Vector<String>();
                                 vector.add(rs.getString(1));
                                 vector.add(rs.getString(2));
@@ -277,23 +266,6 @@ public class OrderList extends JPanel {
                                 vector.add(rs.getString(13));
                                 orderDataVector.add(vector);
                             }
-                        } else {
-                            Vector<String> vector = new Vector<String>();
-                            vector.add(rs.getString(1));
-                            vector.add(rs.getString(2));
-                            vector.add(rs.getString(3));
-                            vector.add(rs.getString(4));
-                            vector.add(rs.getString(5));
-                            vector.add(rs.getString(6));
-                            vector.add(rs.getString(7) + rs.getString(8));
-                            vector.add(rs.getString(9));
-                            vector.add(rs.getString(10));
-                            vector.add(rs.getString(11));
-                            vector.add(rs.getString(12));
-                            vector.add(rs.getString(13));
-
-                            orderDataVector.add(vector);
-                        }
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -302,24 +274,7 @@ public class OrderList extends JPanel {
                 }
             }
         });
-        
-        editButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int row = table.getSelectedRow();
-                if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要修改的订单");
-                    return;
-                } else {
-                    if (table.getValueAt(row, 10).equals("已结算")){
-                        JOptionPane.showMessageDialog(null, "已结算订单不能修改！请重新选择。");
-                    } else {
-                        String orderID = (String)table.getValueAt(row,0);
-                        new UpdateOrder(admin, orderID);
-                    }
-                }
-            }
-        });
+
 
         deleteButton.addActionListener(new ActionListener() {
             @Override
@@ -349,33 +304,6 @@ public class OrderList extends JPanel {
                         } finally {
                             DButil.releaseConnection(connection1);
                         }
-                    }
-                }
-            }
-        });
-
-        settleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                int row = table.getSelectedRow();
-                if (row==-1){
-                    JOptionPane.showMessageDialog(null, "请先选中要结算的订单");
-                    return;
-                } else {
-                    if ((table.getValueAt(row, 10)).equals("已结算")) {
-                        JOptionPane.showMessageDialog(null, "此订单为已结算订单。");
-                    } else {
-                        if (table.getValueAt(row, 10).equals("预约")){
-                            JOptionPane.showMessageDialog(null, "预约状态的订单不能结算！请先修改订单状态（租赁）或者重新选择订单。");
-                        } else {
-                            String orderID = (String)table.getValueAt(row,0);
-                            int m = JOptionPane.showConfirmDialog(null, "确认","结算所选订单？",JOptionPane.YES_NO_OPTION);
-                            if (m == 0) {
-                                new SettleOrder(admin, orderID);
-                            }
-                        }
-
                     }
                 }
             }

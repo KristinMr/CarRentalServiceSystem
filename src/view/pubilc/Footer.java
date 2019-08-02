@@ -10,6 +10,7 @@ public class Footer extends JPanel {
         setBackground(Color.black);
         footerLabel.setBounds(700,0,200,20);
         footerLabel.setForeground(Color.white);
+        footerLabel.setFont(new java.awt.Font("", 1, 12));
         setLayout(null);
         add(footerLabel);
         setVisible(true);

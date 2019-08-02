@@ -15,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 public class UpdateUser extends JDialog {
@@ -216,13 +218,12 @@ public class UpdateUser extends JDialog {
                     gender = "女";
                 }
                 String userTel = userTelField.getText();
-                String userPassword = "123456";
                 String userEmail = userEmailField.getText();
                 String userIDN = userIDNField.getText();
                 String userAddress = userAddressField.getText();
                 String userDrivingLicense = userDrivingLicenseField.getText();
                 String userDriveAge = userDriveAgeField.getText();
-                String userAge = "18";
+                long userAge = Period.between(LocalDate.parse(userIDNField.getText().substring(6, 10) + "-" + userIDNField.getText().substring(10, 12) + "-" + userIDNField.getText().substring(12, 14)), LocalDate.now()).getYears();
                 String userInfo = userInfoArea.getText();
 
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -230,41 +231,49 @@ public class UpdateUser extends JDialog {
                 if (userName.equals("")) {
                     JOptionPane.showMessageDialog(null, "用户姓名不能为空！请重新输入。");
                 } else {
-                    Connection connection1 = DButil.getConnection();
-                    String sql1 = "update user set user_name = ?, user_sex = ?, user_tel = ?, user_email = ?, user_idn = ?, user_address = ?, user_dln = ?, user_dage = ?, user_info = ?, user_admin_update = ?, user_date_update = ? where user_id = ?";
-                    try {
-                        PreparedStatement ps1 = connection1.prepareStatement(sql1);
-                        ps1.setObject(1, userName);
-                        ps1.setObject(2, gender);
-                        ps1.setObject(3, userTel);
-                        ps1.setObject(4, userEmail);
-                        ps1.setObject(5, userIDN);
-                        ps1.setObject(6, userAddress);
-                        ps1.setObject(7, userDrivingLicense);
-                        ps1.setObject(8, userDriveAge);
-                        ps1.setObject(9, userInfo);
-                        ps1.setObject(10, admin.getAdminID());
-                        ps1.setObject(11, userDateUpdate);
-                        ps1.setObject(12,userID);
+                    if (userIDN.equals("")) {
+                        JOptionPane.showMessageDialog(null, "用户身份证号不能为空！请重新输入。");
+                    } else {
+                        int m = JOptionPane.showConfirmDialog(null, "添加","确认无误？",JOptionPane.YES_NO_OPTION);
+                        if (m == 0) {
+                            Connection connection1 = DButil.getConnection();
+                            String sql1 = "update user set user_name = ?, user_sex = ?, user_age = ?, user_tel = ?, user_email = ?, user_idn = ?, user_address = ?, user_dln = ?, user_dage = ?, user_info = ?, user_admin_update = ?, user_date_update = ? where user_id = ?";
+                            try {
+                                PreparedStatement ps1 = connection1.prepareStatement(sql1);
+                                ps1.setObject(1, userName);
+                                ps1.setObject(2, gender);
+                                ps1.setObject(3, userAge);
+                                ps1.setObject(4, userTel);
+                                ps1.setObject(5, userEmail);
+                                ps1.setObject(6, userIDN);
+                                ps1.setObject(7, userAddress);
+                                ps1.setObject(8, userDrivingLicense);
+                                ps1.setObject(9, userDriveAge);
+                                ps1.setObject(10, userInfo);
+                                ps1.setObject(11, admin.getAdminID());
+                                ps1.setObject(12, userDateUpdate);
+                                ps1.setObject(13,userID);
 
-                        int n = ps1.executeUpdate();
+                                int n = ps1.executeUpdate();
 
-                        if (n > 0) {
-                            JOptionPane.showMessageDialog(null, "用户信息更新成功！");
-                            UpdateUser.this.dispose();
+                                if (n > 0) {
+                                    JOptionPane.showMessageDialog(null, "用户信息更新成功！");
+                                    UpdateUser.this.dispose();
 
-                            view.Main.main.removeAll();
-                            view.Main.main.repaint();
-                            view.Main.main.updateUI();
+                                    view.Main.main.removeAll();
+                                    view.Main.main.repaint();
+                                    view.Main.main.updateUI();
 
-                            Main.main.add(new UserList(admin));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "用户信息更新失败！");
+                                    Main.main.add(new UserList(admin));
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "用户信息更新失败！");
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection1);
+                            }
                         }
-                    } catch (Exception e1) {
-                        e1.printStackTrace();
-                    } finally {
-                        DButil.releaseConnection(connection1);
                     }
                 }
             }

@@ -59,7 +59,6 @@ public class RechargeList extends JPanel {
 
         jScrollPane.setBounds(15,100,1310,700);
 
-
         add(searchAdminName);
         add(searchUserName);
         add(searchRechargeInfo);
@@ -268,7 +267,32 @@ public class RechargeList extends JPanel {
                     return;
                 } else {
                     String rechargeID = (String)table.getValueAt(row,0);
-                    new UpdateRecharge(admin, rechargeID);
+                    String userID = (String)table.getValueAt(row, 3);
+                    String rechargeMoney = (String)table.getValueAt(row, 5);
+                    Connection connection1 = DButil.getConnection();
+                    String sql1 = "select user_money from user where user_id = ?";
+
+                    try {
+                        PreparedStatement ps1 = connection1.prepareStatement(sql1);
+                        ps1.setObject(1, userID);
+
+                        ResultSet rs1 = ps1.executeQuery();
+                        while (rs1.next()) {
+                            if (Double.parseDouble(rs1.getString(1)) < Double.parseDouble(rechargeMoney)) {
+                                JOptionPane.showMessageDialog(null, "用户余额小于充值记录中的充值金额！不能修改此记录，如果要修改，请先充值再修改。");
+                            } else {
+                                int m = JOptionPane.showConfirmDialog(null,"确认修改此充值记录？", "充值记录修改确认", JOptionPane.YES_NO_OPTION);
+                                if (m == 0) {
+                                    new UpdateRecharge(admin, rechargeID);
+                                }
+                            }
+                        }
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    } finally {
+                        DButil.releaseConnection(connection1);
+                    }
+
                 }
             }
         });

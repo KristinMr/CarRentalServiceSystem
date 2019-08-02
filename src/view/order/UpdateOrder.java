@@ -2,6 +2,7 @@ package view.order;
 
 import util.*;
 import util.Order;
+import view.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -57,14 +58,17 @@ public class UpdateOrder extends JDialog {
     private JLabel startDateLabel = new JLabel("起租日期");
     private JTextField startDateField = new JTextField();
 
-    private JLabel endDateLabel = new JLabel("还车日期");
+    private JLabel endDateLabel = new JLabel("预计还车日期");
     private JTextField endDateField = new JTextField();
 
-    private JLabel orderInfoLabel = new JLabel("订单备注");
+    private JLabel orderInfoLabel = new JLabel("新增备注");
     private JTextArea orderInfoArea = new JTextArea();
 
     private JButton resetButton = new JButton("重置");
-    private JButton confirmButton = new JButton("确认新增订单");
+    private JButton confirmButton = new JButton("确认修改订单");
+
+    String orderStateID = null;
+    String orderInfo = null;
 
     public UpdateOrder(Admin admin, String orderID) {
         setTitle("修改用户订单");
@@ -92,42 +96,34 @@ public class UpdateOrder extends JDialog {
 
         userIDLabel.setBounds(50, 80, 120, 30);
         userIDField.setBounds(180, 80, 180, 30);
-//        userIDField.setText(user.getUserID());
         userIDField.setEditable(false);
 
         userNameLabel.setBounds(430, 80, 80, 30);
         userNameField.setBounds(550, 80, 180, 30);
-//        userNameField.setText(user.getUserName());
         userNameField.setEditable(false);
 
         carIDLabel.setBounds(50, 130, 120, 30);
         carIDField.setBounds(180, 130, 180, 30);
-//        carIDField.setText(car.getCarID());
         carIDField.setEditable(false);
 
         carNumberLabel.setBounds(430, 130, 80, 30);
         carNumberField.setBounds(550, 130, 180, 30);
-//        carNumberField.setText(car.getCarNumber());
         carNumberField.setEditable(false);
 
         carBrandLabel.setBounds(50, 180, 120, 30);
         carBrandField.setBounds(180, 180, 180, 30);
-//        carBrandField.setText(car.getCarBrand());
         carBrandField.setEditable(false);
 
         carModelLabel.setBounds(430, 180, 80, 30);
         carModelField.setBounds(550, 180, 180, 30);
-//        carModelField.setText(car.getCarModel());
         carModelField.setEditable(false);
 
         carRentLabel.setBounds(30, 230, 180, 30);
         carRentField.setBounds(180, 230, 180, 30);
-//        carRentField.setText(car.getCarRent());
         carRentField.setEditable(false);
 
         userMoneyLabel.setBounds(430, 230, 80, 30);
         userMoneyField.setBounds(550, 230, 180, 30);
-//        userMoneyField.setText(user.getUserMoney());
         userMoneyField.setEditable(false);
 
         carStateLabel.setBounds(30, 280, 180, 30);
@@ -191,7 +187,6 @@ public class UpdateOrder extends JDialog {
         Connection connection = DButil.getConnection();
         String sql = "select user.user_id, user.user_name, car.car_id, car.car_number, brand.brand_name, model.model_name, model.model_rent, user.user_money, state.state_name, oorder.order_state,oorder.order_stime, oorder.order_etime, oorder.order_info from oorder, user, car, model, brand, state where oorder.order_id = ? and oorder.order_user = user.user_id and oorder.order_car = car.car_id and car.car_model = model.model_id and model.model_brand = brand.brand_id and car.car_state = state.state_id";
         String sql1 = "select * from state where state_recycle_bin = 0";
-        String orderStateID = null;
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, orderID);
@@ -220,7 +215,7 @@ public class UpdateOrder extends JDialog {
                 orderStateID = rs.getString(10);
                 startDateField.setText(rs.getString(11));
                 endDateField.setText(rs.getString(12));
-                orderInfoArea.setText(rs.getString(13));
+                orderInfo = rs.getString(13);
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             ResultSet rs1 = ps1.executeQuery();
@@ -262,7 +257,7 @@ public class UpdateOrder extends JDialog {
 
                 long days2 = Period.between(LocalDate.parse(startDateField.getText()), LocalDate.parse(endDateField.getText())).getDays();
                 if (days2 < 0) {
-                    JOptionPane.showMessageDialog(null, "起租日期应在还车日期之前！请重新输入。");
+                    JOptionPane.showMessageDialog(null, "起租日期应在预计还车日期之前！请重新输入。");
                 } else {
                     String carStateID = "";
                     String carStateName = "";
@@ -282,10 +277,13 @@ public class UpdateOrder extends JDialog {
                     if (orderEndDate.equals("")) {
                         orderEndDate = null;
                     }
-                    String orderInfo = orderInfoArea.getText();
+                    String addOrderInfo = orderInfoArea.getText();
+                    Date date1 = new Date();
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String orderInfo1 = String.format("%s修改时间：%s，修改者编号：%s，修改者名称：%s，添加备注：%s。      ", orderInfo, dateFormat.format(date1), admin.getAdminID(), admin.getAdminName(), addOrderInfo);
                     Connection connection1 = DButil.getConnection();
                     String sql = "select state_id from state where state_name = ?";
-                    String sql1 = "update oorder set order_state = ?, order_stime = ?, order_info = ?, order_update_admin = ?, order_update_time = ? where order_id = ?";
+                    String sql1 = "update oorder set order_state = ?, order_stime = ?, order_etime = ?, order_info = ?, order_update_admin = ?, order_update_time = ? where order_id = ?";
                     String sql2 = "update car set car_state = ? where car_id = ?";
                     try {
                         PreparedStatement ps = connection1.prepareStatement(sql);
@@ -297,15 +295,11 @@ public class UpdateOrder extends JDialog {
                             PreparedStatement ps1 = connection1.prepareStatement(sql1);
                             ps1.setObject(1, orderStateID);
                             ps1.setObject(2, orderStartDate);
-                            if (orderEndDate == null) {
-                                ps1.setObject(3, orderInfo);
-                            } else {
-                                ps1.setObject(3, "预计" + orderEndDate + "还车。" + orderInfo);
-                            }
-                            ps1.setObject(4, admin.getAdminID());
-                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            ps1.setObject(5, dateFormat.format(new Date()));
-                            ps1.setObject(6, orderID);
+                            ps1.setObject(3, orderEndDate);
+                            ps1.setObject(4, orderInfo1);
+                            ps1.setObject(5, admin.getAdminID());
+                            ps1.setObject(6, dateFormat.format(new Date()));
+                            ps1.setObject(7, orderID);
 
                             int n1 = ps1.executeUpdate();
                             if (n1 > 0) {
@@ -316,12 +310,17 @@ public class UpdateOrder extends JDialog {
                                 int n2 = ps2.executeUpdate();
                                 if (n2 > 0) {
                                     UpdateOrder.this.dispose();
-                                    JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + userNameField.getText() + "的租车订单新增成功！");
+                                    JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + userNameField.getText() + "的租车订单修改成功！");
+                                    Main.main.removeAll();
+                                    Main.main.repaint();
+                                    Main.main.updateUI();
+
+                                    Main.main.add(new OrderList(admin));
                                 } else {
-                                    JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + userNameField.getText() + "的租车订单新增成功！   但车辆状态更新失败！");
+                                    JOptionPane.showMessageDialog(null, "管理员：" + admin.getAdminName() + " 将用户" + userNameField.getText() + "的租车订单修改成功！   但车辆状态更新失败！");
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "新增订单失败！请重新操作！");
+                                JOptionPane.showMessageDialog(null, "修改订单失败！请重新操作！");
                             }
                         }
                     } catch (Exception e1) {

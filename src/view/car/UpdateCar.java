@@ -60,19 +60,11 @@ public class UpdateCar extends JDialog {
         carStateLabel.setBounds(50, 120, 100, 30);
         carStateBox.setBounds(170, 120, 320, 30);
 
-//        carLocationLabel.setBounds(50, 120, 100, 30);
-//        carProvinceBox.setBounds(170, 120, 150, 30);
-//        carCityBox.setBounds(340, 120, 150, 30);
-
         carColorLabel.setBounds(50, 170, 100, 30);
         carColorField.setBounds(170, 170, 320, 30);
 
-
         carRentLabel.setBounds(50, 230, 100, 30);
         carRentField.setBounds(170, 230, 320, 30);
-
-//        carPictureLabel.setBounds(50, 280, 100, 30);
-//        carPictureField.setBounds(170, 280, 320, 30);
 
         carInfoLabel.setBounds(250, 290, 100, 30);
         carInfoArea.setBounds(100, 340, 400, 200);
@@ -90,15 +82,10 @@ public class UpdateCar extends JDialog {
         add(carModelBox);
         add(carStateLabel);
         add(carStateBox);
-//        add(carLocationLabel);
-//        add(carProvinceBox);
-//        add(carCityBox);
         add(carColorLabel);
         add(carColorField);
         add(carRentLabel);
         add(carRentField);
-//        add(carPictureLabel);
-//        add(carPictureField);
         add(carInfoLabel);
         add(carInfoArea);
         add(resetButton);
@@ -107,18 +94,13 @@ public class UpdateCar extends JDialog {
         add(bgLabel);
 
         Connection connection = DButil.getConnection();
-        String sql = "select car.*, model.model_brand from car, model where car.car_id = ? and model.model_id = car.car_model";
-        String sql1 = "select * from brand where brand_recycle_bin = 0";
-        String sql2 = "select * from model where model_brand = ?";
-
-        String sql3 = "select * from state where state_type = 1 and state_recycle_bin = 0";
-//        String sql4 = "select * from province";
-//        String sql5 = "select * from city where city_province = ?";
-
+        String sql = "select car.car_id, car.car_number, car.car_model, car.car_state, car.car_info, model.model_brand from car, model where car.car_id = ? and model.model_id = car.car_model and car.car_recycle_bin = 0";
+        String sql1 = "select brand_id, brand_name from brand where brand_recycle_bin = 0";
+        String sql2 = "select model_id, model_name, model_color, model_rent, model_Info from model where model_brand = ? and model_recycle_bin = 0";
+        String sql3 = "select state_id, state_name from state where state_type = 1 and state_recycle_bin = 0";
 
         try {
             Car car = new Car();
-
 
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setObject(1, carID);
@@ -128,26 +110,17 @@ public class UpdateCar extends JDialog {
                 car.setCarNumber(rs.getString(2));
                 car.setCarModel(rs.getString(3));
                 car.setCarState(rs.getString(4));
-//                car.setCarCity(rs.getInt(4));
-//                car.setCarPicture(rs.getString(5));
                 car.setCarInfo(rs.getString(5));
-                car.setCarRecycleBin(rs.getInt(6));
-                car.setCarBrand(rs.getString(7));
-//                car.setCarProvince(rs.getInt(9));
+                car.setCarBrand(rs.getString(6));
             }
             PreparedStatement ps1 = connection.prepareStatement(sql1);
             PreparedStatement ps2 = connection.prepareStatement(sql2);
             ps2.setObject(1, car.getCarBrand());
             PreparedStatement ps3 = connection.prepareStatement(sql3);
-//            PreparedStatement ps4 = connection.prepareStatement(sql4);
-//            PreparedStatement ps5 = connection.prepareStatement(sql5);
-//            ps5.setObject(1, car.getCarProvince());
 
             ResultSet rs1 = ps1.executeQuery();
             ResultSet rs2 = ps2.executeQuery();
             ResultSet rs3 = ps3.executeQuery();
-//            ResultSet rs4 = ps4.executeQuery();
-//            ResultSet rs5 = ps5.executeQuery();
 
 
             carNumberField.setText(car.getCarNumber());
@@ -159,41 +132,38 @@ public class UpdateCar extends JDialog {
 
 //                if(brand.getBrandID() == brand1.getBrandID()){
 //                    carBrandBox.setSelectedItem(brand1);
-//                    System.out.println(brand1.getBrandID());
-//                    System.out.println(12314546);
 //                }
+
             }
 
             Brand brand1 = new Brand();
             brand1 = brand1.searchBrand(car.getCarBrand());
             for (int j = 0; j < carBrandBox.getItemCount(); j++) {
-                Brand brand;
-                brand = carBrandBox.getItemAt(j);
-                if (brand.getBrandID() == brand1.getBrandID()) {
+                Brand brand = carBrandBox.getItemAt(j);
+                if (brand.getBrandID().equals(brand1.getBrandID())) {
                     carBrandBox.setSelectedItem(brand);
-                    while (rs2.next()) {
-                        Model model = new Model();
-                        model.setModelID(rs2.getString(1));
-                        model.setModelName(rs2.getString(3));
-                        model.setModelColor(rs2.getString(4));
-                        model.setModelRent(rs2.getString(5));
-                        model.setModelInfo(rs2.getString(6));
-                        carModelBox.addItem(model);
-                    }
-                    Model model1 = new Model();
-                    model1 = model1.searchModel(car.getCarModel());
-                    for (int k = 0; k < carModelBox.getItemCount(); k++) {
-                        Model model;
-                        model = carModelBox.getItemAt(k);
-                        if (model.getModelID() == model1.getModelID()) {
-                            carModelBox.setSelectedItem(model);
-                            carColorField.setText(model1.getModelColor());
-                            carRentField.setText(model1.getModelRent());
-                        }
-                    }
                 }
             }
 
+            while (rs2.next()) {
+                Model model = new Model();
+                model.setModelID(rs2.getString(1));
+                model.setModelName(rs2.getString(2));
+                model.setModelColor(rs2.getString(3));
+                model.setModelRent(rs2.getString(4));
+                model.setModelInfo(rs2.getString(5));
+                carModelBox.addItem(model);
+            }
+            Model model1 = new Model();
+            model1 = model1.searchModel(car.getCarModel());
+            for (int k = 0; k < carModelBox.getItemCount(); k++) {
+                Model model = carModelBox.getItemAt(k);
+                if (model.getModelID().equals(model1.getModelID())) {
+                    carModelBox.setSelectedItem(model);
+                    carColorField.setText(model.getModelColor());
+                    carRentField.setText(model.getModelRent());
+                }
+            }
 
             while (rs3.next()) {
                 State state = new State();
@@ -201,36 +171,14 @@ public class UpdateCar extends JDialog {
                 state.setStateName(rs3.getString(2));
                 carStateBox.addItem(state);
             }
-//            while (rs4.next()) {
-//                Province province = new Province();
-//                province.setProvinceID(rs4.getInt(1));
-//                province.setProvinceName(rs4.getString(2));
-//                carProvinceBox.addItem(province);
-//            }
-//            Province province1 = new Province();
-//            province1 = province1.searchProvince(car.getCarProvince());
-//            for (int j = 0; j < carProvinceBox.getItemCount(); j++) {
-//                Province province;
-//                province = carProvinceBox.getItemAt(j);
-//                if (province.getProvinceID() == province1.getProvinceID()) {
-//                    carProvinceBox.setSelectedItem(province);
-//                    while (rs5.next()) {
-//                        City city = new City();
-//                        city.setCityID(rs5.getInt(1));
-//                        city.setCityName(rs5.getString(3));
-//                        carCityBox.addItem(city);
-//                    }
-//                    City city1 = new City();
-//                    city1 = city1.searchCity(car.getCarCity());
-//                    for (int k = 0; k < carCityBox.getItemCount(); k++) {
-//                        City city;
-//                        city = carCityBox.getItemAt(k);
-//                        if (city.getCityID() == city1.getCityID()) {
-//                            carModelBox.setSelectedItem(city);
-//                        }
-//                    }
-//                }
-//            }
+            State state1 = new State();
+            state1 = state1.searchState(car.getCarState());
+            for (int p = 0; p < carStateBox.getItemCount(); p++) {
+                State state = carStateBox.getItemAt(p);
+                if (state.getStateID().equals(state1.getStateID())) {
+                    carStateBox.setSelectedItem(state);
+                }
+            }
 
             carInfoArea.setText(car.getCarInfo());
         } catch (Exception e) {
@@ -286,35 +234,6 @@ public class UpdateCar extends JDialog {
             }
         });
 
-//        carProvinceBox.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                carCityBox.removeAllItems();
-//
-//                Province carProvince = (Province) carProvinceBox.getSelectedItem();
-//                int carProvinceID = carProvince.getProvinceID();
-//
-//                Connection connection2 = DButil.getConnection();
-//                String sql8 = "select city_id, city_name from city where city_province = ?";
-//
-//                try {
-//                    PreparedStatement ps = connection2.prepareStatement(sql8);
-//                    ps.setObject(1, carProvinceID);
-//                    ResultSet rs = ps.executeQuery();
-//
-//                    while (rs.next()) {
-//                        City carCity = new City();
-//                        carCity.setCityID(rs.getInt(1));
-//                        carCity.setCityName(rs.getString(2));
-//                        carCityBox.addItem(carCity);
-//                    }
-//                } catch (Exception e2) {
-//                    e2.printStackTrace();
-//                } finally {
-//                    DButil.releaseConnection(connection2);
-//                }
-//            }
-//        });
 
         confirmButton.addActionListener(new ActionListener() {
             @Override
@@ -323,11 +242,9 @@ public class UpdateCar extends JDialog {
                 String car_number = carNumberField.getText();
                 Model model = (Model) carModelBox.getSelectedItem();
                 State state = (State) carStateBox.getSelectedItem();
-//                City city = (City) carCityBox.getSelectedItem();
 
                 String carModelID = model.getModelID();
                 String carStateID = state.getStateID();
-//                int carCityID = city.getCityID();
                 String carInfo = carInfoArea.getText();
 
                 Connection connection1 = DButil.getConnection();
@@ -337,12 +254,11 @@ public class UpdateCar extends JDialog {
                     ps.setObject(1, car_number);
                     ps.setObject(2, carModelID);
                     ps.setObject(3, carStateID);
-//                    ps.setObject(3, carCityID);
                     ps.setObject(4, carInfo);
                     ps.setObject(5, carID);
                     int n = ps.executeUpdate();
                     if (n > 0) {
-                        JOptionPane.showMessageDialog(null, "修改成功！");
+                        JOptionPane.showMessageDialog(null, "车辆信息修改成功！");
                         UpdateCar.this.dispose();
                         Main.main.removeAll();
                         Main.main.repaint();
@@ -350,7 +266,7 @@ public class UpdateCar extends JDialog {
 
                         Main.main.add(new CarList(admin));
                     } else {
-                        JOptionPane.showMessageDialog(null, "修改失败！");
+                        JOptionPane.showMessageDialog(null, "车辆信息修改失败！");
                     }
                 } catch (Exception e1) {
                     e1.printStackTrace();

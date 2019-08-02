@@ -28,6 +28,8 @@ public class UpdateRecharge extends JDialog {
     private JTextField userMoneyField = new JTextField();
     private JLabel rechargeMoneyLabel = new JLabel("充值金额");
     private JTextField rechargeMoneyField = new JTextField();
+    private JLabel adminPasswordLabel = new JLabel("管理员密码");
+    private JPasswordField adminPasswordField = new JPasswordField();
     private JLabel rechargeInfoLabel = new JLabel("添加备注");
     private JTextArea rechargeInfoArea = new JTextArea();
     private JButton resetButton = new JButton("重置");
@@ -39,7 +41,7 @@ public class UpdateRecharge extends JDialog {
 
     public UpdateRecharge(Admin admin, String rechargeID) {
         setTitle("修改用户充值记录");
-        setSize(540, 600);
+        setSize(540, 650);
         setLocationRelativeTo(null);
         setLayout(null);
         setModal(true);
@@ -77,10 +79,13 @@ public class UpdateRecharge extends JDialog {
         rechargeMoneyLabel.setBounds(50, 280, 120, 30);
         rechargeMoneyField.setBounds(200, 280, 200, 30);
 
-        rechargeInfoLabel.setBounds(50, 330, 120, 30);
-        rechargeInfoArea.setBounds(200, 330, 200, 80);
-        resetButton.setBounds(50, 450, 80, 30);
-        confirmButton.setBounds(250, 450, 160, 40);
+        adminPasswordLabel.setBounds(50, 330, 120, 30);
+        adminPasswordField.setBounds(200, 330, 200, 30);
+
+        rechargeInfoLabel.setBounds(50, 380, 120, 30);
+        rechargeInfoArea.setBounds(200, 380, 200, 80);
+        resetButton.setBounds(50, 500, 80, 30);
+        confirmButton.setBounds(250, 500, 160, 40);
 
         add(adminIDLabel);
         add(adminIDField);
@@ -94,6 +99,8 @@ public class UpdateRecharge extends JDialog {
         add(userMoneyField);
         add(rechargeMoneyLabel);
         add(rechargeMoneyField);
+        add(adminPasswordLabel);
+        add(adminPasswordField);
         add(rechargeInfoLabel);
         add(rechargeInfoArea);
         add(resetButton);
@@ -135,47 +142,56 @@ public class UpdateRecharge extends JDialog {
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 Double userMoney1 = Double.parseDouble(userMoneyField.getText()) + Double.parseDouble(rechargeMoneyField.getText());
-                String rechargeMoney1 = rechargeMoneyField.getText();
+                if (userMoney1 < 0) {
+                    JOptionPane.showMessageDialog(null, "修改后用户余额小于0元！请重新修改充值金额。");
+                } else {
+                    if (!adminPasswordField.getText().equals(admin.getAdminPassword())) {
+                        JOptionPane.showMessageDialog(null, "管理员密码不正确！请重新输入。");
+                    } else {
+                        int m = JOptionPane.showConfirmDialog(null, "确认", "确认修改充值记录？", JOptionPane.YES_NO_OPTION);
+                        if (m == 0) {
 
-                Date date = new Date();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String rechargeDate = dateFormat.format(date);
-                String rechargeInfo1 = String.format("%s    修改时间：%s，修改者编号：%s，修改者名称：%s，将充值金额(元RMB）由%s修改为%s，修改前用户余额%s，修改后用户余额%s，添加备注：%s。", rehcargeInfo, dateFormat.format(new Date()), admin.getAdminID(), admin.getAdminName(), rechargeMoney, rechargeMoney1, userMoney, userMoney1, rechargeInfoArea.getText());
-                Connection connection = DButil.getConnection();
-                String sql = "update recharge set recharge_num = ?, recharge_info = ? where recharge_id = ?";
-                String sql1 = "update user set user_money = ? where user_id = ?";
-                try {
-                    PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setObject(1, rechargeMoney1);
-                    ps.setObject(2, rechargeInfo1);
-                    ps.setObject(3, rechargeID);
-                    int n = ps.executeUpdate();
-                    if (n > 0) {
-                        PreparedStatement ps1 = connection.prepareStatement(sql1);
-                        ps1.setObject(1, userMoney1);
-                        ps1.setObject(2, userIDField.getText());
-                        int n1 = ps1.executeUpdate();
-                        if (n1 > 0) {
-                            UpdateRecharge.this.dispose();
-                            JOptionPane.showMessageDialog(null, "用户充值记录修改成功");
+                            String rechargeMoney1 = rechargeMoneyField.getText();
 
-                            Main.main.removeAll();
-                            Main.main.repaint();
-                            Main.main.updateUI();
+                            Date date = new Date();
+                            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String rechargeInfo1 = String.format("%s修改时间：%s，修改者编号：%s，修改者名称：%s，将充值金额(元RMB）由%s修改为%s，修改前用户余额%s，修改后用户余额%s，添加备注：%s。      ", rehcargeInfo, dateFormat.format(new Date()), admin.getAdminID(), admin.getAdminName(), rechargeMoney, rechargeMoney1, userMoney, userMoney1, rechargeInfoArea.getText());
+                            Connection connection = DButil.getConnection();
+                            String sql = "update recharge set recharge_num = ?, recharge_info = ? where recharge_id = ?";
+                            String sql1 = "update user set user_money = ? where user_id = ?";
+                            try {
+                                PreparedStatement ps = connection.prepareStatement(sql);
+                                ps.setObject(1, rechargeMoney1);
+                                ps.setObject(2, rechargeInfo1);
+                                ps.setObject(3, rechargeID);
+                                int n = ps.executeUpdate();
+                                if (n > 0) {
+                                    PreparedStatement ps1 = connection.prepareStatement(sql1);
+                                    ps1.setObject(1, userMoney1);
+                                    ps1.setObject(2, userIDField.getText());
+                                    int n1 = ps1.executeUpdate();
+                                    if (n1 > 0) {
+                                        UpdateRecharge.this.dispose();
+                                        JOptionPane.showMessageDialog(null, "用户充值记录修改成功");
 
-                            Main.main.add(new RechargeList(admin));
-                        } else {
-                            JOptionPane.showMessageDialog(null, "用户充值记录修改失败");
+                                        Main.main.removeAll();
+                                        Main.main.repaint();
+                                        Main.main.updateUI();
+
+                                        Main.main.add(new RechargeList(admin));
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "用户充值记录修改失败");
+                                    }
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection);
+                            }
                         }
                     }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                } finally {
-                    DButil.releaseConnection(connection);
                 }
-
             }
         });
 

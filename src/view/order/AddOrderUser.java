@@ -5,6 +5,7 @@ import util.Admin;
 import util.DButil;
 import util.User;
 import view.Main;
+import view.pubilc.ShowInfo;
 import view.recharge.AddRecharge;
 import view.user.UpdateUser;
 
@@ -12,10 +13,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,6 +126,16 @@ public class AddOrderUser extends JPanel {
         DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
         cellRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.setDefaultRenderer(Object.class, cellRenderer);
+
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    String info = (String)table.getValueAt(table.getSelectedRow(), 11);
+                    new ShowInfo(info);
+                };
+            }
+        });
 
         searchUserName.addFocusListener(new FocusListener() {
             @Override
@@ -269,8 +277,9 @@ public class AddOrderUser extends JPanel {
                     return;
                 } else {
                     String userID = (String) table.getValueAt(row, 0);
+
                     String userDLN = (String) table.getValueAt(row,6);
-                    if (userDLN == null) {
+                    if (userDLN == "" || userDLN ==null) {
                         int m = JOptionPane.showConfirmDialog(null, "用户信息不完善，没有驾照编号，前往到用户信息编辑界面进行添加？","驾照信息不完善",JOptionPane.YES_NO_OPTION);
                         if (m == 0) {
                             Main.main.removeAll();
@@ -285,6 +294,10 @@ public class AddOrderUser extends JPanel {
                         if (Double.parseDouble(userMoney) < lowMoney) {
                             int m = JOptionPane.showConfirmDialog(null, "押金3000元，至少还需充值" + (lowMoney - Double.parseDouble(userMoney)) + "元人们币，前往到用户界面进行充值？","押金不足",JOptionPane.YES_NO_OPTION);
                             if (m == 0) {
+                                Main.main.removeAll();
+                                Main.main.repaint();
+                                Main.main.updateUI();
+
                                 Main.main.add(new AddRecharge(admin));
                             }
                         } else {

@@ -140,10 +140,6 @@ public class Main extends JFrame {
         main.setLayout(null);
         mainPanel.setLayout(null);
         footer.setLayout(null);
-//        indexButton.setBounds(0,0,100,40);
-//        menuBar.setBackground(Color.yellow);
-//        sidebar.setBackground(Color.pink);
-//        footerPanel.setBackground(Color.green);
 
         menuBar.setBackground(Color.black);
         sidebar.setBackground(Color.gray);
@@ -157,8 +153,6 @@ public class Main extends JFrame {
         index.setFont(new java.awt.Font("隶书",1,40));
         index.setForeground(Color.green);
         dateTimeLabel.setBounds(1320,0,200,30);
-//        indexButton.setForeground(Color.white);
-//        indexButton.setBackground(Color.black);
 
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
@@ -166,9 +160,6 @@ public class Main extends JFrame {
         dateTimeLabel.setText(string);
         dateTimeLabel.setFont(new java.awt.Font("楷体",1,13));
         dateTimeLabel.setForeground(Color.white);
-
-//        welcomeUser.setText("你好，" + userName);
-//        welcomeUserLabel.setBounds();
 
         welcomeUser.setText("您好，" + admin.getAdminName());
         welcomeUser.setBounds(1085,40,180,30);
@@ -183,7 +174,6 @@ public class Main extends JFrame {
         jLabel1.setFont(new java.awt.Font("楷体",1,18));
         signOut.setBounds(15 + jLabel1.getX(),40,80,30);
         signOut.setFont(new java.awt.Font("楷体",1,18));
-//        signOut.setForeground(Color.RED);
         signOut.setForeground(Color.green);
 
         menuBar.add(index);
@@ -223,8 +213,6 @@ public class Main extends JFrame {
         orderList.setBounds(0,30,140,30);
         orderList.setFont(new java.awt.Font("楷体",2,18));
         orderList.setForeground(Color.yellow);
-
-//        addOrderPanel = new AddOrderUser(admin);
 
 //        ---------------车辆管理------------------
         carItem.setBounds(10,110,150,40);
@@ -385,18 +373,6 @@ public class Main extends JFrame {
             recycleBinItem.setVisible(true);
         }
 
-//        userPanel.setBackground(Color.magenta);
-
-//        state.setBounds(10,car.getY() + car.getHeight() + 10,this.getWidth(),40);
-//        state.setFont(new java.awt.Font("楷体",3,20));
-//
-//        statePanel.setBounds(0,state.getY() + state.getHeight(),this.getWidth(),100);
-//        addState.setBounds(0,statePanel.getY() + 10,100,40);
-//        addState.setFont(new java.awt.Font("楷体",2,18));
-//        stateList.setBounds(0,addState.getY() + 50,this.getWidth(),40);
-//        stateList.setFont(new java.awt.Font("楷体",2,18));
-
-
         userPanel.setVisible(false);
         orderPanel.setVisible(false);
         carPanel.setVisible(false);
@@ -461,27 +437,6 @@ public class Main extends JFrame {
         recycleBinPanel.add(adminRecycleBinList);
         sidebar.add(recycleBinPanel);
 
-//        ***************************主面板***************************
-
-
-
-//        ImageIcon imageIcon = new ImageIcon("C:\\Users\\mrcap\\IdeaProjects\\CarRentalServiceSystem\\src\\source\\main.jpg");
-//        JLabel bgLabel = new JLabel(imageIcon);
-//        this.getLayeredPane().add(bgLabel, new Integer(Integer.MIN_VALUE));
-//        bgLabel.setBounds(0, 0, imageIcon.getIconWidth(), imageIcon.getIconHeight());
-//        this.getContentPane().add(new JLabel());
-//        ((JPanel) getContentPane()).setOpaque(false);
-
-
-//        borrowCarButton.setBounds(200,350,200,50);
-//        borrowCarButton.setFont(new java.awt.Font("楷体",1,20));
-//        returnCarButton.setBounds(600,350,200,50);
-//        returnCarButton.setFont(new java.awt.Font("楷体",1,20));
-//
-//        mainPanel.add(borrowCarButton);
-//        mainPanel.add(returnCarButton);
-
-//        mainPanel.add(bgLabel);
         mainPanel = new Index(admin);
         main.add(mainPanel);
 
@@ -932,7 +887,7 @@ public class Main extends JFrame {
                 main.repaint();
                 main.updateUI();
 
-                main.add(new Statistics());
+                main.add(new Statistics(admin));
             }
         });
 

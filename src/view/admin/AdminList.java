@@ -40,24 +40,25 @@ public class AdminList extends JPanel {
 
 
     public AdminList(Admin admin) {
-        setSize(1350,800);
+        setSize(1350, 800);
         setLayout(null);
 
         searchAdminID.setForeground(Color.gray);
         searchAdminName.setForeground(Color.gray);
         searchAdminInfo.setForeground(Color.gray);
 
-        searchAdminID.setBounds(15,40,150,30);
-        searchAdminName.setBounds(185,40,150,30);
-        searchAdminInfo.setBounds(355,40,150,30);
-        refreshButton.setBounds(720,40,80,30);
-        searchButton.setBounds(820,40,80,30);
+        searchAdminID.setBounds(15, 40, 150, 30);
+        searchAdminName.setBounds(185, 40, 150, 30);
+        searchAdminInfo.setBounds(355, 40, 150, 30);
+        refreshButton.setBounds(720, 40, 80, 30);
+        searchButton.setBounds(820, 40, 80, 30);
+        searchButton.setForeground(Color.blue);
 
-        editButton.setBounds(1000,40,150,40);
-        deleteButton.setBounds(1170,40,150,40);
+        editButton.setBounds(1000, 40, 150, 40);
+        deleteButton.setBounds(1170, 40, 150, 40);
 
-        jScrollPane.setBounds(15,100,1310,700);
-        
+        jScrollPane.setBounds(15, 100, 1310, 700);
+
 
         add(searchAdminID);
         add(searchAdminName);
@@ -128,9 +129,10 @@ public class AdminList extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    String info = (String)table.getValueAt(table.getSelectedRow(), 9);
+                    String info = (String) table.getValueAt(table.getSelectedRow(), 9);
                     new ShowInfo(info);
-                };
+                }
+                ;
             }
         });
 
@@ -263,16 +265,16 @@ public class AdminList extends JPanel {
                 }
             }
         });
-        
+
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                if (row==-1){
+                if (row == -1) {
                     JOptionPane.showMessageDialog(null, "请先选中要修改的管理员");
                     return;
                 } else {
-                    String adminID = (String)table.getValueAt(row,0);
+                    String adminID = (String) table.getValueAt(row, 0);
                     new UpdateAdmin(admin, adminID);
                 }
             }
@@ -282,27 +284,32 @@ public class AdminList extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int row = table.getSelectedRow();
-                if (row==-1){
+                if (row == -1) {
                     JOptionPane.showMessageDialog(null, "请先选中要删除的管理员");
                     return;
                 } else {
-                    String adminID = (String)table.getValueAt(row,0);
-                    int m = JOptionPane.showConfirmDialog(null, "确认","将所选管理员移入回收站？",JOptionPane.YES_NO_OPTION);
-                    if (m == 0) {
-                        Connection connection1 = DButil.getConnection();
-                        String sql1 = "update admin set admin_recycle_bin = 1 where admin_id = ?";
-                        try{
-                            PreparedStatement ps = connection1.prepareStatement(sql1);
-                            ps.setObject(1, adminID);
-                            int n = ps.executeUpdate();
-                            if (n>0){
-                                ((DefaultTableModel)table.getModel()).removeRow(row);
-                                JOptionPane.showMessageDialog(null, "管理员删除成功");
+                    String adminState = (String) table.getValueAt(row, 8);
+                    if (adminState.equals("超级管理员")) {
+                        JOptionPane.showMessageDialog(null, "超级管理员不能删除哦^_^");
+                    } else {
+                        String adminID = (String) table.getValueAt(row, 0);
+                        int m = JOptionPane.showConfirmDialog(null, "确认", "将所选管理员移入回收站？", JOptionPane.YES_NO_OPTION);
+                        if (m == 0) {
+                            Connection connection1 = DButil.getConnection();
+                            String sql1 = "update admin set admin_recycle_bin = 1 where admin_id = ?";
+                            try {
+                                PreparedStatement ps = connection1.prepareStatement(sql1);
+                                ps.setObject(1, adminID);
+                                int n = ps.executeUpdate();
+                                if (n > 0) {
+                                    ((DefaultTableModel) table.getModel()).removeRow(row);
+                                    JOptionPane.showMessageDialog(null, "管理员删除成功");
+                                }
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            } finally {
+                                DButil.releaseConnection(connection1);
                             }
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        } finally {
-                            DButil.releaseConnection(connection1);
                         }
                     }
                 }
